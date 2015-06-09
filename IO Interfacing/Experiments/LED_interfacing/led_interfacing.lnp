@@ -1,0 +1,3 @@
+"led.obj" 
+TO "led_interfacing" 
+RAMSIZE(256) 

@@ -1,0 +1,72 @@
+C51 COMPILER V9.01   LED                                                                   06/05/2015 12:41:25 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE led.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2          * Author: Bhumika Varshney, ERTS Lab, IIT Bombay
+   3          * File name: led.c
+   4          * Functions: delay_ms(unsigned int)
+   5          * Global variable: led
+   6          * This experiment demonstrates simple Input and Output operation. 
+   7          *LED is connected to 2nd pin of port 3 hence to glow it, we have to give logic 1 to it.
+   8          * Concepts covered: Input and Output operations
+   9            
+  10           Note:                                                              
+  11           1. Make sure that in the configuration options following settings are 
+  12           done for proper operation of the code
+  13            Microcontroller: P89V51RD2
+  14           Frequency: 11.0592 MHz                                                            
+  15           2.  Coding Standards followed(For further reference on Coding Standards go to portal link).
+  16          *********************************************************************************/
+  17          #include<intrins.h>
+  18          #include"p89v51rx2.h"
+  19          sbit led=P3^1;
+  20          /* Function name - delay_ms
+  21          * Input - time in milli seconds 
+  22          * Outut - gives delay for the spcified time before executing next instruction
+  23          * Logic - delay can be given in the program by introducing loops
+  24          */
+  25          void delay_ms(unsigned int ms)
+  26          {
+  27   1      unsigned int i,j;
+  28   1      
+  29   1      for(i=0;i<ms;i++)
+  30   1      for(j=0;j<53;j++);
+  31   1      
+  32   1      }
+  33          /*
+  34          * Function Name: main
+  35          * Input: None
+  36          * Output: int to inform the caller that the program exited correctly or incorrectly (C code standard)
+  37          * Logic: glows led for specified time delay than turns it off 
+  38          * Example Call: Called automatically by the Operating System
+  39          *
+  40          */
+  41          void main()
+  42          {
+  43   1              led=1;     //led is on
+  44   1              delay_ms(1000);
+  45   1              led=0;     //led is off
+  46   1              while(1);
+  47   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     45    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+C51 COMPILER V9.01   LED                                                                   06/05/2015 12:41:25 PAGE 2   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
