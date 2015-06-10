@@ -1,0 +1,20 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\8051 based modules\Motors_and_motion_control\Experiments\360_degree_rotation\rotation.uvproj
+Project File Date:  06/02/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 360_degree_rotation_counterclockwise.c...
+linking...
+Program Size: data=9.0 xdata=0 code=84
+creating hex file from "rotation"...
+"rotation" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: data=9.0 xdata=0 code=84
+creating hex file from "rotation"...
+"rotation" - 0 Error(s), 0 Warning(s).
