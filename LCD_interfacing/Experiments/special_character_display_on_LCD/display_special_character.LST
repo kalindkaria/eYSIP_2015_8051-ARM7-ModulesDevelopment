@@ -1,0 +1,243 @@
+C51 COMPILER V9.01   DISPLAY_SPECIAL_CHARACTER                                             06/08/2015 16:31:22 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE DISPLAY_SPECIAL_CHARACTER
+OBJECT MODULE PLACED IN display_special_character.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE display_special_character.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2          * Author: Bhumika Varshney, ERTS Lab, IIT Bombay
+   3          * File name: display_special_charater.c
+   4          * Functions: character_heart(), character_smiley(), character_sad_smiley(), character_music_note(), charac
+             -ter_big_smiley(),
+   5          *            character_shaock_smiley(), character_disgust_smiley(), character_diamond()
+   6          * This experiment demonstrates simple LCD display operation of some special characters.
+   7          * Concepts covered: LCD Interfacing
+   8            
+   9           Note: 
+  10           1. Make sure that in the configuration options following settings are 
+  11           done for proper operation of the code
+  12            Microcontroller: P89V51RD2
+  13           Frequency: 11.0592 MHz                                                            
+  14          2.  Coding Standards followed(For further reference on Coding Standards go to portal link).
+  15          **********************************************************************************************************
+             -********************/
+  16          #include<intrins.h>
+  17          #include"p89v51rx2.h"
+  18          #include"lcd_display.h"
+  19          /***********************************************************************
+  20          * Function: character_heart()
+  21          * Input: none
+  22          * Output: heart shape character 
+  23          * Description: This function stores special character to be displayed.
+  24          *************************************************************************/
+  25          void character_heart()
+  26          {
+  27   1              
+  28   1              commandsend(64);  //Address where values of the first custom character is stored
+  29   1              datasend(10);    //sum of all column addresses which are required to glow in first row (8+2=10)
+  30   1              datasend(21);    //sum of all column addresses which are required to glow in second row(16+4+1=21)
+  31   1              datasend(21);
+  32   1              datasend(10);
+  33   1              datasend(4);
+  34   1              datasend(0);
+  35   1              datasend(0);
+  36   1              datasend(0);    
+  37   1      }
+  38          /***********************************************************************
+  39          * Function: character_smiley()
+  40          * Input: none
+  41          * Output: smiley face shape character 
+  42          * Description: This function stores special character to be displayed.
+  43          *************************************************************************/
+  44          void character_smiley()
+  45          {
+  46   1              
+  47   1              commandsend(72);  //Address where values of the first custom character is stored
+  48   1              datasend(0);
+  49   1              datasend(10);
+  50   1              datasend(0);
+  51   1              datasend(4);
+  52   1              datasend(17);
+  53   1              datasend(14);
+C51 COMPILER V9.01   DISPLAY_SPECIAL_CHARACTER                                             06/08/2015 16:31:22 PAGE 2   
+
+  54   1              datasend(0);
+  55   1              datasend(0);    
+  56   1      }
+  57          /***********************************************************************
+  58          * Function: character_sad_smiley()
+  59          * Input: none
+  60          * Output: sad face shape character 
+  61          * Description: This function stores special character to be displayed.
+  62          *************************************************************************/
+  63          void character_sad_smiley()
+  64          {
+  65   1              
+  66   1              commandsend(80);  //Address where values of the first custom character is stored
+  67   1              datasend(0);
+  68   1              datasend(10);
+  69   1              datasend(0);
+  70   1              datasend(4);
+  71   1              datasend(0);
+  72   1              datasend(14);
+  73   1              datasend(17);
+  74   1              datasend(0);    
+  75   1      }
+  76          /***********************************************************************
+  77          * Function: character_music_note()
+  78          * Input: none
+  79          * Output: music note shape character 
+  80          * Description: This function stores special character to be displayed.
+  81          *************************************************************************/
+  82          void character_music_note()
+  83          {
+  84   1              
+  85   1              commandsend(88);  //Address where values of the first custom character is stored
+  86   1              datasend(1);
+  87   1              datasend(3);
+  88   1              datasend(5);
+  89   1              datasend(9);
+  90   1              datasend(9);
+  91   1              datasend(11);
+  92   1              datasend(27);
+  93   1              datasend(27);   
+  94   1      }
+  95          /***********************************************************************
+  96          * Function: character_big_smiley()
+  97          * Input: none
+  98          * Output: happy face shape character 
+  99          * Description: This function stores special character to be displayed.
+ 100          *************************************************************************/
+ 101          void character_big_smiley()
+ 102          {
+ 103   1              
+ 104   1              commandsend(96);  //Address where values of the first custom character is stored
+ 105   1              datasend(0);
+ 106   1              datasend(10);
+ 107   1              datasend(0);
+ 108   1              datasend(31);
+ 109   1              datasend(17);
+ 110   1              datasend(14);
+ 111   1              datasend(0);
+ 112   1              datasend(0);    
+ 113   1      }
+ 114          /***********************************************************************
+ 115          * Function: character_shock_smiley()
+C51 COMPILER V9.01   DISPLAY_SPECIAL_CHARACTER                                             06/08/2015 16:31:22 PAGE 3   
+
+ 116          * Input: none
+ 117          * Output: shocking face shape character 
+ 118          * Description: This function stores special character to be displayed.
+ 119          *************************************************************************/
+ 120          void character_shock_smiley()
+ 121          {
+ 122   1              
+ 123   1              commandsend(104);  //Address where values of the first custom character is stored
+ 124   1              datasend(10);
+ 125   1              datasend(0);
+ 126   1              datasend(4);
+ 127   1              datasend(0);
+ 128   1              datasend(14);
+ 129   1              datasend(17);
+ 130   1              datasend(17);
+ 131   1              datasend(14);   
+ 132   1      }
+ 133          /***********************************************************************
+ 134          * Function: character_disgust_smiley()
+ 135          * Input: none
+ 136          * Output: disgust face shape character 
+ 137          * Description: This function stores special character to be displayed.
+ 138          *************************************************************************/
+ 139          void character_disgust_smiley()
+ 140          {
+ 141   1              
+ 142   1              commandsend(112);  //Address where values of the first custom character is stored
+ 143   1              datasend(0);      //sum of all column addresses which are required to glow in first row
+ 144   1              datasend(17);     //sum of all column addresses required to glow in secong row(16+1=17)
+ 145   1              datasend(10);
+ 146   1              datasend(17);
+ 147   1              datasend(4);
+ 148   1              datasend(0);
+ 149   1              datasend(14);
+ 150   1              datasend(17);   
+ 151   1      }
+ 152          /***********************************************************************
+ 153          * Function: character_diamond()
+ 154          * Input: none
+ 155          * Output: diamond shape character 
+ 156          * Description: This function stores special character to be displayed.
+ 157          *************************************************************************/
+ 158          void character_diamond()
+ 159          {
+ 160   1              
+ 161   1              commandsend(120);  //Address where values of the first custom character is stored
+ 162   1              datasend(0);
+ 163   1              datasend(4);
+ 164   1              datasend(10);
+ 165   1              datasend(17);
+ 166   1              datasend(10);
+ 167   1              datasend(4);
+ 168   1              datasend(0);
+ 169   1              datasend(0);    
+ 170   1      }
+ 171          /*                                                
+ 172          * Function Name: main
+ 173          * Input: None
+ 174          * Output: int to inform the caller that the program exited correctly or incorrectly (C code standard)
+ 175          * Logic: calls various functions to display special chracters on the LCD.
+ 176          * Example Call: Called automatically by the Operating System
+ 177          *
+C51 COMPILER V9.01   DISPLAY_SPECIAL_CHARACTER                                             06/08/2015 16:31:22 PAGE 4   
+
+ 178          */
+ 179          void main()
+ 180          {
+ 181   1              lcd_init();      //initializes the LCD
+ 182   1              lcd_clear();  //clears the LCD
+ 183   1              character_heart();       //stores heart shape character
+ 184   1              lcd_cursor(1,1);         //sets location where the character has to be displayed
+ 185   1              /*different refrence numbers are used for different addresses in memory, for example-
+ 186   1              0 for address 64, 1 for address 72, 2 for address 80 and so on... */   
+ 187   1              datasend(0);       //displays custom character stored on location 64 on the screen of LCD
+ 188   1              
+ 189   1              /*Similarly more characters can be displayed*/ 
+ 190   1              character_smiley();
+ 191   1              lcd_cursor(1,3);
+ 192   1              datasend(1);
+ 193   1              character_sad_smiley();
+ 194   1              lcd_cursor(1,5);
+ 195   1              datasend(2);
+ 196   1              character_music_note();
+ 197   1              lcd_cursor(1,7);
+ 198   1              datasend(3);
+ 199   1              character_big_smiley();
+ 200   1              lcd_cursor(2,2);
+ 201   1              datasend(4);
+ 202   1              character_shock_smiley();
+ 203   1              lcd_cursor(2,4);
+ 204   1              datasend(5);
+ 205   1              character_disgust_smiley();
+ 206   1              lcd_cursor(2,6);
+ 207   1              datasend(6);
+ 208   1              character_diamond();
+ 209   1              lcd_cursor(2,8);
+ 210   1              datasend(7);
+ 211   1              while(1);
+ 212   1      }       //main ends here
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1176    ----
+   CONSTANT SIZE    =      6    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     13      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

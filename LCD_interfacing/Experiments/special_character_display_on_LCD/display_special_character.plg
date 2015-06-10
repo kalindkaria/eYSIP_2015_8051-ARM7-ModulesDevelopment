@@ -1,0 +1,25 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\8051 based modules\LCD_interfacing\Experiments\special_character_display_on_LCD\display_special_character.uvproj
+Project File Date:  06/08/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling display_special_character.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD_PRINT?DISPLAY_SPECIAL_CHARACTER
+Program Size: data=32.1 xdata=0 code=1439
+creating hex file from "display_special_character"...
+"display_special_character" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling display_special_character.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD_PRINT?DISPLAY_SPECIAL_CHARACTER
+Program Size: data=32.1 xdata=0 code=1439
+creating hex file from "display_special_character"...
+"display_special_character" - 0 Error(s), 1 Warning(s).
