@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 12:22:19 PAGE 1   
+C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 14:35:50 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE BATTERY_VOLTAGE_SENSING
@@ -24,238 +24,241 @@ line level    source
   14           done for proper operation of the code
   15            Microcontroller: P89V51RD2
   16           Frequency: 11.0592 MHz 
-  17           2. This code displays ADC converted battery status.                                               
-  18           3. Coding Standards followed(For further reference on Coding Standards go to portal link).
-  19          **********************************************************************************************************
+  17           2. This code displays ADC converted battery status. To calculate voltage from the ADC’s digital value we 
+             -can use
+  18           following formula:
+  19               V Battery = 0.7V + (ADC value * 0.06149)                                              
+  20           3. Coding Standards followed(For further reference on Coding Standards go to portal link).
+  21          **********************************************************************************************************
              -********/
-  20          #include <intrins.h>
-  21          #include "p89v51rx2.H"
-  22          #include "lcd_display.h"
-  23          
-  24          sbit start_conv = P3^6;          //P3^6 is connected to Start and ALE pin of ADC0808
-  25          sbit output_enable = P3^7;      //P3^7 is connected to Output Enable Pin of ADC0808
-  26          //The appropriate bits have been defined as per the logic table for motion control
-  27          sbit left_velocity=P1^3;
-  28          sbit right_velocity=P1^4;
-  29          sbit LB=P1^0;
-  30          sbit LF=P1^1;
-  31          sbit RF=P1^2;
-  32          sbit RB=P3^4;
-  33          
-  34          unsigned char i=0;  //used in main function during ADC conversion 
-  35          unsigned char initial_battery_voltage=0; //variable to store battery status
-  36          unsigned char final_battery_voltage=0;   //variable to store battery status
-  37          
-  38          /********************************************************************************
-  39                  Function: ADC_conversion
-  40                  Input: ADC_channel_number
-  41                  Output: Digital equivalent of analog data
-  42                  Description: This function performs ADC conversion of a channel number 
-  43                                           that is passed to it. The return value of this function contains 
-  44                                           digital data of the selected channel.
-  45                             
-  46                                           Analog Sensor Pin Mapping
-  47            
-  48                           IN0-----> IR Proximity sensor 3 (front)
-  49                                           IN1-----> Batt. Voltage
-  50                                           IN2-----> Front Sharp IR Range sensor
-  51                                           IN3-----> IR Proximity sensor 2 (left side)
-  52                                           IN4-----> Left Whiteline
-  53                                           IN5-----> Center Whiteline
-C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 12:22:19 PAGE 2   
+  22          #include <intrins.h>
+  23          #include "p89v51rx2.H"
+  24          #include "lcd_display.h"
+  25          
+  26          sbit start_conv = P3^6;          //P3^6 is connected to Start and ALE pin of ADC0808
+  27          sbit output_enable = P3^7;      //P3^7 is connected to Output Enable Pin of ADC0808
+  28          //The appropriate bits have been defined as per the logic table for motion control
+  29          sbit left_velocity=P1^3;
+  30          sbit right_velocity=P1^4;
+  31          sbit LB=P1^0;
+  32          sbit LF=P1^1;
+  33          sbit RF=P1^2;
+  34          sbit RB=P3^4;
+  35          
+  36          unsigned char i=0;  //used in main function during ADC conversion 
+  37          unsigned char initial_battery_voltage=0; //variable to store battery status
+  38          unsigned char final_battery_voltage=0;   //variable to store battery status
+  39          
+  40          /********************************************************************************
+  41                  Function: ADC_conversion
+  42                  Input: ADC_channel_number
+  43                  Output: Digital equivalent of analog data
+  44                  Description: This function performs ADC conversion of a channel number 
+  45                                           that is passed to it. The return value of this function contains 
+  46                                           digital data of the selected channel.
+  47                             
+  48                                           Analog Sensor Pin Mapping
+  49            
+  50                           IN0-----> IR Proximity sensor 3 (front)
+  51                                           IN1-----> Batt. Voltage
+  52                                           IN2-----> Front Sharp IR Range sensor
+C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 14:35:50 PAGE 2   
 
-  54                                           IN6-----> Right Whiteline
-  55                                           IN7-----> IR Proximity sensor 4 (right side)
-  56          ********************************************************************************/
-  57          unsigned char ADC_conversion(unsigned char ADC_ch_no)
-  58          {
-  59   1      unsigned char ADC_data;
-  60   1      
-  61   1      P0 = ADC_ch_no;           // to select channel no. send address on P0
+  53                                           IN3-----> IR Proximity sensor 2 (left side)
+  54                                           IN4-----> Left Whiteline
+  55                                           IN5-----> Center Whiteline
+  56                                           IN6-----> Right Whiteline
+  57                                           IN7-----> IR Proximity sensor 4 (right side)
+  58          ********************************************************************************/
+  59          unsigned char ADC_conversion(unsigned char ADC_ch_no)
+  60          {
+  61   1      unsigned char ADC_data;
   62   1      
-  63   1      start_conv = 1; // ADC0808 will latch the address on L-H transition on the ALE pin
-  64   1      start_conv = 0; // ADC0808 will start conversion on H-L transition on the start pin
-  65   1      delay_ms(2);    // conversion time for ADC0808
-  66   1      
-  67   1      P0 =0xFF;               // output enable and read
-  68   1      output_enable = 1;      //Enabling o/p of ADC0808 for to read the converted data
-  69   1      ADC_data = P0;          //storing adc_data
-  70   1      output_enable = 0;      //disabling ADC 0808 o/p
-  71   1      return ADC_data;        //returning adc_data
-  72   1      }
-  73          /* Function name - forward
-  74          * Input - none 
-  75          * Output - moves the robot in forward direction
-  76          * Logic - set appropriate bits high to move backward as per the logic table
-  77          */
-  78          
-  79          void forward(void) //go forward
-  80          {
-  81   1      RF=1;
-  82   1      LF=1;
-  83   1      RB=0;
-  84   1      LB=0;
-  85   1      }
-  86          /* Function name - backward
-  87          * Input - none 
-  88          * Output - moves the robot in backward direction
-  89          * Logic - set appropriate bits high to move backward as per the logic table
-  90          */
-  91          void backward(void) //go backward
-  92          {
-  93   1      RF=0;
-  94   1      LF=0;
-  95   1      RB=1;
-  96   1      LB=1;
-  97   1      }
-  98          /* Function name - left
-  99          * Input - none 
- 100          * Output - turns the robot in left direction
- 101          * Logic - set appropriate bits high to turn left as per the logic table
- 102          */
- 103          void left(void) //go left ( hard left)
- 104          {
- 105   1      RF=1;
- 106   1      LF=0;
- 107   1      RB=0;
- 108   1      LB=1;
- 109   1      }
- 110          /* Function name - right
- 111          * Input - none 
- 112          * Output - turns the robot in right direction
- 113          * Logic - set appropriate bits high to turn right as per the logic table
- 114          */
- 115          void right(void) //go right ( hard right)
-C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 12:22:19 PAGE 3   
+  63   1      P0 = ADC_ch_no;           // to select channel no. send address on P0
+  64   1      
+  65   1      start_conv = 1; // ADC0808 will latch the address on L-H transition on the ALE pin
+  66   1      start_conv = 0; // ADC0808 will start conversion on H-L transition on the start pin
+  67   1      delay_ms(2);    // conversion time for ADC0808
+  68   1      
+  69   1      P0 =0xFF;               // output enable and read
+  70   1      output_enable = 1;      //Enabling o/p of ADC0808 for to read the converted data
+  71   1      ADC_data = P0;          //storing adc_data
+  72   1      output_enable = 0;      //disabling ADC 0808 o/p
+  73   1      return ADC_data;        //returning adc_data
+  74   1      }
+  75          /* Function name - forward
+  76          * Input - none 
+  77          * Output - moves the robot in forward direction
+  78          * Logic - set appropriate bits high to move backward as per the logic table
+  79          */
+  80          
+  81          void forward(void) //go forward
+  82          {
+  83   1      RF=1;
+  84   1      LF=1;
+  85   1      RB=0;
+  86   1      LB=0;
+  87   1      }
+  88          /* Function name - backward
+  89          * Input - none 
+  90          * Output - moves the robot in backward direction
+  91          * Logic - set appropriate bits high to move backward as per the logic table
+  92          */
+  93          void backward(void) //go backward
+  94          {
+  95   1      RF=0;
+  96   1      LF=0;
+  97   1      RB=1;
+  98   1      LB=1;
+  99   1      }
+ 100          /* Function name - left
+ 101          * Input - none 
+ 102          * Output - turns the robot in left direction
+ 103          * Logic - set appropriate bits high to turn left as per the logic table
+ 104          */
+ 105          void left(void) //go left ( hard left)
+ 106          {
+ 107   1      RF=1;
+ 108   1      LF=0;
+ 109   1      RB=0;
+ 110   1      LB=1;
+ 111   1      }
+ 112          /* Function name - right
+ 113          * Input - none 
+ 114          * Output - turns the robot in right direction
+C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 14:35:50 PAGE 3   
 
- 116          {
- 117   1      RF=0;
- 118   1      LF=1;
- 119   1      RB=1;
- 120   1      LB=0;
- 121   1      }
- 122          /* Function name - stop
- 123          * Input - none 
- 124          * Output - stops the robot
- 125          * Logic - set appropriate bits high to stop all motors as per the logic table
- 126          */
- 127          void stop(void) //stop ( soft stop )
- 128          {
- 129   1      RF= 0;
- 130   1      LF= 0;
- 131   1      RB= 0;
- 132   1      LB= 0;
- 133   1      }
- 134          /*************************************************************
- 135          * Function name - buzzer_operation
- 136          * Input - none 
- 137          * Output - buzzer beeps
- 138          * Logic - blows buzzer for specified time delays
- 139          *************************************************************/    
- 140          void buzzer_operation()
- 141          {
- 142   1              while(i<3)
- 143   1        {
- 144   2              buzzer=0;
- 145   2              delay_ms(1000);
- 146   2              buzzer=1;
- 147   2              delay_ms(500);
- 148   2              i++;
- 149   2        }     
- 150   1      }
- 151          /******************************************************************
- 152          * Function name - lcd_operation
- 153          * Input - none 
- 154          * Output- diplayed words on LCD for finite time delays
- 155          * Logic - displays few strings on LCD screen by calling various lcd
- 156          *         related functions. 
- 157          ********************************************************************/
- 158          
- 159          void lcd_operation()
- 160          {
- 161   1              lcd_clear();
- 162   1              lcd_string("LCD operation");
- 163   1              delay_ms(1000);
- 164   1              lcd_clear();
- 165   1              lcd_cursor(1,4);
- 166   1              lcd_string("Firebird V");
- 167   1              lcd_cursor(2,5);
- 168   1              lcd_string("E-yantra");
- 169   1              delay_ms(2000);   
- 170   1      }
- 171          /******************************************************************
- 172          * Function name - motor_operation
- 173          * Input - none 
- 174          * Output- motion of robot
- 175          * Logic - calls functions to move robot forward, backward, right, 
- 176          *         left and stop. 
- 177          ********************************************************************/
-C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 12:22:19 PAGE 4   
+ 115          * Logic - set appropriate bits high to turn right as per the logic table
+ 116          */
+ 117          void right(void) //go right ( hard right)
+ 118          {
+ 119   1      RF=0;
+ 120   1      LF=1;
+ 121   1      RB=1;
+ 122   1      LB=0;
+ 123   1      }
+ 124          /* Function name - stop
+ 125          * Input - none 
+ 126          * Output - stops the robot
+ 127          * Logic - set appropriate bits high to stop all motors as per the logic table
+ 128          */
+ 129          void stop(void) //stop ( soft stop )
+ 130          {
+ 131   1      RF= 0;
+ 132   1      LF= 0;
+ 133   1      RB= 0;
+ 134   1      LB= 0;
+ 135   1      }
+ 136          /*************************************************************
+ 137          * Function name - buzzer_operation
+ 138          * Input - none 
+ 139          * Output - buzzer beeps
+ 140          * Logic - blows buzzer for specified time delays
+ 141          *************************************************************/    
+ 142          void buzzer_operation()
+ 143          {
+ 144   1              while(i<3)
+ 145   1        {
+ 146   2              buzzer=0;
+ 147   2              delay_ms(1000);
+ 148   2              buzzer=1;
+ 149   2              delay_ms(500);
+ 150   2              i++;
+ 151   2        }     
+ 152   1      }
+ 153          /******************************************************************
+ 154          * Function name - lcd_operation
+ 155          * Input - none 
+ 156          * Output- diplayed words on LCD for finite time delays
+ 157          * Logic - displays few strings on LCD screen by calling various lcd
+ 158          *         related functions. 
+ 159          ********************************************************************/
+ 160          
+ 161          void lcd_operation()
+ 162          {
+ 163   1              lcd_clear();
+ 164   1              lcd_string("LCD operation");
+ 165   1              delay_ms(1000);
+ 166   1              lcd_clear();
+ 167   1              lcd_cursor(1,4);
+ 168   1              lcd_string("Firebird V");
+ 169   1              lcd_cursor(2,5);
+ 170   1              lcd_string("E-yantra");
+ 171   1              delay_ms(2000);   
+ 172   1      }
+ 173          /******************************************************************
+ 174          * Function name - motor_operation
+ 175          * Input - none 
+ 176          * Output- motion of robot
+C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 14:35:50 PAGE 4   
 
- 178          void motor_operation()
- 179          {
- 180   1      /*here maximum velocity has been set for both the motors but to vary it one can apply PWM signal on these 
+ 177          * Logic - calls functions to move robot forward, backward, right, 
+ 178          *         left and stop. 
+ 179          ********************************************************************/
+ 180          void motor_operation()
+ 181          {
+ 182   1      /*here maximum velocity has been set for both the motors but to vary it one can apply PWM signal on these 
              -2 pins*/
- 181   1      left_velocity=1;      
- 182   1      right_velocity=1;        
- 183   1      forward(); //go forward
- 184   1      delay_ms(2000); //delay of 2 seconds
- 185   1      stop(); //stop
- 186   1      backward(); //go backward
- 187   1      delay_ms(1000); //delay of 1 seconds
- 188   1      stop(); //stop
- 189   1      right(); //go left
- 190   1      delay_ms(3000); //delay of 3 seconds
- 191   1      stop(); //stop
- 192   1      left(); //go right
- 193   1      delay_ms(3000); //delay of 3 seconds
- 194   1      stop(); //stop
- 195   1      }
- 196          /*
- 197          * Function Name: main
- 198          * Input: None
- 199          * Output: int to inform the caller that the program exited correctly or incorrectly (C code standard)
- 200          * Logic: stores battery status at various levels and executes the desired operation to be performed.
- 201          * Example Call: Called automatically by the Operating System
- 202          *
- 203          */
- 204          void main()
- 205          {
- 206   1       unsigned char initial_battery_voltage=0;
- 207   1       unsigned char final_battery_voltage=0;
- 208   1       unsigned char i=0;
- 209   1       output_enable = 0;
- 210   1       start_conv = 0;    //de-assert all control signals to ADC
- 211   1      
- 212   1       initial_battery_voltage= ADC_conversion(1);
- 213   1       lcd_init(); //Initialize LCD
- 214   1       lcd_clear();
- 215   1       lcd_cursor(1,1);
- 216   1       lcd_string("Initial battery");
- 217   1       lcd_cursor(2,1);
- 218   1       lcd_string("Voltage=");
- 219   1       lcd_print(2,10,initial_battery_voltage,3);
- 220   1       delay_ms(2500);
- 221   1       
- 222   1              motor_operation();
+ 183   1      left_velocity=1;      
+ 184   1      right_velocity=1;        
+ 185   1      forward(); //go forward
+ 186   1      delay_ms(2000); //delay of 2 seconds
+ 187   1      stop(); //stop
+ 188   1      backward(); //go backward
+ 189   1      delay_ms(1000); //delay of 1 seconds
+ 190   1      stop(); //stop
+ 191   1      right(); //go left
+ 192   1      delay_ms(3000); //delay of 3 seconds
+ 193   1      stop(); //stop
+ 194   1      left(); //go right
+ 195   1      delay_ms(3000); //delay of 3 seconds
+ 196   1      stop(); //stop
+ 197   1      }
+ 198          /*
+ 199          * Function Name: main
+ 200          * Input: None
+ 201          * Output: int to inform the caller that the program exited correctly or incorrectly (C code standard)
+ 202          * Logic: stores battery status at various levels and executes the desired operation to be performed.
+ 203          * Example Call: Called automatically by the Operating System
+ 204          *
+ 205          */
+ 206          void main()
+ 207          {
+ 208   1       unsigned char initial_battery_voltage=0;
+ 209   1       unsigned char final_battery_voltage=0;
+ 210   1       unsigned char i=0;
+ 211   1       output_enable = 0;
+ 212   1       start_conv = 0;    //de-assert all control signals to ADC
+ 213   1      
+ 214   1       initial_battery_voltage= ADC_conversion(1);
+ 215   1       lcd_init(); //Initialize LCD
+ 216   1       lcd_clear();
+ 217   1       lcd_cursor(1,1);
+ 218   1       lcd_string("Initial battery");
+ 219   1       lcd_cursor(2,1);
+ 220   1       lcd_string("Voltage=");
+ 221   1       lcd_print(2,10,initial_battery_voltage,3);
+ 222   1       delay_ms(2500);
  223   1       
- 224   1       final_battery_voltage= ADC_conversion(1);
- 225   1       lcd_clear();                                                                                                           
- 226   1       lcd_cursor(1,1);
- 227   1       lcd_string("Final battery");
- 228   1       lcd_cursor(2,1);
- 229   1       lcd_string("Voltage=");
- 230   1       lcd_print(2,10,final_battery_voltage,3);
- 231   1       while(1);
- 232   1      }//main ends here
+ 224   1              motor_operation();
+ 225   1       
+ 226   1       final_battery_voltage= ADC_conversion(1);
+ 227   1       lcd_clear();                                                                                                           
+ 228   1       lcd_cursor(1,1);
+ 229   1       lcd_string("Final battery");
+ 230   1       lcd_cursor(2,1);
+ 231   1       lcd_string("Voltage=");
+ 232   1       lcd_print(2,10,final_battery_voltage,3);
+ 233   1       while(1);
+ 234   1      }//main ends here
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 14:35:50 PAGE 5   
+
    CODE SIZE        =   1018    ----
    CONSTANT SIZE    =     79    ----
    XDATA SIZE       =   ----    ----
-C51 COMPILER V9.01   BATTERY_VOLTAGE_SENSING                                               06/11/2015 12:22:19 PAGE 5   
-
    PDATA SIZE       =   ----    ----
    DATA SIZE        =     16      13
    IDATA SIZE       =   ----    ----

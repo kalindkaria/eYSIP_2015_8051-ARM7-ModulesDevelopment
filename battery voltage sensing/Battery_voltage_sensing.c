@@ -14,7 +14,9 @@
  done for proper operation of the code
   Microcontroller: P89V51RD2
  Frequency: 11.0592 MHz	
- 2. This code displays ADC converted battery status.						   
+ 2. This code displays ADC converted battery status. To calculate voltage from the ADC’s digital value we can use
+ following formula:
+     V Battery = 0.7V + (ADC value * 0.06149)						   
  3. Coding Standards followed(For further reference on Coding Standards go to portal link).
 ******************************************************************************************************************/
 #include <intrins.h>
