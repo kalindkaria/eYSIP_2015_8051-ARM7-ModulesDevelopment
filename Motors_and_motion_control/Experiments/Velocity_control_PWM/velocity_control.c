@@ -45,10 +45,15 @@ void right_motor_vel(unsigned int vel)
 {
 	CCAP1H=vel;
 }
-/*Function name - pca_init
+/*************************************************************************************
+* Function name - pca_init
 * Input - none
 * Output - none
-* Logic - initialise programmable counter array to generate pwm signal */
+* Logic - initialise programmable counter array module to generate pwm. 
+*         The CCAPnH register holds the reload value. CCAPnL register increments,
+*         and is loaded with this value everytime it overflows,thus the value in
+*         CCAPnH can be changed to change the motor velocity
+***************************************************************************************/
 void pca_init(void)
 {
 //80 sets PCA counter to run at Fosc/6
@@ -96,4 +101,4 @@ in the range 0x00 – 0xFF */
 	right_motor_vel(0x0F);
 	forward();
 	while(1);
-}
+}//main ends here

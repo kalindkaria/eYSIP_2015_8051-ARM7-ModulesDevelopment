@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        06/11/2015  12:59:22  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/11/2015  13:08:21  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  PWM_control (VELOCITY_CONTROL)
 
   -------         MODULE        VELOCITY_CONTROL
   C:0000H         SYMBOL        _ICE_DUMMY_
-BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:59:22  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  13:08:21  PAGE 2
 
 
   D:0080H         PUBLIC        P0
@@ -107,38 +107,38 @@ SYMBOL TABLE OF MODULE:  PWM_control (VELOCITY_CONTROL)
   C:0844H         LINE#         47
   -------         ENDPROC       _RIGHT_MOTOR_VEL
   -------         PROC          PCA_INIT
-  C:0800H         LINE#         52
-  C:0800H         LINE#         53
-  C:0800H         LINE#         55
-  C:0803H         LINE#         57
-  C:0806H         LINE#         59
-  C:0809H         LINE#         60
-  C:080CH         LINE#         62
-  C:080EH         LINE#         63
-  C:0811H         LINE#         65
-  C:0814H         LINE#         67
-  C:0817H         LINE#         68
+  C:0800H         LINE#         57
+  C:0800H         LINE#         58
+  C:0800H         LINE#         60
+  C:0803H         LINE#         62
+  C:0806H         LINE#         64
+  C:0809H         LINE#         65
+  C:080CH         LINE#         67
+  C:080EH         LINE#         68
+  C:0811H         LINE#         70
+  C:0814H         LINE#         72
+  C:0817H         LINE#         73
   -------         ENDPROC       PCA_INIT
-BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:59:22  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  13:08:21  PAGE 3
 
 
   -------         PROC          FORWARD
-  C:0836H         LINE#         74
-  C:0836H         LINE#         75
-  C:0836H         LINE#         76
-  C:0838H         LINE#         77
-  C:083AH         LINE#         78
-  C:083CH         LINE#         79
-  C:083EH         LINE#         80
+  C:0836H         LINE#         79
+  C:0836H         LINE#         80
+  C:0836H         LINE#         81
+  C:0838H         LINE#         82
+  C:083AH         LINE#         83
+  C:083CH         LINE#         84
+  C:083EH         LINE#         85
   -------         ENDPROC       FORWARD
   -------         PROC          MAIN
-  C:0818H         LINE#         90
-  C:0818H         LINE#         91
-  C:0818H         LINE#         92
-  C:081BH         LINE#         95
-  C:0822H         LINE#         96
-  C:0825H         LINE#         97
-  C:0828H         LINE#         98
+  C:0818H         LINE#         95
+  C:0818H         LINE#         96
+  C:0818H         LINE#         97
+  C:081BH         LINE#         100
+  C:0822H         LINE#         101
+  C:0825H         LINE#         102
+  C:0828H         LINE#         103
   -------         ENDPROC       MAIN
   -------         ENDMOD        VELOCITY_CONTROL
 

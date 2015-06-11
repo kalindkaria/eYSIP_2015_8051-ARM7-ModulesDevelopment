@@ -1,4 +1,4 @@
-C51 COMPILER V9.01   VELOCITY_CONTROL                                                      06/11/2015 12:59:22 PAGE 1   
+C51 COMPILER V9.01   VELOCITY_CONTROL                                                      06/11/2015 13:08:21 PAGE 1   
 
 
 C51 COMPILER V9.01, COMPILATION OF MODULE VELOCITY_CONTROL
@@ -54,60 +54,65 @@ line level    source
   45          {
   46   1              CCAP1H=vel;
   47   1      }
-  48          /*Function name - pca_init
-  49          * Input - none
-  50          * Output - none
-  51          * Logic - initialise programmable counter array to generate pwm signal */
-  52          void pca_init(void)
-  53          {
-  54   1      //80 sets PCA counter to run at Fosc/6
-  55   1      CMOD=0x80;
-C51 COMPILER V9.01   VELOCITY_CONTROL                                                      06/11/2015 12:59:22 PAGE 2   
+  48          /*************************************************************************************
+  49          * Function name - pca_init
+  50          * Input - none
+  51          * Output - none
+  52          * Logic - initialise programmable counter array module to generate pwm. 
+  53          *         The CCAPnH register holds the reload value. CCAPnL register increments,
+  54          *         and is loaded with this value everytime it overflows,thus the value in
+  55          *         CCAPnH can be changed to change the motor velocity
+C51 COMPILER V9.01   VELOCITY_CONTROL                                                      06/11/2015 13:08:21 PAGE 2   
 
-  56   1      //start PCA counter
-  57   1      CCON=0x40;
-  58   1      //Left motor duty cycle
-  59   1      CCAP0L=0x00;
-  60   1      CCAP0H=0xFF;
-  61   1      //Right motor duty cycle
-  62   1      CCAP1L=0x00;
-  63   1      CCAP1H=0xFF;
-  64   1      //enable PWM and ECOM bits for left motor
-  65   1      CCAPM0=0x42;
-  66   1      //enable PWM and ECOM bits for right motor
-  67   1      CCAPM1=0x42;
-  68   1      }
-  69          /* Function name - forward
-  70          * Input - none 
-  71          * Outut - moves the robot in forward direction
-  72          * Logic - set appropriate bits high to move forward as per the logic table
-  73          */
-  74          void forward()
-  75          {
-  76   1              LF=1;
-  77   1              RF=1;
-  78   1              LB=0;
-  79   1              RB=0;
-  80   1      }
-  81          /*
-  82          * Function Name: main
-  83          * Input: None
-  84          * Output: int to inform the caller that the program exited correctly or
-  85          * incorrectly (C code standard)
-  86          * Logic: generates pwm signal by calling above defined functions and setting the desired velocity
-  87          * Example Call: Called automatically by the Operating System
-  88          *
-  89          */
-  90          void main()
-  91          {
-  92   1              pca_init();
-  93   1      /*set the motor velocities over here. Use only values
-  94   1      in the range 0x00 – 0xFF */
-  95   1              left_motor_vel(0x0F);
-  96   1              right_motor_vel(0x0F);
-  97   1              forward();
-  98   1              while(1);
-  99   1      }
+  56          ***************************************************************************************/
+  57          void pca_init(void)
+  58          {
+  59   1      //80 sets PCA counter to run at Fosc/6
+  60   1      CMOD=0x80;
+  61   1      //start PCA counter
+  62   1      CCON=0x40;
+  63   1      //Left motor duty cycle
+  64   1      CCAP0L=0x00;
+  65   1      CCAP0H=0xFF;
+  66   1      //Right motor duty cycle
+  67   1      CCAP1L=0x00;
+  68   1      CCAP1H=0xFF;
+  69   1      //enable PWM and ECOM bits for left motor
+  70   1      CCAPM0=0x42;
+  71   1      //enable PWM and ECOM bits for right motor
+  72   1      CCAPM1=0x42;
+  73   1      }
+  74          /* Function name - forward
+  75          * Input - none 
+  76          * Outut - moves the robot in forward direction
+  77          * Logic - set appropriate bits high to move forward as per the logic table
+  78          */
+  79          void forward()
+  80          {
+  81   1              LF=1;
+  82   1              RF=1;
+  83   1              LB=0;
+  84   1              RB=0;
+  85   1      }
+  86          /*
+  87          * Function Name: main
+  88          * Input: None
+  89          * Output: int to inform the caller that the program exited correctly or
+  90          * incorrectly (C code standard)
+  91          * Logic: generates pwm signal by calling above defined functions and setting the desired velocity
+  92          * Example Call: Called automatically by the Operating System
+  93          *
+  94          */
+  95          void main()
+  96          {
+  97   1              pca_init();
+  98   1      /*set the motor velocities over here. Use only values
+  99   1      in the range 0x00 – 0xFF */
+ 100   1              left_motor_vel(0x0F);
+ 101   1              right_motor_vel(0x0F);
+ 102   1              forward();
+ 103   1              while(1);
+ 104   1      }//main ends here
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

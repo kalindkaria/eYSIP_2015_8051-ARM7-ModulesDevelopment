@@ -167,10 +167,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>1</ColumnNumber>
+      <ColumnNumber>17</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>29</TopLine>
-      <CurrentLine>29</CurrentLine>
+      <TopLine>84</TopLine>
+      <CurrentLine>104</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\velocity_control.c</PathWithFileName>
       <FilenameWithoutPath>velocity_control.c</FilenameWithoutPath>
@@ -1522,9 +1522,9 @@
       <Documents>
         <Doc>
           <Name>.\velocity_control.c</Name>
-          <ColumnNumber>1</ColumnNumber>
-          <TopLine>29</TopLine>
-          <CurrentLine>29</CurrentLine>
+          <ColumnNumber>17</ColumnNumber>
+          <TopLine>84</TopLine>
+          <CurrentLine>104</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>
