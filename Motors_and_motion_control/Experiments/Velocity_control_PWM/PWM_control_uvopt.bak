@@ -148,7 +148,7 @@
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
         <TrcWin>0</TrcWin>
-        <newCpu>1</newCpu>
+        <newCpu>0</newCpu>
         <uProt>0</uProt>
       </DebugFlag>
       <LintExecutable></LintExecutable>
@@ -162,15 +162,15 @@
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
-      <GroupNumber>0</GroupNumber>
-      <FileNumber>0</FileNumber>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>1</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>12</ColumnNumber>
+      <ColumnNumber>1</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>56</TopLine>
-      <CurrentLine>75</CurrentLine>
+      <TopLine>71</TopLine>
+      <CurrentLine>91</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\velocity_control.c</PathWithFileName>
       <FilenameWithoutPath>velocity_control.c</FilenameWithoutPath>
@@ -1522,9 +1522,9 @@
       <Documents>
         <Doc>
           <Name>.\velocity_control.c</Name>
-          <ColumnNumber>12</ColumnNumber>
-          <TopLine>56</TopLine>
-          <CurrentLine>75</CurrentLine>
+          <ColumnNumber>1</ColumnNumber>
+          <TopLine>71</TopLine>
+          <CurrentLine>91</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

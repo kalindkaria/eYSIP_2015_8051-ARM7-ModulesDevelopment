@@ -19,20 +19,28 @@ sbit LB=P1^0; // Left Back
 sbit LF=P1^1; // Left Forward
 sbit RF=P1^2; // Right Forward
 sbit RB=P3^4; // Right Back
-/*Function name - left_motor_vel
+/**************************************************************************************************
+Function name - left_motor_vel
 * Input - compare velocity in hexadecimal
 * Output - none
 * Logic - changes contents of the capture register in order to change velocity
-*          ,start left motor with velocity vel(compare value) */
+*          ,set left motor with velocity vel(compare value)
+* Note - 0x00 will give full (100% duty cycle) velocity, while 0xFF will give zero (0% duty cycle)
+*        velocity. Any value in between 0x00 and 0xFF will give intermediate velocity.
+****************************************************************************************************/
 void left_motor_vel(unsigned int vel)
 {
 	CCAP0H=vel;
 }
-/*Function name - right_motor_vel
+/**************************************************************************************************
+*Function name - right_motor_vel
 * Input - compare velocity in hexadecimal
 * Output - none
-* Logic - changes contents of the capture register in order to change velocity,
-           start left motor with velocity vel(compare value) */
+* Logic - changes contents of the capture register in order to change velocity
+*          ,set right motor with velocity vel(compare value)
+* Note - 0x00 will give full (100% duty cycle) velocity, while 0xFF will give zero (0% duty cycle)
+*        velocity. Any value in between 0x00 and 0xFF will give intermediate velocity.
+****************************************************************************************************/
 void right_motor_vel(unsigned int vel)
 {
 	CCAP1H=vel;
