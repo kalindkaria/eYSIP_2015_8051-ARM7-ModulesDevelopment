@@ -1,0 +1,637 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/11/2015  12:22:19  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE Battery_voltage_sensing.obj TO Battery_voltage_sensing RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  Battery_voltage_sensing.obj (BATTERY_VOLTAGE_SENSING)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  Battery_voltage_sensing (BATTERY_VOLTAGE_SENSING)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0010H     UNIT         ?DT?BATTERY_VOLTAGE_SENSING
+                    0018H     0008H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         _BIT_GROUP_
+                    0020H.1   0000H.7                *** GAP ***
+            DATA    0021H     000DH     UNIT         _DATA_GROUP_
+            IDATA   002EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     012BH     UNIT         ?PR?_LCD_PRINT?BATTERY_VOLTAGE_SENSING
+            CODE    092BH     008CH     UNIT         ?C_C51STARTUP
+            CODE    09B7H     0079H     UNIT         ?PR?LCD_INIT?BATTERY_VOLTAGE_SENSING
+            CODE    0A30H     006EH     UNIT         ?C?LIB_CODE
+            CODE    0A9EH     006CH     UNIT         ?PR?MAIN?BATTERY_VOLTAGE_SENSING
+            CODE    0B0AH     004FH     UNIT         ?CO?BATTERY_VOLTAGE_SENSING
+            CODE    0B59H     0039H     UNIT         ?PR?LCD_OPERATION?BATTERY_VOLTAGE_SENSING
+            CODE    0B92H     0030H     UNIT         ?PR?_COMMANDSEND?BATTERY_VOLTAGE_SENSING
+            CODE    0BC2H     0030H     UNIT         ?PR?_DATASEND?BATTERY_VOLTAGE_SENSING
+            CODE    0BF2H     0030H     UNIT         ?PR?MOTOR_OPERATION?BATTERY_VOLTAGE_SENSING
+            CODE    0C22H     002FH     UNIT         ?PR?READY?BATTERY_VOLTAGE_SENSING
+            CODE    0C51H     002DH     UNIT         ?PR?_LCD_STRING?BATTERY_VOLTAGE_SENSING
+            CODE    0C7EH     0028H     UNIT         ?PR?_LCD_CURSOR?BATTERY_VOLTAGE_SENSING
+            CODE    0CA6H     0024H     UNIT         ?PR?_DELAY_MS?BATTERY_VOLTAGE_SENSING
+            CODE    0CCAH     001AH     UNIT         ?PR?BUZZER_OPERATION?BATTERY_VOLTAGE_SENSING
+            CODE    0CE4H     0017H     UNIT         ?PR?_ADC_CONVERSION?BATTERY_VOLTAGE_SENSING
+            CODE    0CFBH     0011H     UNIT         ?PR?_SWAP?BATTERY_VOLTAGE_SENSING
+            CODE    0D0CH     000DH     UNIT         ?C_INITSEG
+            CODE    0D19H     000AH     UNIT         ?PR?LCD_CLEAR?BATTERY_VOLTAGE_SENSING
+            CODE    0D23H     0009H     UNIT         ?PR?FORWARD?BATTERY_VOLTAGE_SENSING
+            CODE    0D2CH     0009H     UNIT         ?PR?BACKWARD?BATTERY_VOLTAGE_SENSING
+            CODE    0D35H     0009H     UNIT         ?PR?LEFT?BATTERY_VOLTAGE_SENSING
+            CODE    0D3EH     0009H     UNIT         ?PR?RIGHT?BATTERY_VOLTAGE_SENSING
+            CODE    0D47H     0009H     UNIT         ?PR?STOP?BATTERY_VOLTAGE_SENSING
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 2
+
+
+
+
+OVERLAY MAP OF MODULE:   Battery_voltage_sensing (BATTERY_VOLTAGE_SENSING)
+
+
+SEGMENT                                             BIT_GROUP          DATA_GROUP 
+  +--> CALLED SEGMENT                            START    LENGTH     START    LENGTH
+------------------------------------------------------------------------------------
+?C_C51STARTUP                                    -----    -----      -----    -----
+  +--> ?PR?MAIN?BATTERY_VOLTAGE_SENSING
+  +--> ?C_INITSEG
+
+?PR?MAIN?BATTERY_VOLTAGE_SENSING                 -----    -----      0021H    0003H
+  +--> ?PR?_ADC_CONVERSION?BATTERY_VOLTAGE_S...
+  +--> ?PR?LCD_INIT?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?LCD_CLEAR?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_LCD_CURSOR?BATTERY_VOLTAGE_SENSING
+  +--> ?CO?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_LCD_STRING?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_LCD_PRINT?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_DELAY_MS?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?MOTOR_OPERATION?BATTERY_VOLTAGE_S...
+
+?PR?_ADC_CONVERSION?BATTERY_VOLTAGE_S...         -----    -----      -----    -----
+  +--> ?PR?_DELAY_MS?BATTERY_VOLTAGE_SENSING
+
+?PR?LCD_INIT?BATTERY_VOLTAGE_SENSING             -----    -----      -----    -----
+  +--> ?PR?_DELAY_MS?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?READY?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_COMMANDSEND?BATTERY_VOLTAGE_SENSING
+
+?PR?READY?BATTERY_VOLTAGE_SENSING                0020H.0  0000H.1    -----    -----
+
+?PR?_COMMANDSEND?BATTERY_VOLTAGE_SENSING         -----    -----      -----    -----
+  +--> ?PR?READY?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_SWAP?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_DELAY_MS?BATTERY_VOLTAGE_SENSING
+
+?PR?LCD_CLEAR?BATTERY_VOLTAGE_SENSING            -----    -----      -----    -----
+  +--> ?PR?_COMMANDSEND?BATTERY_VOLTAGE_SENSING
+
+?PR?_LCD_CURSOR?BATTERY_VOLTAGE_SENSING          -----    -----      -----    -----
+  +--> ?PR?_COMMANDSEND?BATTERY_VOLTAGE_SENSING
+
+?PR?_LCD_STRING?BATTERY_VOLTAGE_SENSING          -----    -----      002BH    0003H
+  +--> ?CO?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_DATASEND?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_COMMANDSEND?BATTERY_VOLTAGE_SENSING
+
+?PR?_DATASEND?BATTERY_VOLTAGE_SENSING            -----    -----      -----    -----
+  +--> ?PR?_SWAP?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?READY?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_DELAY_MS?BATTERY_VOLTAGE_SENSING
+
+?PR?_LCD_PRINT?BATTERY_VOLTAGE_SENSING           -----    -----      0024H    0007H
+  +--> ?PR?_COMMANDSEND?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_LCD_CURSOR?BATTERY_VOLTAGE_SENSING
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 3
+
+
+  +--> ?PR?_DATASEND?BATTERY_VOLTAGE_SENSING
+  +--> ?CO?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_LCD_STRING?BATTERY_VOLTAGE_SENSING
+
+?PR?MOTOR_OPERATION?BATTERY_VOLTAGE_S...         -----    -----      -----    -----
+  +--> ?PR?FORWARD?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?_DELAY_MS?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?STOP?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?BACKWARD?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?RIGHT?BATTERY_VOLTAGE_SENSING
+  +--> ?PR?LEFT?BATTERY_VOLTAGE_SENSING
+
+
+
+SYMBOL TABLE OF MODULE:  Battery_voltage_sensing (BATTERY_VOLTAGE_SENSING)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        BATTERY_VOLTAGE_SENSING
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  B:00B0H.7       PUBLIC        output_enable
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  B:0090H.3       PUBLIC        left_velocity
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IEN0
+  B:0090H.0       PUBLIC        LB
+  D:00E8H         PUBLIC        IEN1
+  C:0B92H         PUBLIC        _commandsend
+  B:0090H.1       PUBLIC        LF
+  B:00B0H.4       PUBLIC        RB
+  B:0090H.2       PUBLIC        RF
+  C:0C2FH         PUBLIC        ready
+  C:0D19H         PUBLIC        lcd_clear
+  C:0D3EH         PUBLIC        right
+  D:00D8H         PUBLIC        CCON
+  B:00A0H.6       PUBLIC        RS
+  B:00A0H.7       PUBLIC        buzzer
+  C:0A9EH         PUBLIC        main
+  D:0008H         PUBLIC        initial_battery_voltage
+  B:00A0H.5       PUBLIC        RW
+  C:0D35H         PUBLIC        left
+  C:0C57H         PUBLIC        _lcd_string
+  D:00C0H         PUBLIC        WDTC
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0C7EH         PUBLIC        _lcd_cursor
+  D:0009H         PUBLIC        temp
+  D:000BH         PUBLIC        tens
+  C:0CFBH         PUBLIC        _swap
+  D:000DH         PUBLIC        A
+  D:000EH         PUBLIC        unit
+  C:0D2CH         PUBLIC        backward
+  B:00A0H.4       PUBLIC        E
+  D:0010H         PUBLIC        final_battery_voltage
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 4
+
+
+  C:080DH         PUBLIC        _lcd_print
+  C:0D47H         PUBLIC        stop
+  C:0BC2H         PUBLIC        _datasend
+  D:00B8H         PUBLIC        IP0
+  B:00B0H.6       PUBLIC        start_conv
+  D:00F8H         PUBLIC        IP1
+  C:09B7H         PUBLIC        lcd_init
+  C:0CAAH         PUBLIC        _delay_ms
+  C:0CCAH         PUBLIC        buzzer_operation
+  D:00C8H         PUBLIC        T2CON
+  D:0011H         PUBLIC        i
+  D:0012H         PUBLIC        thousand
+  C:0BF2H         PUBLIC        motor_operation
+  C:0B59H         PUBLIC        lcd_operation
+  D:0014H         PUBLIC        hundred
+  C:0CE4H         PUBLIC        _ADC_conversion
+  B:0090H.4       PUBLIC        right_velocity
+  D:0016H         PUBLIC        million
+  C:0D23H         PUBLIC        forward
+  D:00D0H         PUBLIC        PSW
+  C:0CA6H         SYMBOL        L?0066
+  -------         PROC          L?0065
+  -------         ENDPROC       L?0065
+  C:0CA6H         SYMBOL        L?0066
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:0CAAH         LINE#         49
+  C:0CAAH         LINE#         50
+  C:0CAAH         LINE#         53
+  C:0CB4H         LINE#         54
+  C:0CC9H         LINE#         55
+  -------         ENDPROC       _DELAY_MS
+  C:0C29H         SYMBOL        L?0063
+  -------         PROC          L?0062
+  -------         ENDPROC       L?0062
+  C:0C29H         SYMBOL        L?0063
+  -------         PROC          READY
+  -------         DO            
+  B:0020H.0       SYMBOL        readybit
+  D:0007H         SYMBOL        buzzer_status
+  -------         ENDDO         
+  C:0C2FH         LINE#         62
+  C:0C2FH         LINE#         63
+  C:0C2FH         LINE#         65
+  C:0C2FH         LINE#         66
+  C:0C34H         LINE#         68
+  C:0C36H         LINE#         69
+  C:0C38H         LINE#         70
+  C:0C3AH         LINE#         72
+  C:0C3DH         LINE#         73
+  C:0C3DH         LINE#         74
+  C:0C3FH         LINE#         75
+  C:0C44H         LINE#         76
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 5
+
+
+  C:0C4CH         LINE#         77
+  C:0C4EH         LINE#         78
+  C:0C50H         LINE#         79
+  -------         ENDPROC       READY
+  -------         PROC          _SWAP
+  D:0007H         SYMBOL        tempdata
+  C:0CFBH         LINE#         89
+  C:0CFBH         LINE#         90
+  C:0CFBH         LINE#         91
+  C:0CFDH         LINE#         92
+  C:0D08H         LINE#         93
+  C:0D0BH         LINE#         94
+  C:0D0BH         LINE#         95
+  -------         ENDPROC       _SWAP
+  -------         PROC          _COMMANDSEND
+  D:0006H         SYMBOL        command
+  -------         DO            
+  D:0007H         SYMBOL        temp
+  D:0005H         SYMBOL        buzzer_status
+  -------         ENDDO         
+  C:0B92H         LINE#         105
+  C:0B94H         LINE#         106
+  C:0B94H         LINE#         108
+  C:0B94H         LINE#         110
+  C:0B99H         LINE#         112
+  C:0B9CH         LINE#         113
+  C:0BA1H         LINE#         114
+  C:0BA5H         LINE#         115
+  C:0BA7H         LINE#         116
+  C:0BA9H         LINE#         117
+  C:0BABH         LINE#         118
+  C:0BADH         LINE#         120
+  C:0BB3H         LINE#         121
+  C:0BB5H         LINE#         122
+  C:0BB7H         LINE#         124
+  C:0BB9H         LINE#         125
+  C:0BBBH         LINE#         126
+  -------         ENDPROC       _COMMANDSEND
+  -------         PROC          _DATASEND
+  D:0006H         SYMBOL        lcddata
+  -------         DO            
+  D:0004H         SYMBOL        temp
+  D:0005H         SYMBOL        buzzer_status
+  -------         ENDDO         
+  C:0BC2H         LINE#         137
+  C:0BC4H         LINE#         138
+  C:0BC4H         LINE#         140
+  C:0BC4H         LINE#         142
+  C:0BC9H         LINE#         144
+  C:0BCEH         LINE#         145
+  C:0BD1H         LINE#         146
+  C:0BD5H         LINE#         147
+  C:0BD7H         LINE#         148
+  C:0BD9H         LINE#         150
+  C:0BDBH         LINE#         151
+  C:0BDDH         LINE#         154
+  C:0BE3H         LINE#         155
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 6
+
+
+  C:0BE5H         LINE#         156
+  C:0BE7H         LINE#         157
+  C:0BE9H         LINE#         158
+  C:0BEBH         LINE#         159
+  -------         ENDPROC       _DATASEND
+  -------         PROC          LCD_INIT
+  -------         DO            
+  D:0001H         SYMBOL        buzzer_status
+  -------         ENDDO         
+  C:09B7H         LINE#         178
+  C:09B7H         LINE#         179
+  C:09B7H         LINE#         180
+  C:09B7H         LINE#         182
+  C:09BCH         LINE#         185
+  C:09BEH         LINE#         186
+  C:09C0H         LINE#         187
+  C:09C7H         LINE#         189
+  C:09C9H         LINE#         190
+  C:09CEH         LINE#         191
+  C:09D0H         LINE#         192
+  C:09D2H         LINE#         194
+  C:09D7H         LINE#         196
+  C:09DCH         LINE#         197
+  C:09DEH         LINE#         198
+  C:09E0H         LINE#         199
+  C:09E5H         LINE#         200
+  C:09EAH         LINE#         201
+  C:09ECH         LINE#         202
+  C:09EEH         LINE#         203
+  C:09F1H         LINE#         205
+  C:09F4H         LINE#         206
+  C:09F4H         LINE#         207
+  C:09F4H         LINE#         208
+  C:09F7H         LINE#         209
+  C:09FCH         LINE#         211
+  C:09FCH         LINE#         212
+  C:09FCH         LINE#         213
+  C:09FCH         LINE#         215
+  C:09FCH         LINE#         216
+  C:09FCH         LINE#         217
+  C:09FFH         LINE#         218
+  C:0A01H         LINE#         219
+  C:0A01H         LINE#         220
+  C:0A01H         LINE#         221
+  C:0A01H         LINE#         222
+  C:0A01H         LINE#         223
+  C:0A01H         LINE#         224
+  C:0A04H         LINE#         225
+  C:0A06H         LINE#         226
+  C:0A08H         LINE#         227
+  C:0A0AH         LINE#         228
+  C:0A0DH         LINE#         229
+  C:0A0DH         LINE#         230
+  C:0A0DH         LINE#         231
+  C:0A10H         LINE#         232
+  C:0A12H         LINE#         233
+  C:0A14H         LINE#         234
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 7
+
+
+  C:0A16H         LINE#         236
+  C:0A19H         LINE#         237
+  C:0A19H         LINE#         238
+  C:0A19H         LINE#         239
+  C:0A1CH         LINE#         241
+  C:0A21H         LINE#         242
+  C:0A26H         LINE#         243
+  C:0A2BH         LINE#         244
+  -------         ENDPROC       LCD_INIT
+  -------         PROC          _LCD_CURSOR
+  D:0007H         SYMBOL        row
+  D:0001H         SYMBOL        column
+  C:0C7EH         LINE#         252
+  C:0C80H         LINE#         253
+  C:0C80H         LINE#         254
+  C:0C8FH         LINE#         255
+  C:0C94H         LINE#         256
+  C:0C99H         LINE#         257
+  C:0C9EH         LINE#         258
+  C:0CA5H         LINE#         259
+  C:0CA5H         LINE#         260
+  C:0CA5H         LINE#         261
+  -------         ENDPROC       _LCD_CURSOR
+  -------         PROC          L?0067
+  -------         ENDPROC       L?0067
+  -------         PROC          _LCD_STRING
+  D:002BH         SYMBOL        str
+  C:0C57H         LINE#         269
+  C:0C5DH         LINE#         270
+  C:0C5DH         LINE#         271
+  C:0C69H         LINE#         272
+  C:0C69H         LINE#         273
+  C:0C6CH         LINE#         274
+  C:0C77H         LINE#         275
+  C:0C79H         LINE#         276
+  -------         ENDPROC       _LCD_STRING
+  -------         PROC          LCD_CLEAR
+  C:0D19H         LINE#         284
+  C:0D19H         LINE#         285
+  C:0D19H         LINE#         286
+  C:0D1EH         LINE#         287
+  -------         ENDPROC       LCD_CLEAR
+  -------         PROC          L?0064
+  -------         ENDPROC       L?0064
+  -------         PROC          _LCD_PRINT
+  D:0024H         SYMBOL        row
+  D:0005H         SYMBOL        coloumn
+  D:0082H         SYMBOL        value
+  D:0028H         SYMBOL        digits
+  -------         DO            
+  D:002AH         SYMBOL        flag
+  -------         ENDDO         
+  C:080DH         LINE#         300
+  C:0813H         LINE#         301
+  C:0813H         LINE#         302
+  C:0816H         LINE#         303
+  C:081DH         LINE#         304
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 8
+
+
+  C:081DH         LINE#         305
+  C:0822H         LINE#         306
+  C:0824H         LINE#         308
+  C:0824H         LINE#         309
+  C:0829H         LINE#         310
+  C:0829H         LINE#         311
+  C:0836H         LINE#         312
+  C:0836H         LINE#         313
+  C:084AH         LINE#         314
+  C:084FH         LINE#         315
+  C:0852H         LINE#         316
+  C:0852H         LINE#         317
+  C:085FH         LINE#         318
+  C:085FH         LINE#         319
+  C:086EH         LINE#         320
+  C:087EH         LINE#         321
+  C:0883H         LINE#         322
+  C:0886H         LINE#         323
+  C:0886H         LINE#         324
+  C:0893H         LINE#         325
+  C:0893H         LINE#         326
+  C:08A2H         LINE#         327
+  C:08B2H         LINE#         328
+  C:08B7H         LINE#         329
+  C:08BAH         LINE#         330
+  C:08BAH         LINE#         331
+  C:08C7H         LINE#         332
+  C:08C7H         LINE#         333
+  C:08D6H         LINE#         334
+  C:08E6H         LINE#         335
+  C:08EBH         LINE#         336
+  C:08EEH         LINE#         337
+  C:08EEH         LINE#         338
+  C:08FBH         LINE#         339
+  C:08FBH         LINE#         340
+  C:090FH         LINE#         341
+  C:0914H         LINE#         342
+  C:0914H         LINE#         343
+  C:0921H         LINE#         344
+  C:0921H         LINE#         345
+  C:092AH         LINE#         346
+  C:092AH         LINE#         347
+  -------         ENDPROC       _LCD_PRINT
+  -------         PROC          _ADC_CONVERSION
+  D:0007H         SYMBOL        ADC_ch_no
+  -------         DO            
+  D:0007H         SYMBOL        ADC_data
+  -------         ENDDO         
+  C:0CE4H         LINE#         57
+  C:0CE4H         LINE#         58
+  C:0CE4H         LINE#         61
+  C:0CE6H         LINE#         63
+  C:0CE8H         LINE#         64
+  C:0CEAH         LINE#         65
+  C:0CF1H         LINE#         67
+  C:0CF4H         LINE#         68
+  C:0CF6H         LINE#         69
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 9
+
+
+  C:0CF8H         LINE#         70
+  C:0CFAH         LINE#         71
+  C:0CFAH         LINE#         72
+  -------         ENDPROC       _ADC_CONVERSION
+  -------         PROC          FORWARD
+  C:0D23H         LINE#         79
+  C:0D23H         LINE#         80
+  C:0D23H         LINE#         81
+  C:0D25H         LINE#         82
+  C:0D27H         LINE#         83
+  C:0D29H         LINE#         84
+  C:0D2BH         LINE#         85
+  -------         ENDPROC       FORWARD
+  -------         PROC          BACKWARD
+  C:0D2CH         LINE#         91
+  C:0D2CH         LINE#         92
+  C:0D2CH         LINE#         93
+  C:0D2EH         LINE#         94
+  C:0D30H         LINE#         95
+  C:0D32H         LINE#         96
+  C:0D34H         LINE#         97
+  -------         ENDPROC       BACKWARD
+  -------         PROC          LEFT
+  C:0D35H         LINE#         103
+  C:0D35H         LINE#         104
+  C:0D35H         LINE#         105
+  C:0D37H         LINE#         106
+  C:0D39H         LINE#         107
+  C:0D3BH         LINE#         108
+  C:0D3DH         LINE#         109
+  -------         ENDPROC       LEFT
+  -------         PROC          RIGHT
+  C:0D3EH         LINE#         115
+  C:0D3EH         LINE#         116
+  C:0D3EH         LINE#         117
+  C:0D40H         LINE#         118
+  C:0D42H         LINE#         119
+  C:0D44H         LINE#         120
+  C:0D46H         LINE#         121
+  -------         ENDPROC       RIGHT
+  -------         PROC          STOP
+  C:0D47H         LINE#         127
+  C:0D47H         LINE#         128
+  C:0D47H         LINE#         129
+  C:0D49H         LINE#         130
+  C:0D4BH         LINE#         131
+  C:0D4DH         LINE#         132
+  C:0D4FH         LINE#         133
+  -------         ENDPROC       STOP
+  -------         PROC          BUZZER_OPERATION
+  C:0CCAH         LINE#         140
+  C:0CCAH         LINE#         141
+  C:0CCAH         LINE#         142
+  C:0CD1H         LINE#         143
+  C:0CD1H         LINE#         144
+  C:0CD3H         LINE#         145
+  C:0CD6H         LINE#         146
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 10
+
+
+  C:0CD8H         LINE#         147
+  C:0CDFH         LINE#         148
+  C:0CE1H         LINE#         149
+  C:0CE3H         LINE#         150
+  -------         ENDPROC       BUZZER_OPERATION
+  -------         PROC          LCD_OPERATION
+  C:0B59H         LINE#         159
+  C:0B59H         LINE#         160
+  C:0B59H         LINE#         161
+  C:0B5CH         LINE#         162
+  C:0B65H         LINE#         163
+  C:0B68H         LINE#         164
+  C:0B6BH         LINE#         165
+  C:0B72H         LINE#         166
+  C:0B7BH         LINE#         167
+  C:0B82H         LINE#         168
+  C:0B8BH         LINE#         169
+  -------         ENDPROC       LCD_OPERATION
+  -------         PROC          MOTOR_OPERATION
+  C:0BF2H         LINE#         178
+  C:0BF2H         LINE#         179
+  C:0BF2H         LINE#         181
+  C:0BF4H         LINE#         182
+  C:0BF6H         LINE#         183
+  C:0BF9H         LINE#         184
+  C:0C00H         LINE#         185
+  C:0C03H         LINE#         186
+  C:0C06H         LINE#         187
+  C:0C09H         LINE#         188
+  C:0C0CH         LINE#         189
+  C:0C0FH         LINE#         190
+  C:0C16H         LINE#         191
+  C:0C19H         LINE#         192
+  C:0C1CH         LINE#         193
+  C:0C1FH         LINE#         194
+  -------         ENDPROC       MOTOR_OPERATION
+  -------         PROC          MAIN
+  -------         DO            
+  D:0021H         SYMBOL        initial_battery_voltage
+  D:0022H         SYMBOL        final_battery_voltage
+  D:0023H         SYMBOL        i
+  -------         ENDDO         
+  C:0A9EH         LINE#         204
+  C:0A9EH         LINE#         205
+  C:0A9EH         LINE#         206
+  C:0AA1H         LINE#         207
+  C:0AA3H         LINE#         208
+  C:0AA5H         LINE#         209
+  C:0AA7H         LINE#         210
+  C:0AA9H         LINE#         212
+  C:0AB0H         LINE#         213
+  C:0AB3H         LINE#         214
+  C:0AB6H         LINE#         215
+  C:0ABDH         LINE#         216
+  C:0AC6H         LINE#         217
+  C:0ACDH         LINE#         218
+  C:0AD0H         LINE#         219
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/11/2015  12:22:19  PAGE 11
+
+
+  C:0AD5H         LINE#         220
+  C:0ADCH         LINE#         222
+  C:0ADFH         LINE#         224
+  C:0AE6H         LINE#         225
+  C:0AE9H         LINE#         226
+  C:0AF0H         LINE#         227
+  C:0AF9H         LINE#         228
+  C:0B00H         LINE#         229
+  C:0B03H         LINE#         230
+  C:0B08H         LINE#         231
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        BATTERY_VOLTAGE_SENSING
+
+  -------         MODULE        ?C?CLDPTR
+  C:0A30H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?UIDIV
+  C:0A49H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BUZZER_OPERATION?BATTERY_VOLTAGE_SENSING
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_OPERATION?BATTERY_VOLTAGE_SENSING
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0455H BYTE (54%) *
+******************************************************************************
+
+Program Size: data=38.1 xdata=0 code=1363
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
