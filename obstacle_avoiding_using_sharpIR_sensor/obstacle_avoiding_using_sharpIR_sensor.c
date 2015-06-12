@@ -106,6 +106,18 @@ LF=1;
 RB=0;
 LB=0;
 }
+/* Function name - right
+* Input - none 
+* Output - turns the robot in right direction
+* Logic - set appropriate bits high to turn right as per the logic table
+*/
+void right(void) //go right ( hard right)
+{
+RF=0;
+LF=1;
+RB=0;
+LB=0;
+}
 /* Function name - stop
 * Input - none 
 * Output - stops the robot
@@ -148,7 +160,7 @@ void pca_init(void)
 * Input: None
 * Output: int to inform the caller that the program exited correctly or
 * incorrectly (C code standard)
-* Logic: constantly monitors the sensor value and blows buzzer above a defined threshold value.
+* Logic: constantly monitors the sensor value and above a defined threshold value it blows buzzer and changes path.  
 * Example Call: Called automatically by the Operating System
 *
 */
@@ -164,7 +176,7 @@ void main()
  	pca_init();	//initialize PCA for velocity control
  	lcd_clear();  //clears LCD
  	forward();
- 	left_motor_velocity(0x2F);			
+ 	left_motor_velocity(0x2F); 			
 	right_motor_velocity(0x2F);
  while(1)
  {
@@ -173,10 +185,11 @@ void main()
 	if(sharpIR_value>30) //obstacle detected
 	{
 	stop();
-	delay_ms(1000);
 	buzzer=0;	//buzzer on
-	delay_ms(2000);	 
-	buzzer=1;	//buzzer off	
+	delay_ms(1000);	 
+	buzzer=1;	//buzzer off
+	right();
+	delay_ms(2500);	
 	break; 
 	}			
  }
