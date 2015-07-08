@@ -1,0 +1,52 @@
+\beamer@endinputifotherversion {3.36pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{outline}{2}{outline}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\slideentry {1}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\sectionentry {2}{Introduction}{3}{Introduction}{0}}
+\headcommand {\beamer@sectionpages {2}{2}}
+\headcommand {\beamer@subsectionpages {2}{2}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{3}{LCD-Definition}}\headcommand {\beamer@subsectionpages {3}{2}}
+\headcommand {\slideentry {2}{1}{1}{3/7}{LCD-Definition}{0}}
+\headcommand {\beamer@framepages {3}{7}}
+\headcommand {\slideentry {2}{1}{2}{8/10}{LCD-Definition}{0}}
+\headcommand {\beamer@framepages {8}{10}}
+\headcommand {\sectionentry {3}{Understanding LCD}{11}{Understanding LCD}{0}}
+\headcommand {\beamer@sectionpages {3}{10}}
+\headcommand {\beamer@subsectionpages {3}{10}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{11}{Pin-Configuration}}\headcommand {\beamer@subsectionpages {11}{10}}
+\headcommand {\slideentry {3}{1}{1}{11/22}{Pin-Configuration}{0}}
+\headcommand {\beamer@framepages {11}{22}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{23}{Control Pins}}\headcommand {\beamer@subsectionpages {11}{22}}
+\headcommand {\slideentry {3}{2}{1}{23/32}{Control Pins}{0}}
+\headcommand {\beamer@framepages {23}{32}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{33}{Data Pins}}\headcommand {\beamer@subsectionpages {23}{32}}
+\headcommand {\slideentry {3}{3}{1}{33/39}{Data Pins}{0}}
+\headcommand {\beamer@framepages {33}{39}}
+\headcommand {\sectionentry {4}{LCD Programming}{40}{LCD Programming}{0}}
+\headcommand {\beamer@sectionpages {11}{39}}
+\headcommand {\beamer@subsectionpages {33}{39}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{40}{LCD Interfacing}}\headcommand {\beamer@subsectionpages {40}{39}}
+\headcommand {\slideentry {4}{1}{1}{40/41}{LCD Interfacing}{0}}
+\headcommand {\beamer@framepages {40}{41}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{42}{Some Important commands}}\headcommand {\beamer@subsectionpages {40}{41}}
+\headcommand {\slideentry {4}{2}{1}{42/52}{Some Important commands}{0}}
+\headcommand {\beamer@framepages {42}{52}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{53}{LCD Initialization}}\headcommand {\beamer@subsectionpages {42}{52}}
+\headcommand {\slideentry {4}{3}{1}{53/61}{LCD Initialization}{0}}
+\headcommand {\beamer@framepages {53}{61}}
+\headcommand {\beamer@subsectionentry {0}{4}{4}{62}{Programming}}\headcommand {\beamer@subsectionpages {53}{61}}
+\headcommand {\slideentry {4}{4}{1}{62/66}{Programming}{0}}
+\headcommand {\beamer@framepages {62}{66}}
+\headcommand {\slideentry {4}{4}{2}{67/77}{Programming}{0}}
+\headcommand {\beamer@framepages {67}{77}}
+\headcommand {\slideentry {4}{4}{3}{78/78}{Programming}{0}}
+\headcommand {\beamer@framepages {78}{78}}
+\headcommand {\beamer@partpages {1}{78}}
+\headcommand {\beamer@subsectionpages {62}{78}}
+\headcommand {\beamer@sectionpages {40}{78}}
+\headcommand {\beamer@documentpages {78}}
+\headcommand {\def \inserttotalframenumber {13}}

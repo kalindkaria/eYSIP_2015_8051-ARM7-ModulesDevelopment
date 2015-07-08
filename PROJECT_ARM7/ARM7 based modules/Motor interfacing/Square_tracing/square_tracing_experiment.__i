@@ -1,0 +1,1 @@
+-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Philips" -o "square_tracing_experiment.o" --omf_browse "square_tracing_experiment.crf" --depend "square_tracing_experiment.d" "square_tracing_experiment.c"

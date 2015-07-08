@@ -1,0 +1,621 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/08/2015  16:31:23  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE display_special_character.obj TO display_special_character RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  display_special_character.obj (DISPLAY_SPECIAL_CHARACTER)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  display_special_character (DISPLAY_SPECIAL_CHARACTER)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000DH     UNIT         ?DT?DISPLAY_SPECIAL_CHARACTER
+            DATA    0015H     0007H     UNIT         ?DT?_LCD_PRINT?DISPLAY_SPECIAL_CHARACTER
+            DATA    001CH     0003H     UNIT         ?DT?_LCD_STRING?DISPLAY_SPECIAL_CHARACTER
+                    001FH     0001H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         _BIT_GROUP_
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     011EH     UNIT         ?PR?_LCD_PRINT?DISPLAY_SPECIAL_CHARACTER
+            CODE    091EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    09AAH     0080H     UNIT         ?PR?MAIN?DISPLAY_SPECIAL_CHARACTER
+            CODE    0A2AH     0079H     UNIT         ?PR?LCD_INIT?DISPLAY_SPECIAL_CHARACTER
+            CODE    0AA3H     006EH     UNIT         ?C?LIB_CODE
+            CODE    0B11H     0030H     UNIT         ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHARACTER
+            CODE    0B41H     0030H     UNIT         ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+            CODE    0B71H     002FH     UNIT         ?PR?READY?DISPLAY_SPECIAL_CHARACTER
+            CODE    0BA0H     002DH     UNIT         ?PR?CHARACTER_HEART?DISPLAY_SPECIAL_CHARACTER
+            CODE    0BCDH     002DH     UNIT         ?PR?CHARACTER_SMILEY?DISPLAY_SPECIAL_CHARACTER
+            CODE    0BFAH     002DH     UNIT         ?PR?CHARACTER_SAD_SMILEY?DISPLAY_SPECIAL_CHARACTER
+            CODE    0C27H     002DH     UNIT         ?PR?CHARACTER_MUSIC_NOTE?DISPLAY_SPECIAL_CHARACTER
+            CODE    0C54H     002DH     UNIT         ?PR?CHARACTER_BIG_SMILEY?DISPLAY_SPECIAL_CHARACTER
+            CODE    0C81H     002DH     UNIT         ?PR?CHARACTER_SHOCK_SMILEY?DISPLAY_SPECIAL_CHARACTER
+            CODE    0CAEH     002DH     UNIT         ?PR?CHARACTER_DISGUST_SMILEY?DISPLAY_SPECIAL_CHARACTER
+            CODE    0CDBH     002DH     UNIT         ?PR?CHARACTER_DIAMOND?DISPLAY_SPECIAL_CHARACTER
+            CODE    0D08H     0028H     UNIT         ?PR?_LCD_CURSOR?DISPLAY_SPECIAL_CHARACTER
+            CODE    0D30H     0027H     UNIT         ?PR?_LCD_STRING?DISPLAY_SPECIAL_CHARACTER
+            CODE    0D57H     0020H     UNIT         ?PR?_DELAY_MS?DISPLAY_SPECIAL_CHARACTER
+            CODE    0D77H     0011H     UNIT         ?PR?_SWAP?DISPLAY_SPECIAL_CHARACTER
+            CODE    0D88H     000AH     UNIT         ?PR?LCD_CLEAR?DISPLAY_SPECIAL_CHARACTER
+            CODE    0D92H     0006H     UNIT         ?CO?DISPLAY_SPECIAL_CHARACTER
+            CODE    0D98H     0004H     UNIT         ?C_INITSEG
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 2
+
+
+
+
+OVERLAY MAP OF MODULE:   display_special_character (DISPLAY_SPECIAL_CHARACTER)
+
+
+SEGMENT                                             BIT_GROUP 
+  +--> CALLED SEGMENT                            START    LENGTH
+----------------------------------------------------------------
+?C_C51STARTUP                                    -----    -----
+  +--> ?PR?MAIN?DISPLAY_SPECIAL_CHARACTER
+  +--> ?C_INITSEG
+
+?PR?MAIN?DISPLAY_SPECIAL_CHARACTER               -----    -----
+  +--> ?PR?LCD_INIT?DISPLAY_SPECIAL_CHARACTER
+  +--> ?PR?LCD_CLEAR?DISPLAY_SPECIAL_CHARACTER
+  +--> ?PR?CHARACTER_HEART?DISPLAY_SPECIAL_C...
+  +--> ?PR?_LCD_CURSOR?DISPLAY_SPECIAL_CHARA...
+  +--> ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+  +--> ?PR?CHARACTER_SMILEY?DISPLAY_SPECIAL_...
+  +--> ?PR?CHARACTER_SAD_SMILEY?DISPLAY_SPEC...
+  +--> ?PR?CHARACTER_MUSIC_NOTE?DISPLAY_SPEC...
+  +--> ?PR?CHARACTER_BIG_SMILEY?DISPLAY_SPEC...
+  +--> ?PR?CHARACTER_SHOCK_SMILEY?DISPLAY_SP...
+  +--> ?PR?CHARACTER_DISGUST_SMILEY?DISPLAY_...
+  +--> ?PR?CHARACTER_DIAMOND?DISPLAY_SPECIAL...
+
+?PR?LCD_INIT?DISPLAY_SPECIAL_CHARACTER           -----    -----
+  +--> ?PR?_DELAY_MS?DISPLAY_SPECIAL_CHARACTER
+  +--> ?PR?READY?DISPLAY_SPECIAL_CHARACTER
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+
+?PR?READY?DISPLAY_SPECIAL_CHARACTER              0020H.0  0000H.1
+
+?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...         -----    -----
+  +--> ?PR?READY?DISPLAY_SPECIAL_CHARACTER
+  +--> ?PR?_SWAP?DISPLAY_SPECIAL_CHARACTER
+  +--> ?PR?_DELAY_MS?DISPLAY_SPECIAL_CHARACTER
+
+?PR?LCD_CLEAR?DISPLAY_SPECIAL_CHARACTER          -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+
+?PR?CHARACTER_HEART?DISPLAY_SPECIAL_C...         -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+  +--> ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+
+?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER          -----    -----
+  +--> ?PR?_SWAP?DISPLAY_SPECIAL_CHARACTER
+  +--> ?PR?READY?DISPLAY_SPECIAL_CHARACTER
+  +--> ?PR?_DELAY_MS?DISPLAY_SPECIAL_CHARACTER
+
+?PR?_LCD_CURSOR?DISPLAY_SPECIAL_CHARA...         -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+
+?PR?CHARACTER_SMILEY?DISPLAY_SPECIAL_...         -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+  +--> ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 3
+
+
+?PR?CHARACTER_SAD_SMILEY?DISPLAY_SPEC...         -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+  +--> ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+
+?PR?CHARACTER_MUSIC_NOTE?DISPLAY_SPEC...         -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+  +--> ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+
+?PR?CHARACTER_BIG_SMILEY?DISPLAY_SPEC...         -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+  +--> ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+
+?PR?CHARACTER_SHOCK_SMILEY?DISPLAY_SP...         -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+  +--> ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+
+?PR?CHARACTER_DISGUST_SMILEY?DISPLAY_...         -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+  +--> ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+
+?PR?CHARACTER_DIAMOND?DISPLAY_SPECIAL...         -----    -----
+  +--> ?PR?_COMMANDSEND?DISPLAY_SPECIAL_CHAR...
+  +--> ?PR?_DATASEND?DISPLAY_SPECIAL_CHARACTER
+
+
+
+SYMBOL TABLE OF MODULE:  display_special_character (DISPLAY_SPECIAL_CHARACTER)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        DISPLAY_SPECIAL_CHARACTER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IEN0
+  D:00E8H         PUBLIC        IEN1
+  C:0B11H         PUBLIC        _commandsend
+  C:0CAEH         PUBLIC        character_disgust_smiley
+  C:0B7EH         PUBLIC        ready
+  C:0D88H         PUBLIC        lcd_clear
+  D:00D8H         PUBLIC        CCON
+  B:00A0H.6       PUBLIC        RS
+  C:09AAH         PUBLIC        main
+  C:0C81H         PUBLIC        character_shock_smiley
+  B:00A0H.5       PUBLIC        RW
+  C:0BCDH         PUBLIC        character_smiley
+  C:0BA0H         PUBLIC        character_heart
+  C:0D30H         PUBLIC        _lcd_string
+  D:00C0H         PUBLIC        WDTC
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0D08H         PUBLIC        _lcd_cursor
+  D:0008H         PUBLIC        temp
+  D:000AH         PUBLIC        tens
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 4
+
+
+  C:0D77H         PUBLIC        _swap
+  C:0C54H         PUBLIC        character_big_smiley
+  D:000CH         PUBLIC        A
+  D:000DH         PUBLIC        unit
+  B:00A0H.4       PUBLIC        E
+  C:0BFAH         PUBLIC        character_sad_smiley
+  C:0800H         PUBLIC        _lcd_print
+  C:0B41H         PUBLIC        _datasend
+  D:00B8H         PUBLIC        IP0
+  D:00F8H         PUBLIC        IP1
+  C:0A2AH         PUBLIC        lcd_init
+  C:0C27H         PUBLIC        character_music_note
+  C:0D57H         PUBLIC        _delay_ms
+  D:00C8H         PUBLIC        T2CON
+  D:000FH         PUBLIC        thousand
+  D:0011H         PUBLIC        hundred
+  C:0CDBH         PUBLIC        character_diamond
+  D:0013H         PUBLIC        million
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:0D57H         LINE#         49
+  C:0D57H         LINE#         50
+  C:0D57H         LINE#         53
+  C:0D61H         LINE#         54
+  C:0D76H         LINE#         55
+  -------         ENDPROC       _DELAY_MS
+  C:0B78H         SYMBOL        L?0060
+  -------         PROC          L?0059
+  -------         ENDPROC       L?0059
+  C:0B78H         SYMBOL        L?0060
+  -------         PROC          READY
+  -------         DO            
+  B:0020H.0       SYMBOL        readybit
+  D:0007H         SYMBOL        buzzer_status
+  -------         ENDDO         
+  C:0B7EH         LINE#         62
+  C:0B7EH         LINE#         63
+  C:0B7EH         LINE#         65
+  C:0B7EH         LINE#         66
+  C:0B83H         LINE#         68
+  C:0B85H         LINE#         69
+  C:0B87H         LINE#         70
+  C:0B89H         LINE#         72
+  C:0B8CH         LINE#         73
+  C:0B8CH         LINE#         74
+  C:0B8EH         LINE#         75
+  C:0B93H         LINE#         76
+  C:0B9BH         LINE#         77
+  C:0B9DH         LINE#         78
+  C:0B9FH         LINE#         79
+  -------         ENDPROC       READY
+  -------         PROC          _SWAP
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 5
+
+
+  D:0007H         SYMBOL        tempdata
+  C:0D77H         LINE#         89
+  C:0D77H         LINE#         90
+  C:0D77H         LINE#         91
+  C:0D79H         LINE#         92
+  C:0D84H         LINE#         93
+  C:0D87H         LINE#         94
+  C:0D87H         LINE#         95
+  -------         ENDPROC       _SWAP
+  -------         PROC          _COMMANDSEND
+  D:0006H         SYMBOL        command
+  -------         DO            
+  D:0007H         SYMBOL        temp
+  D:0005H         SYMBOL        buzzer_status
+  -------         ENDDO         
+  C:0B11H         LINE#         105
+  C:0B13H         LINE#         106
+  C:0B13H         LINE#         108
+  C:0B13H         LINE#         110
+  C:0B18H         LINE#         112
+  C:0B1BH         LINE#         113
+  C:0B20H         LINE#         114
+  C:0B24H         LINE#         115
+  C:0B26H         LINE#         116
+  C:0B28H         LINE#         117
+  C:0B2AH         LINE#         118
+  C:0B2CH         LINE#         120
+  C:0B32H         LINE#         121
+  C:0B34H         LINE#         122
+  C:0B36H         LINE#         124
+  C:0B38H         LINE#         125
+  C:0B3AH         LINE#         126
+  -------         ENDPROC       _COMMANDSEND
+  -------         PROC          _DATASEND
+  D:0006H         SYMBOL        lcddata
+  -------         DO            
+  D:0004H         SYMBOL        temp
+  D:0005H         SYMBOL        buzzer_status
+  -------         ENDDO         
+  C:0B41H         LINE#         137
+  C:0B43H         LINE#         138
+  C:0B43H         LINE#         140
+  C:0B43H         LINE#         142
+  C:0B48H         LINE#         144
+  C:0B4DH         LINE#         145
+  C:0B50H         LINE#         146
+  C:0B54H         LINE#         147
+  C:0B56H         LINE#         148
+  C:0B58H         LINE#         150
+  C:0B5AH         LINE#         151
+  C:0B5CH         LINE#         154
+  C:0B62H         LINE#         155
+  C:0B64H         LINE#         156
+  C:0B66H         LINE#         157
+  C:0B68H         LINE#         158
+  C:0B6AH         LINE#         159
+  -------         ENDPROC       _DATASEND
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 6
+
+
+  -------         PROC          LCD_INIT
+  -------         DO            
+  D:0001H         SYMBOL        buzzer_status
+  -------         ENDDO         
+  C:0A2AH         LINE#         178
+  C:0A2AH         LINE#         179
+  C:0A2AH         LINE#         180
+  C:0A2AH         LINE#         182
+  C:0A2FH         LINE#         185
+  C:0A31H         LINE#         186
+  C:0A33H         LINE#         187
+  C:0A3AH         LINE#         189
+  C:0A3CH         LINE#         190
+  C:0A41H         LINE#         191
+  C:0A43H         LINE#         192
+  C:0A45H         LINE#         194
+  C:0A4AH         LINE#         196
+  C:0A4FH         LINE#         197
+  C:0A51H         LINE#         198
+  C:0A53H         LINE#         199
+  C:0A58H         LINE#         200
+  C:0A5DH         LINE#         201
+  C:0A5FH         LINE#         202
+  C:0A61H         LINE#         203
+  C:0A64H         LINE#         205
+  C:0A67H         LINE#         206
+  C:0A67H         LINE#         207
+  C:0A67H         LINE#         208
+  C:0A6AH         LINE#         209
+  C:0A6FH         LINE#         211
+  C:0A6FH         LINE#         212
+  C:0A6FH         LINE#         213
+  C:0A6FH         LINE#         215
+  C:0A6FH         LINE#         216
+  C:0A6FH         LINE#         217
+  C:0A72H         LINE#         218
+  C:0A74H         LINE#         219
+  C:0A74H         LINE#         220
+  C:0A74H         LINE#         221
+  C:0A74H         LINE#         222
+  C:0A74H         LINE#         223
+  C:0A74H         LINE#         224
+  C:0A77H         LINE#         225
+  C:0A79H         LINE#         226
+  C:0A7BH         LINE#         227
+  C:0A7DH         LINE#         228
+  C:0A80H         LINE#         229
+  C:0A80H         LINE#         230
+  C:0A80H         LINE#         231
+  C:0A83H         LINE#         232
+  C:0A85H         LINE#         233
+  C:0A87H         LINE#         234
+  C:0A89H         LINE#         236
+  C:0A8CH         LINE#         237
+  C:0A8CH         LINE#         238
+  C:0A8CH         LINE#         239
+  C:0A8FH         LINE#         241
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 7
+
+
+  C:0A94H         LINE#         242
+  C:0A99H         LINE#         243
+  C:0A9EH         LINE#         244
+  -------         ENDPROC       LCD_INIT
+  -------         PROC          _LCD_CURSOR
+  D:0007H         SYMBOL        row
+  D:0001H         SYMBOL        column
+  C:0D08H         LINE#         252
+  C:0D0AH         LINE#         253
+  C:0D0AH         LINE#         254
+  C:0D19H         LINE#         255
+  C:0D1EH         LINE#         256
+  C:0D23H         LINE#         257
+  C:0D28H         LINE#         258
+  C:0D2FH         LINE#         259
+  C:0D2FH         LINE#         260
+  C:0D2FH         LINE#         261
+  -------         ENDPROC       _LCD_CURSOR
+  -------         PROC          _LCD_STRING
+  D:001CH         SYMBOL        str
+  C:0D30H         LINE#         269
+  C:0D36H         LINE#         270
+  C:0D36H         LINE#         271
+  C:0D42H         LINE#         272
+  C:0D42H         LINE#         273
+  C:0D45H         LINE#         274
+  C:0D50H         LINE#         275
+  C:0D52H         LINE#         276
+  -------         ENDPROC       _LCD_STRING
+  -------         PROC          LCD_CLEAR
+  C:0D88H         LINE#         284
+  C:0D88H         LINE#         285
+  C:0D88H         LINE#         286
+  C:0D8DH         LINE#         287
+  -------         ENDPROC       LCD_CLEAR
+  -------         PROC          _LCD_PRINT
+  D:0015H         SYMBOL        row
+  D:0005H         SYMBOL        coloumn
+  D:0082H         SYMBOL        value
+  D:0019H         SYMBOL        digits
+  -------         DO            
+  D:001BH         SYMBOL        flag
+  -------         ENDDO         
+  C:0800H         LINE#         300
+  C:0806H         LINE#         301
+  C:0806H         LINE#         302
+  C:0809H         LINE#         303
+  C:0810H         LINE#         304
+  C:0810H         LINE#         305
+  C:0815H         LINE#         306
+  C:0817H         LINE#         308
+  C:0817H         LINE#         309
+  C:081CH         LINE#         310
+  C:081CH         LINE#         311
+  C:0829H         LINE#         312
+  C:0829H         LINE#         313
+  C:083DH         LINE#         314
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 8
+
+
+  C:0842H         LINE#         315
+  C:0845H         LINE#         316
+  C:0845H         LINE#         317
+  C:0852H         LINE#         318
+  C:0852H         LINE#         319
+  C:0861H         LINE#         320
+  C:0871H         LINE#         321
+  C:0876H         LINE#         322
+  C:0879H         LINE#         323
+  C:0879H         LINE#         324
+  C:0886H         LINE#         325
+  C:0886H         LINE#         326
+  C:0895H         LINE#         327
+  C:08A5H         LINE#         328
+  C:08AAH         LINE#         329
+  C:08ADH         LINE#         330
+  C:08ADH         LINE#         331
+  C:08BAH         LINE#         332
+  C:08BAH         LINE#         333
+  C:08C9H         LINE#         334
+  C:08D9H         LINE#         335
+  C:08DEH         LINE#         336
+  C:08E1H         LINE#         337
+  C:08E1H         LINE#         338
+  C:08EEH         LINE#         339
+  C:08EEH         LINE#         340
+  C:0902H         LINE#         341
+  C:0907H         LINE#         342
+  C:0907H         LINE#         343
+  C:0914H         LINE#         344
+  C:0914H         LINE#         345
+  C:091DH         LINE#         346
+  C:091DH         LINE#         347
+  -------         ENDPROC       _LCD_PRINT
+  -------         PROC          CHARACTER_HEART
+  C:0BA0H         LINE#         25
+  C:0BA0H         LINE#         26
+  C:0BA0H         LINE#         28
+  C:0BA5H         LINE#         29
+  C:0BAAH         LINE#         30
+  C:0BAFH         LINE#         31
+  C:0BB4H         LINE#         32
+  C:0BB9H         LINE#         33
+  C:0BBEH         LINE#         34
+  C:0BC3H         LINE#         35
+  C:0BC8H         LINE#         36
+  -------         ENDPROC       CHARACTER_HEART
+  -------         PROC          CHARACTER_SMILEY
+  C:0BCDH         LINE#         44
+  C:0BCDH         LINE#         45
+  C:0BCDH         LINE#         47
+  C:0BD2H         LINE#         48
+  C:0BD7H         LINE#         49
+  C:0BDCH         LINE#         50
+  C:0BE1H         LINE#         51
+  C:0BE6H         LINE#         52
+  C:0BEBH         LINE#         53
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 9
+
+
+  C:0BF0H         LINE#         54
+  C:0BF5H         LINE#         55
+  -------         ENDPROC       CHARACTER_SMILEY
+  -------         PROC          CHARACTER_SAD_SMILEY
+  C:0BFAH         LINE#         63
+  C:0BFAH         LINE#         64
+  C:0BFAH         LINE#         66
+  C:0BFFH         LINE#         67
+  C:0C04H         LINE#         68
+  C:0C09H         LINE#         69
+  C:0C0EH         LINE#         70
+  C:0C13H         LINE#         71
+  C:0C18H         LINE#         72
+  C:0C1DH         LINE#         73
+  C:0C22H         LINE#         74
+  -------         ENDPROC       CHARACTER_SAD_SMILEY
+  -------         PROC          CHARACTER_MUSIC_NOTE
+  C:0C27H         LINE#         82
+  C:0C27H         LINE#         83
+  C:0C27H         LINE#         85
+  C:0C2CH         LINE#         86
+  C:0C31H         LINE#         87
+  C:0C36H         LINE#         88
+  C:0C3BH         LINE#         89
+  C:0C40H         LINE#         90
+  C:0C45H         LINE#         91
+  C:0C4AH         LINE#         92
+  C:0C4FH         LINE#         93
+  -------         ENDPROC       CHARACTER_MUSIC_NOTE
+  -------         PROC          CHARACTER_BIG_SMILEY
+  C:0C54H         LINE#         101
+  C:0C54H         LINE#         102
+  C:0C54H         LINE#         104
+  C:0C59H         LINE#         105
+  C:0C5EH         LINE#         106
+  C:0C63H         LINE#         107
+  C:0C68H         LINE#         108
+  C:0C6DH         LINE#         109
+  C:0C72H         LINE#         110
+  C:0C77H         LINE#         111
+  C:0C7CH         LINE#         112
+  -------         ENDPROC       CHARACTER_BIG_SMILEY
+  -------         PROC          CHARACTER_SHOCK_SMILEY
+  C:0C81H         LINE#         120
+  C:0C81H         LINE#         121
+  C:0C81H         LINE#         123
+  C:0C86H         LINE#         124
+  C:0C8BH         LINE#         125
+  C:0C90H         LINE#         126
+  C:0C95H         LINE#         127
+  C:0C9AH         LINE#         128
+  C:0C9FH         LINE#         129
+  C:0CA4H         LINE#         130
+  C:0CA9H         LINE#         131
+  -------         ENDPROC       CHARACTER_SHOCK_SMILEY
+  -------         PROC          CHARACTER_DISGUST_SMILEY
+  C:0CAEH         LINE#         139
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 10
+
+
+  C:0CAEH         LINE#         140
+  C:0CAEH         LINE#         142
+  C:0CB3H         LINE#         143
+  C:0CB8H         LINE#         144
+  C:0CBDH         LINE#         145
+  C:0CC2H         LINE#         146
+  C:0CC7H         LINE#         147
+  C:0CCCH         LINE#         148
+  C:0CD1H         LINE#         149
+  C:0CD6H         LINE#         150
+  -------         ENDPROC       CHARACTER_DISGUST_SMILEY
+  -------         PROC          CHARACTER_DIAMOND
+  C:0CDBH         LINE#         158
+  C:0CDBH         LINE#         159
+  C:0CDBH         LINE#         161
+  C:0CE0H         LINE#         162
+  C:0CE5H         LINE#         163
+  C:0CEAH         LINE#         164
+  C:0CEFH         LINE#         165
+  C:0CF4H         LINE#         166
+  C:0CF9H         LINE#         167
+  C:0CFEH         LINE#         168
+  C:0D03H         LINE#         169
+  -------         ENDPROC       CHARACTER_DIAMOND
+  -------         PROC          MAIN
+  C:09AAH         LINE#         179
+  C:09AAH         LINE#         180
+  C:09AAH         LINE#         181
+  C:09ADH         LINE#         182
+  C:09B0H         LINE#         183
+  C:09B3H         LINE#         184
+  C:09BAH         LINE#         187
+  C:09BFH         LINE#         190
+  C:09C2H         LINE#         191
+  C:09C9H         LINE#         192
+  C:09CEH         LINE#         193
+  C:09D1H         LINE#         194
+  C:09D8H         LINE#         195
+  C:09DDH         LINE#         196
+  C:09E0H         LINE#         197
+  C:09E7H         LINE#         198
+  C:09ECH         LINE#         199
+  C:09EFH         LINE#         200
+  C:09F6H         LINE#         201
+  C:09FBH         LINE#         202
+  C:09FEH         LINE#         203
+  C:0A05H         LINE#         204
+  C:0A0AH         LINE#         205
+  C:0A0DH         LINE#         206
+  C:0A14H         LINE#         207
+  C:0A19H         LINE#         208
+  C:0A1CH         LINE#         209
+  C:0A23H         LINE#         210
+  C:0A28H         LINE#         211
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        DISPLAY_SPECIAL_CHARACTER
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/08/2015  16:31:23  PAGE 11
+
+
+  -------         MODULE        ?C?CLDPTR
+  C:0AA3H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?UIDIV
+  C:0ABCH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD_PRINT?DISPLAY_SPECIAL_CHARACTER
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 04A1H BYTE (57%) *
+******************************************************************************
+
+Program Size: data=32.1 xdata=0 code=1439
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "startup.o" "velocity_control_pwm.o" --strict --scatter "velocity_control_pwm.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\velocity_control_pwm.map" -o "velocity_control_pwm.axf"

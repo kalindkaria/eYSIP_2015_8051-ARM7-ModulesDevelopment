@@ -1,0 +1,35 @@
+\frametitle{Syntax for C-Program (Contd..)} \pause
+
+		\begin{block}<1->{Main-Program}	\pause
+		\begin{semiverbatim}
+				int main (void)
+				\{
+			\ \		 Init_motion_pin ();
+			\ \		 while(1)
+			\ \	 	\{
+			\ \ \ \ \ \				forward();
+			\ \ \ \ \ \				delay_ms();
+			\ \ \ \ \ \				stop();
+			\ \ \ \ \ \				delay_ms();
+			\ \	 	\}
+				\}
+			\end{semiverbatim}
+		\end{block} \pause
+
+	\begin{block}<2->{Functions}\pause
+		\begin{semiverbatim}
+				void forward (void)
+				\{
+ 		\ \ \		IO0SET= (1<<10);
+		\ \ \	 	IO1SET=(1<<21);
+		\ \ \	 	IO0CLR=(1<<22)|(1<<11);
+				\}
+
+				\hrule \hrule	\pause
+				void stop (void)
+				\{
+ 		\ \ \		IO0CLR=(1<<10)|(1<<11)|(1<<22);
+		\ \ \	 	IO1CLR=(1<<21);
+				\}
+ 		\end{semiverbatim}
+	\end{block}

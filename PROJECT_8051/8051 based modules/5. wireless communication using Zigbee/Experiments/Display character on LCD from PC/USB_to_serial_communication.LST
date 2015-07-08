@@ -1,0 +1,121 @@
+C51 COMPILER V9.01   USB_TO_SERIAL_COMMUNICATION                                           06/10/2015 19:58:28 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE USB_TO_SERIAL_COMMUNICATION
+OBJECT MODULE PLACED IN USB_to_serial_communication.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE USB_to_serial_communication.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2          * Author: Bhumika Varshney, ERTS Lab, IIT Bombay
+   3          * File name: serial_robot_control.c
+   4          * Functions: uart_setup(), RxData(), forward(), backward(), right(), left(), stop()
+   5          * Global variable: unsigned char rx_data, left_velocity, right_velocity, LB, LF, RF, RB 
+   6          * This experiment demonstrates wired serial communication between computer and the robot.
+   7          * Concepts covered: USB to serial communication 
+   8            
+   9           Note: 
+  10           1. Make sure that in the configuration options following settings are 
+  11           done for proper operation of the code
+  12            Microcontroller: P89V51RD2
+  13           Frequency: 11.0592 MHz
+  14           2. Make sure that jumpers are properly connected to select between RS232 and Wireless communication mode.
+  15           3.Zigbee module must be properly configured prior to their use.                                                                   
+  16          4.  Coding Standards followed(For further reference on Coding Standards go to portal link).
+  17          **********************************************************************************************************
+             -***/
+  18          #include <intrins.h>
+  19          #include "p89v51rx2.H"
+  20          #include"lcd_display.h"
+  21          
+  22          unsigned char rx_data;
+  23          /**************************************************************************
+  24                  Function: uart_setup()
+  25                  Input: none
+  26                  Output: desired baud rate 
+  27                  Description: This function configures Timer1 for generating the Baudrate.
+  28                                       The TH1 register should be written with following hex numbers
+  29                                   for desired baud rate. After setting the baudrate, SCON register
+  30                                       for enabling Rx and setting up the frame format.
+  31                  
+  32                                   9600 ----->  0xFD
+  33                                       4800 ----->  0xFA
+  34                                       2400 ----->  0xF4
+  35                                       1200 ----->  0xE8
+  36          
+  37          **************************************************************************/
+  38          void uart_setup()
+  39          {
+  40   1              IEN0=0x90;
+  41   1          TMOD = 0x20;                // configure timer1 for Mode 2 operation for the correct baud rate 
+  42   1          TH1 = 0xFD;         // 9600 bps for 11.0592 MHz clock 
+  43   1          TCON = 0x40;        // Start timer 1 by setting TR1 = 1 
+  44   1          SCON = 0x50;                // Set Serial IO to receive and normal mode 
+  45   1              RI=0;               //Receive Interrupt Flag is cleared
+  46   1              TI=0;                           //Tx interrupt flag is cleared
+  47   1      }                                
+  48          
+  49          /***************************************************************************
+  50                  Function: void char RxData()
+  51                  Input: none
+  52                  output: recieved data byte
+  53                  Description: This function copies any data that is present in the SBUF 
+  54                                       register and returns it to the calling function.
+C51 COMPILER V9.01   USB_TO_SERIAL_COMMUNICATION                                           06/10/2015 19:58:28 PAGE 2   
+
+  55          ***************************************************************************/
+  56          
+  57           unsigned char RxData()
+  58          {
+  59   1          unsigned char rcv_data;
+  60   1              rcv_data = (unsigned char)SBUF;  //if any data is available copy it from SBUF
+  61   1              return rcv_data;      //return the received data
+  62   1      }
+  63          
+  64          /***************************************************************************
+  65          * Function: Interrupt Service Routine
+  66          * Input: none
+  67          * Output: none
+  68          * Logic: whenever serial interrupt occurs it executes this routine
+  69          *        and after this it returns to the main function
+  70          *        serial interrupt occurs whenever data is recieved or transmitted.
+  71          ****************************************************************************/
+  72          void serial_int_isr(void)interrupt 4
+  73          {
+  74   1              rx_data = RxData();  //get the received data
+  75   1              datasend(rx_data);      //sends it to LCD
+  76   1              RI = 0;  //Clear receive interrupt. Must be cleared by the user.
+  77   1              TI = 0; //Clear transmit interrupt. Must be cleared by the user.
+  78   1                      
+  79   1      }
+  80          
+  81          /*
+  82          * Function Name: main
+  83          * Input: None
+  84          * Output: int to inform the caller that the program exited correctly or incorrectly (C code standard)
+  85          * Logic: initializes UART communication and LCD to display characters.
+  86          * Example Call: Called automatically by the Operating System
+  87          *
+  88          */
+  89          void main(void)
+  90          {
+  91   1              uart_setup(); // calling the UART setup function
+  92   1              lcd_init();      //initializes LCD
+  93   1              lcd_clear();
+  94   1              while(1); //loop continuously
+  95   1       }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    774    ----
+   CONSTANT SIZE    =      6    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

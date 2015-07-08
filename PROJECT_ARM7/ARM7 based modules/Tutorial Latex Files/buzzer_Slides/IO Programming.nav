@@ -1,0 +1,59 @@
+\beamer@endinputifotherversion {3.36pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{Outline}{2}{Outline}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\slideentry {1}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\sectionentry {2}{Input-Output Ports in LPC2148}{3}{Input-Output Ports in LPC2148}{0}}
+\headcommand {\beamer@sectionpages {2}{2}}
+\headcommand {\beamer@subsectionpages {2}{2}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{3}{Overview of Ports}}\headcommand {\beamer@subsectionpages {3}{2}}
+\headcommand {\slideentry {2}{1}{1}{3/7}{Overview of Ports}{0}}
+\headcommand {\beamer@framepages {3}{7}}
+\headcommand {\slideentry {2}{1}{2}{8/15}{Overview of Ports}{0}}
+\headcommand {\beamer@framepages {8}{15}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{16}{Acessing Ports}}\headcommand {\beamer@subsectionpages {3}{15}}
+\headcommand {\slideentry {2}{2}{1}{16/22}{Acessing Ports}{0}}
+\headcommand {\beamer@framepages {16}{22}}
+\headcommand {\slideentry {2}{2}{2}{23/28}{Acessing Ports}{0}}
+\headcommand {\beamer@framepages {23}{28}}
+\headcommand {\slideentry {2}{2}{3}{29/36}{Acessing Ports}{0}}
+\headcommand {\beamer@framepages {29}{36}}
+\headcommand {\slideentry {2}{2}{4}{37/41}{Acessing Ports}{0}}
+\headcommand {\beamer@framepages {37}{41}}
+\headcommand {\slideentry {2}{2}{5}{42/49}{Acessing Ports}{0}}
+\headcommand {\beamer@framepages {42}{49}}
+\headcommand {\slideentry {2}{2}{6}{50/59}{Acessing Ports}{0}}
+\headcommand {\beamer@framepages {50}{59}}
+\headcommand {\slideentry {2}{2}{7}{60/68}{Acessing Ports}{0}}
+\headcommand {\beamer@framepages {60}{68}}
+\headcommand {\slideentry {2}{2}{8}{69/77}{Acessing Ports}{0}}
+\headcommand {\beamer@framepages {69}{77}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{78}{Example}}\headcommand {\beamer@subsectionpages {16}{77}}
+\headcommand {\slideentry {2}{3}{1}{78/87}{Example}{0}}
+\headcommand {\beamer@framepages {78}{87}}
+\headcommand {\sectionentry {3}{Write Your First Embedded C Program}{88}{Write Your First Embedded C Program}{0}}
+\headcommand {\beamer@sectionpages {3}{87}}
+\headcommand {\beamer@subsectionpages {78}{87}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{88}{Buzzer Interfacing}}\headcommand {\beamer@subsectionpages {88}{87}}
+\headcommand {\slideentry {3}{1}{1}{88/97}{Buzzer Interfacing}{0}}
+\headcommand {\beamer@framepages {88}{97}}
+\headcommand {\slideentry {3}{1}{2}{98/111}{Buzzer Interfacing}{0}}
+\headcommand {\beamer@framepages {98}{111}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{112}{Programming Tools}}\headcommand {\beamer@subsectionpages {88}{111}}
+\headcommand {\slideentry {3}{2}{1}{112/122}{Programming Tools}{0}}
+\headcommand {\beamer@framepages {112}{122}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{123}{C-code}}\headcommand {\beamer@subsectionpages {112}{122}}
+\headcommand {\slideentry {3}{3}{1}{123/127}{C-code}{0}}
+\headcommand {\beamer@framepages {123}{127}}
+\headcommand {\slideentry {3}{3}{2}{128/133}{C-code}{0}}
+\headcommand {\beamer@framepages {128}{133}}
+\headcommand {\slideentry {3}{3}{3}{134/134}{C-code}{0}}
+\headcommand {\beamer@framepages {134}{134}}
+\headcommand {\beamer@partpages {1}{134}}
+\headcommand {\beamer@subsectionpages {123}{134}}
+\headcommand {\beamer@sectionpages {88}{134}}
+\headcommand {\beamer@documentpages {134}}
+\headcommand {\def \inserttotalframenumber {19}}

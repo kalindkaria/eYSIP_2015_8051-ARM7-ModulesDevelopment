@@ -1,0 +1,1 @@
+-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Philips" -o "pos_encoder2.o" --omf_browse "pos_encoder2.crf" --depend "pos_encoder2.d" "Pos_encoder2.c"

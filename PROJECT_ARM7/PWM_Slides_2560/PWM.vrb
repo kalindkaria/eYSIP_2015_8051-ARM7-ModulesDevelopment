@@ -1,0 +1,32 @@
+\frametitle{Syntax for C-Program} \pause
+\framesubtitle{Program}
+\begin{block}<1->{Main Program} \pause
+\begin{semiverbatim}
+\scriptsize{
+int main(void)
+\{
+\ \ init_devices();
+\ \ forward();
+\ \ while(1)
+\ \ \{
+\ \ \ \ velocity(100,100);
+\ \ \ \ _delay_ms(500);
+\ \ \ \ velocity(0,255);
+\ \ \ \ _delay_ms(500);
+\ \ \}
+\}
+ }
+\end{semiverbatim}
+\end{block} \pause
+
+\begin{block}<1->{Velocity Function} \pause
+\begin{semiverbatim}
+\scriptsize{
+void velocity (unsigned char left_motor, unsigned char right_motor)
+\{
+
+   OCR5AL = (unsigned char)left_motor;
+\ \ \ OCR5BL = (unsigned char)right_motor;
+\}}
+\end{semiverbatim}
+\end{block}

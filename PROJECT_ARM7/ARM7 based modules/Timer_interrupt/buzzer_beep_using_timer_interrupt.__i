@@ -1,0 +1,1 @@
+-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Philips" -o "buzzer_beep_using_timer_interrupt.o" --omf_browse "buzzer_beep_using_timer_interrupt.crf" --depend "buzzer_beep_using_timer_interrupt.d" "buzzer_beep_using_timer_interrupt.c"

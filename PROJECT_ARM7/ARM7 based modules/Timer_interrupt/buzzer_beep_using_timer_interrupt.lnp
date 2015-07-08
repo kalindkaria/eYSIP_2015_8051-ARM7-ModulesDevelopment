@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "startup.o" "buzzer_beep_using_timer_interrupt.o" --strict --scatter "buzzer_beep_using_timer_interrupt.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\buzzer_beep_using_timer_interrupt.map" -o "buzzer_beep_using_timer_interrupt.axf"

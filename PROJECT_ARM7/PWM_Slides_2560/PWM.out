@@ -1,0 +1,14 @@
+\BOOKMARK [2][]{Outline0.2}{Introduction}{}% 1
+\BOOKMARK [3][]{Outline0.2.1.3}{Pulse Width Modulation}{Outline0.2}% 2
+\BOOKMARK [3][]{Outline0.2.2.9}{Duty Cycle}{Outline0.2}% 3
+\BOOKMARK [2][]{Outline0.3}{PWM Generation in AVR}{}% 4
+\BOOKMARK [3][]{Outline0.3.1.29}{Timer in AVR}{Outline0.3}% 5
+\BOOKMARK [3][]{Outline0.3.2.36}{Timer for PWM generation in Firebird}{Outline0.3}% 6
+\BOOKMARK [2][]{Outline0.4}{PWM Generation in Firebird V}{}% 7
+\BOOKMARK [3][]{Outline0.4.1.40}{Registers}{Outline0.4}% 8
+\BOOKMARK [3][]{Outline0.4.2.47}{TCCR5A}{Outline0.4}% 9
+\BOOKMARK [3][]{Outline0.4.3.54}{TCCR5B}{Outline0.4}% 10
+\BOOKMARK [3][]{Outline0.4.4.59}{TCNT5}{Outline0.4}% 11
+\BOOKMARK [3][]{Outline0.4.5.64}{OCR5}{Outline0.4}% 12
+\BOOKMARK [3][]{Outline0.4.6.75}{Block Diagram}{Outline0.4}% 13
+\BOOKMARK [3][]{Outline0.4.7.79}{Program}{Outline0.4}% 14

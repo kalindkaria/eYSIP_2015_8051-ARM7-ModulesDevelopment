@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "startup.o" "square_tracing_experiment.o" --strict --scatter "square_tracing_experiment.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\square_tracing_experiment.map" -o "square_tracing_experiment.axf"

@@ -1,0 +1,1 @@
+-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Philips" -o "obstacle_detection_using_sharpir_sensor.o" --omf_browse "obstacle_detection_using_sharpir_sensor.crf" --depend "obstacle_detection_using_sharpir_sensor.d" "Obstacle_detection_using_sharpIR_sensor.c"

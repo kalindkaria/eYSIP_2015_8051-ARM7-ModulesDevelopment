@@ -1,0 +1,14 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\PROJECT_8051\Fire Bird V P89V51RD2\Expirements\2 IO Operations Motor Direction Control\motorcontrol.uvproj
+Project File Date:  05/28/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+Program Size: data=9.0 xdata=0 code=148
+creating hex file from "motorcontrol"...
+"motorcontrol" - 0 Error(s), 0 Warning(s).

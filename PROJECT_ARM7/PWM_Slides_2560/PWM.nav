@@ -1,0 +1,73 @@
+\beamer@endinputifotherversion {3.33pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{outline}{2}{outline}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\slideentry {1}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\sectionentry {2}{Introduction}{3}{Introduction}{0}}
+\headcommand {\beamer@sectionpages {2}{2}}
+\headcommand {\beamer@subsectionpages {2}{2}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{3}{Pulse Width Modulation}}\headcommand {\beamer@subsectionpages {3}{2}}
+\headcommand {\slideentry {2}{1}{1}{3/8}{Pulse Width Modulation}{0}}
+\headcommand {\beamer@framepages {3}{8}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{9}{Duty Cycle}}\headcommand {\beamer@subsectionpages {3}{8}}
+\headcommand {\slideentry {2}{2}{1}{9/18}{Duty Cycle}{0}}
+\headcommand {\beamer@framepages {9}{18}}
+\headcommand {\slideentry {2}{2}{2}{19/23}{Duty Cycle}{0}}
+\headcommand {\beamer@framepages {19}{23}}
+\headcommand {\slideentry {2}{2}{3}{24/28}{Duty Cycle}{0}}
+\headcommand {\beamer@framepages {24}{28}}
+\headcommand {\sectionentry {3}{PWM Generation in AVR}{29}{PWM Generation in AVR}{0}}
+\headcommand {\beamer@sectionpages {3}{28}}
+\headcommand {\beamer@subsectionpages {9}{28}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{29}{Timer in AVR}}\headcommand {\beamer@subsectionpages {29}{28}}
+\headcommand {\slideentry {3}{1}{1}{29/35}{Timer in AVR}{0}}
+\headcommand {\beamer@framepages {29}{35}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{36}{Timer for PWM generation in Firebird}}\headcommand {\beamer@subsectionpages {29}{35}}
+\headcommand {\slideentry {3}{2}{1}{36/39}{Timer for PWM generation in Firebird}{0}}
+\headcommand {\beamer@framepages {36}{39}}
+\headcommand {\sectionentry {4}{PWM Generation in Firebird V}{40}{PWM Generation in Firebird V}{0}}
+\headcommand {\beamer@sectionpages {29}{39}}
+\headcommand {\beamer@subsectionpages {36}{39}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{40}{Registers}}\headcommand {\beamer@subsectionpages {40}{39}}
+\headcommand {\slideentry {4}{1}{1}{40/46}{Registers}{0}}
+\headcommand {\beamer@framepages {40}{46}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{47}{TCCR5A}}\headcommand {\beamer@subsectionpages {40}{46}}
+\headcommand {\slideentry {4}{2}{1}{47/49}{TCCR5A}{0}}
+\headcommand {\beamer@framepages {47}{49}}
+\headcommand {\slideentry {4}{2}{2}{50/51}{TCCR5A}{0}}
+\headcommand {\beamer@framepages {50}{51}}
+\headcommand {\slideentry {4}{2}{3}{52/53}{TCCR5A}{0}}
+\headcommand {\beamer@framepages {52}{53}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{54}{TCCR5B}}\headcommand {\beamer@subsectionpages {47}{53}}
+\headcommand {\slideentry {4}{3}{1}{54/56}{TCCR5B}{0}}
+\headcommand {\beamer@framepages {54}{56}}
+\headcommand {\slideentry {4}{3}{2}{57/58}{TCCR5B}{0}}
+\headcommand {\beamer@framepages {57}{58}}
+\headcommand {\beamer@subsectionentry {0}{4}{4}{59}{TCNT5}}\headcommand {\beamer@subsectionpages {54}{58}}
+\headcommand {\slideentry {4}{4}{1}{59/63}{TCNT5}{0}}
+\headcommand {\beamer@framepages {59}{63}}
+\headcommand {\beamer@subsectionentry {0}{4}{5}{64}{OCR5}}\headcommand {\beamer@subsectionpages {59}{63}}
+\headcommand {\slideentry {4}{5}{1}{64/71}{OCR5}{0}}
+\headcommand {\beamer@framepages {64}{71}}
+\headcommand {\slideentry {4}{5}{2}{72/74}{OCR5}{0}}
+\headcommand {\beamer@framepages {72}{74}}
+\headcommand {\beamer@subsectionentry {0}{4}{6}{75}{Block Diagram}}\headcommand {\beamer@subsectionpages {64}{74}}
+\headcommand {\slideentry {4}{6}{1}{75/76}{Block Diagram}{0}}
+\headcommand {\beamer@framepages {75}{76}}
+\headcommand {\slideentry {4}{6}{2}{77/78}{Block Diagram}{0}}
+\headcommand {\beamer@framepages {77}{78}}
+\headcommand {\beamer@subsectionentry {0}{4}{7}{79}{Program}}\headcommand {\beamer@subsectionpages {75}{78}}
+\headcommand {\slideentry {4}{7}{1}{79/83}{Program}{0}}
+\headcommand {\beamer@framepages {79}{83}}
+\headcommand {\slideentry {4}{7}{2}{84/88}{Program}{0}}
+\headcommand {\beamer@framepages {84}{88}}
+\headcommand {\slideentry {4}{7}{3}{89/89}{Program}{0}}
+\headcommand {\beamer@framepages {89}{89}}
+\headcommand {\beamer@partpages {1}{89}}
+\headcommand {\beamer@subsectionpages {79}{89}}
+\headcommand {\beamer@sectionpages {40}{89}}
+\headcommand {\beamer@documentpages {89}}
+\headcommand {\def \inserttotalframenumber {22}}

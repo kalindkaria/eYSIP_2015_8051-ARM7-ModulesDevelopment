@@ -1,0 +1,25 @@
+\frametitle{Syntax for C-Program} \pause
+	\begin{itemize}
+		\item Port Initialization
+	\end{itemize}
+		\begin{block}<1->{Left and Right Encoder Port Initialization}	\pause
+		\begin{semiverbatim}
+				\scriptsize{
+							PINSEL1 = 0x20000001; \color{red}//Enabling P0.16 as EINT0  and P0.30 as EINT3\color{black}
+						   }
+			\end{semiverbatim}
+		\end{block} \pause
+	\begin{itemize}
+		\item Interrupt Initialization
+	\end{itemize}
+		\begin{block}<2->{Left and right Encoder Interrupt Initialization}	\pause
+			\begin{semiverbatim}
+					\scriptsize{
+							EXTMODE = 0x09;	               \color{red}// EINT3 and EINT0 is edge sensitive\color{black}
+							EXTPOLAR = 0x00;                \color{red}// EINT3 and EINT0 in triggered on falling edge\color{black}
+							VICIntSelect = 0x00000000;	     \color{red}// Setting EINT2 and EINt0 as IRQ(Vectored)\color{black}
+							EXTINT = 0x09;                   \color{red}//Setting EINT2 \& EINT0 interrupt flag\color{black}
+							VICIntEnable = (1<<17) | (1<<14); \color{red}// Enable EINT3 \& EINT0 flags\color{black}
+						 }
+			\end{semiverbatim}
+		\end{block} \pause

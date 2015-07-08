@@ -1,0 +1,3 @@
+"buzzertest.obj" 
+TO "buzzer" 
+RAMSIZE(256) 

@@ -1,0 +1,23 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\PROJECT_ARM7\ARM7 based modules\SPI_Interface\SPI_Interface.uvproj
+Project File Date:  06/26/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling SPI_Interface.c...
+spi.h(21): warning:  #550-D: variable "Dummy" was set but never used
+spi.h(44): warning:  #550-D: variable "Dummy" was set but never used
+spi.h(92): warning:  #550-D: variable "Dummy" was set but never used
+linking...
+Program Size: Code=3996 RO-data=16 RW-data=0 ZI-data=1256  
+FromELF: creating hex file...
+"SPI_Interface.axf" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: Code=3996 RO-data=16 RW-data=0 ZI-data=1256  
+FromELF: creating hex file...
+"SPI_Interface.axf" - 0 Error(s), 0 Warning(s).

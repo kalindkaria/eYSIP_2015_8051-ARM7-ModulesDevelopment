@@ -1,0 +1,10 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{Analog to Digital Conversion}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{Need for ADC}{3}{0}{1}
+\beamer@subsectionintoc {2}{2}{ADC of LPC2148}{9}{0}{1}
+\beamer@subsectionintoc {2}{3}{ADC Channels}{21}{0}{1}
+\beamer@sectionintoc {3}{Coding ADC}{23}{0}{2}
+\beamer@subsectionintoc {3}{1}{ADC Initilization}{23}{0}{2}
+\beamer@subsectionintoc {3}{2}{ADxCR}{35}{0}{2}
+\beamer@subsectionintoc {3}{3}{ADxGDR}{69}{0}{2}
+\beamer@subsectionintoc {3}{4}{Program}{70}{0}{2}

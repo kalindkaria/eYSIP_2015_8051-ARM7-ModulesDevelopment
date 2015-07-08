@@ -1,0 +1,9 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{Input-Output Ports in LPC2148}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{Overview of Ports}{3}{0}{1}
+\beamer@subsectionintoc {2}{2}{Acessing Ports}{16}{0}{1}
+\beamer@subsectionintoc {2}{3}{Example}{78}{0}{1}
+\beamer@sectionintoc {3}{Write Your First Embedded C Program}{88}{0}{2}
+\beamer@subsectionintoc {3}{1}{Buzzer Interfacing}{88}{0}{2}
+\beamer@subsectionintoc {3}{2}{Programming Tools}{112}{0}{2}
+\beamer@subsectionintoc {3}{3}{C-code}{123}{0}{2}

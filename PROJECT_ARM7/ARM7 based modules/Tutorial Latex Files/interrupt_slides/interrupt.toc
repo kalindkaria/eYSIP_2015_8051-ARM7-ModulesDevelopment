@@ -1,0 +1,11 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{Interrupts}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{What is an Interrupt}{3}{0}{1}
+\beamer@subsectionintoc {2}{2}{Closed Loop Programming}{9}{0}{1}
+\beamer@sectionintoc {3}{Interrupt-Handling on Firebird}{15}{0}{2}
+\beamer@subsectionintoc {3}{1}{Sources of Interrupt}{15}{0}{2}
+\beamer@subsectionintoc {3}{2}{Position Encoder}{32}{0}{2}
+\beamer@subsectionintoc {3}{3}{Interrupt Calculation}{40}{0}{2}
+\beamer@subsectionintoc {3}{4}{External Interrupt Initialization}{48}{0}{2}
+\beamer@subsectionintoc {3}{5}{ISR}{76}{0}{2}
+\beamer@subsectionintoc {3}{6}{C-Code}{81}{0}{2}

@@ -1,0 +1,25 @@
+\frametitle{Syntax for C-Program} \pause
+	\framesubtitle{Program}
+	\begin{block}<1->{AD1 Conversion Function}	\pause
+		\begin{semiverbatim}
+			\scriptsize{
+				unsigned char AD1_Conversion(unsigned char Ch)
+				\{
+				unsigned int Temp;
+				if(channel!=0)
+				\{
+				\ \ \ \	AD1CR = (AD1CR & 0xFFFFFF00) | (1<<channel);
+				\}
+				else
+				\{
+				\ \ \ \	AD1CR = (AD1CR & 0xFFFFFF00) | 0x01;
+				\}
+				AD1CR|=(1 << 24);
+				while((AD1GDR & 0x80000000)==0);
+				Temp = AD1GDR;
+				Temp = (Temp>>8) & 0xFF;
+				return Temp;
+				\}
+			}
+		\end{semiverbatim}
+	\end{block}

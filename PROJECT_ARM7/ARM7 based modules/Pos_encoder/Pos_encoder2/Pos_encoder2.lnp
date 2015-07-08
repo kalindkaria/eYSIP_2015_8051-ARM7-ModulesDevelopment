@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "startup.o" "pos_encoder2.o" --strict --scatter "Pos_encoder2.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\Pos_encoder2.map" -o "Pos_encoder2.axf"

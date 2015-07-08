@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\8051 based modules\wireless communication using Zigbee\Experiments\robot_control_by_polling\serial_communication.uvproj
+Project File Date:  06/09/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD_PRINT?SERIAL_COMMUNICATION
+Program Size: data=33.1 xdata=0 code=1102
+creating hex file from "serial_communication"...
+"serial_communication" - 0 Error(s), 1 Warning(s).

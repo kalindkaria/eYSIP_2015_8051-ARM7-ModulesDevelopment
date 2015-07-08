@@ -1,0 +1,118 @@
+C51 COMPILER V9.01   ADC_VALUE_DISPLAY_ON_LCD                                              06/25/2015 16:09:28 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE ADC_VALUE_DISPLAY_ON_LCD
+OBJECT MODULE PLACED IN ADC_value_display_on_LCD.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ADC_value_display_on_LCD.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2          * Author: Bhumika Varshney, ERTS Lab, IIT Bombay
+   3          * File name: ADC_value_display.c
+   4          * Functions: ADC_conversion(unsigned char ADC_channel_number)
+   5          * Global variable: start_conv, output_enable, unsigned char i
+   6          * This experiment demonstrates  conversion of analog values to digital values.
+   7          * Concepts covered: ADC interfacing 
+   8            
+   9           Note: 
+  10           1. Make sure that in the configuration options following settings are 
+  11           done for proper operation of the code
+  12            Microcontroller: P89V51RD2
+  13           Frequency: 11.0592 MHz
+  14           2. This code displays ADC converted sensor readings. To calculate voltage from the ADC’s digital value we
+             - can use
+  15           following formula:
+  16               V Battery = 0.7V + (ADC value * 0.06149)                                                              
+  17          3.  Coding Standards followed(For further reference on Coding Standards go to portal link).
+  18          **********************************************************************************************************
+             -*********/
+  19          #include <intrins.h>
+  20          #include "p89v51rx2.H"
+  21          #include "lcd_display.h"
+  22          
+  23          sbit start_conv = P3^6;          //P3^6 is connected to Start and ALE pin of ADC0808
+  24          sbit output_enable = P3^7;       //P3^7 is connected to Output Enable Pin of ADC0808
+  25          
+  26          unsigned char i=0;  //used in main function during ADC conversion 
+  27          
+  28          /********************************************************************************
+  29                  Function: ADC_conversion
+  30                  Input: ADC_channel_number
+  31                  Output: Digital equivalent of analog data
+  32                  Description: This function performs ADC conversion of a channel number 
+  33                                           that is passed to it. The return value of this function contains 
+  34                                           digital data of the selected channel.
+  35                             
+  36                                           Analog Sensor Pin Mapping
+  37            
+  38                           IN0-----> IR Proximity sensor 3 (front)
+  39                                           IN1-----> Batt. Voltage
+  40                                           IN2-----> Front Sharp IR Range sensor
+  41                                           IN3-----> IR Proximity sensor 2 (left side)
+  42                                           IN4-----> Left Whiteline
+  43                                           IN5-----> Center Whiteline
+  44                                           IN6-----> Right Whiteline
+  45                                           IN7-----> IR Proximity sensor 4 (right side)
+  46          ********************************************************************************/
+  47          unsigned char ADC_conversion(unsigned char ADC_ch_no)
+  48          {
+  49   1      unsigned char ADC_data;
+  50   1      
+  51   1      P0 = ADC_ch_no;           // to select channel no. send address on P0
+  52   1      
+  53   1      start_conv = 1; // ADC0808 will latch the address on L-H transition on the ALE pin
+C51 COMPILER V9.01   ADC_VALUE_DISPLAY_ON_LCD                                              06/25/2015 16:09:28 PAGE 2   
+
+  54   1      start_conv = 0; // ADC0808 will start conversion on H-L transition on the start pin
+  55   1      delay_ms(2);    // conversion time for ADC0808
+  56   1      
+  57   1      P0 =0xFF;               // output enable and read
+  58   1      output_enable = 1;      //Enabling o/p of ADC0808 for to read the converted data
+  59   1      ADC_data = P0;          //storing adc_data
+  60   1      output_enable = 0;      //disabling ADC 0808 o/p
+  61   1      return ADC_data;        //returning adc_data
+  62   1      }
+  63          
+  64          /*************************************************************************
+  65          * Function Name: main
+  66          * Input: None
+  67          * Output: int to inform the caller that the program exited correctly or
+  68          * incorrectly (C code standard)
+  69          * Logic: displays various sensor's values on LCD after converting it 
+  70          *        to its digital equivalent.  
+  71          * Example Call: Called automatically by the Operating System
+  72          *
+  73          **************************************************************************/
+  74          void main()
+  75          {
+  76   1       unsigned char i=0;
+  77   1       output_enable = 0;
+  78   1       start_conv = 0;    //de-assert all control signals to ADC
+  79   1       
+  80   1       lcd_init(); //Initialize LCD
+  81   1       lcd_clear();
+  82   1        lcd_print(1,1,ADC_conversion(1),3);  //battery voltage value
+  83   1        lcd_print(1,5,ADC_conversion(3),3);  //IR proximity sensor 2
+  84   1        lcd_print(1,9,ADC_conversion(0),3);  //IR proximity sensor 3
+  85   1        lcd_print(1,13,ADC_conversion(7),3); //IR proximity sensor 4
+  86   1        lcd_print(2,1,ADC_conversion(2),3);  //sharp IR sensor value
+  87   1        lcd_print(2,5,ADC_conversion(4),3);  //left white line sensor
+  88   1        lcd_print(2,9,ADC_conversion(5),3);  //center white line sensor
+  89   1        lcd_print(2,13,ADC_conversion(6),3); //right white line sensor
+  90   1        delay_ms(1000);
+  91   1      }//main ends here
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    907    ----
+   CONSTANT SIZE    =      6    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14      11
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,4 @@
+Dependencies for Project 'Pos_encoder3', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x4A02A570)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Philips" --list "Startup.lst" --xref -o "Startup.o")
+F (.\pos_encoder3.c)(0x55894028)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Philips" -o "pos_encoder3.o" --omf_browse "pos_encoder3.crf" --depend "pos_encoder3.d")
+I (C:\Keil\ARM\INC\Philips\lpc214x.h)(0x4A02A636)

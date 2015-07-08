@@ -1,0 +1,15 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {2}{Introduction}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{Pulse Width Modulation}{3}{0}{1}
+\beamer@subsectionintoc {2}{2}{Duty Cycle}{9}{0}{1}
+\beamer@sectionintoc {3}{PWM Generation in AVR}{29}{0}{2}
+\beamer@subsectionintoc {3}{1}{Timer in AVR}{29}{0}{2}
+\beamer@subsectionintoc {3}{2}{Timer for PWM generation in Firebird}{36}{0}{2}
+\beamer@sectionintoc {4}{PWM Generation in Firebird V}{40}{0}{3}
+\beamer@subsectionintoc {4}{1}{Registers}{40}{0}{3}
+\beamer@subsectionintoc {4}{2}{TCCR5A}{47}{0}{3}
+\beamer@subsectionintoc {4}{3}{TCCR5B}{54}{0}{3}
+\beamer@subsectionintoc {4}{4}{TCNT5}{59}{0}{3}
+\beamer@subsectionintoc {4}{5}{OCR5}{64}{0}{3}
+\beamer@subsectionintoc {4}{6}{Block Diagram}{75}{0}{3}
+\beamer@subsectionintoc {4}{7}{Program}{79}{0}{3}

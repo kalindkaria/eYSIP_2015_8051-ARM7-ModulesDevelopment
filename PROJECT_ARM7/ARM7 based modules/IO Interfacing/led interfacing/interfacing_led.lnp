@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "startup.o" "interfacing_led.o" --strict --scatter "interfacing_led.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\interfacing_led.map" -o "interfacing_led.axf"

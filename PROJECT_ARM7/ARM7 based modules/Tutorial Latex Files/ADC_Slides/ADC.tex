@@ -1,0 +1,411 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	E-Yantra, IIT-Bombay
+
+%	Document Author: Bhumika Varshney
+%	Date: 30th June,2015
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[table,10pt,red]{beamer} 
+% change the alerted colour to blue
+\setbeamercolor{alerted text}{fg=blue}
+
+\usetheme{berlin}
+% theme split
+
+\usepackage{beamerthemesplit}
+\usepackage{xcolor}
+\usepackage{booktabs,array}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{verbatim,moreverb}
+
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+
+% theme shadow
+\usepackage{beamerthemeshadow}
+
+% For including figures
+\usepackage{graphicx}
+
+% logo
+\logo{\includegraphics[height=1cm]{iitblogo.pdf}}
+
+
+% sf family, bold font
+\sffamily \bfseries
+% Beginning of title page
+\title
+% content inside [] appears at bottom of all page. content inside {} appears on first page as title. double backslash means line change 
+[
+	Firebird LPC2148 Robotics Research Platform	% bottom
+	\hspace{0.5cm}
+	\insertframenumber/\inserttotalframenumber
+]
+{
+	Using ADC on Firebird-V Robot
+}
+
+\author
+[
+	www.e-yantra.org
+]
+{
+	e-Yantra Team \\
+  Embedded Real-Time Systems Lab\\
+  Indian Institute of Technology-Bombay \\
+}
+\date
+{
+IIT Bombay \\ {\today}
+}
+ 
+ 
+\begin{document} 
+
+% Slide-1: Title Page
+\begin{frame}
+	\titlepage
+\end{frame} 
+
+% Slide-2: Agenda for Discussion
+\section*{Outline}
+\begin{frame}
+	\frametitle{Agenda for Discussion}
+	\tableofcontents
+\end{frame} 
+
+
+\section{Analog to Digital Conversion}
+\subsection{Need for ADC}
+\begin{frame}
+	\frametitle{Need for ADC}
+	\begin{enumerate}[$\checkmark$] \pause
+		\item <+-|alert@+> IR Proximity sensors 
+		\item <+-|alert@+> Sharp IR Range sensors
+		\item <+-|alert@+> white line sensors
+		\item <+-|alert@+> battery voltage sensing
+		\item <+-|alert@+> etc.. 
+	\end{enumerate}
+\end{frame}
+
+\subsection{ADC of LPC2148}
+\begin{frame}
+	\frametitle{In-Built ADC of LPC2148} \pause
+	\begin{enumerate}[$\checkmark$]
+		\item <+-|alert@+> 10-bit Resolution
+		\item <+-|alert@+> $>$2.44 $\mu$s Conversion Time
+		\item <+-|alert@+> Input multiplexing among 6 pins in ADC0.
+		\item <+-|alert@+> Input multiplexing among 8 pins in ADC1.
+		\item <+-|alert@+> Power-down mode.
+		\item <+-|alert@+> Measurement range 0 V to VREF (typically 3 V).
+		\item <+-|alert@+> Burst conversion mode for single or multiple inputs.
+		\item <+-|alert@+> Optional conversion on transition on input pin or Timer Match signal.
+		\item <+-|alert@+> Global Start command for both converters.
+		\item <+-|alert@+> Free Running or Single Conversion Mode
+		\item <+-|alert@+> Interrupt on ADC Conversion complete
+	\end{enumerate}
+\end{frame}	
+	
+\subsection{ADC Channels}
+\begin{frame}[shrink=2]
+	\frametitle{ADC Channels}
+	\begin{itemize}
+		\item Table for ADC Channels \\[20pt]
+	\end{itemize}
+	\begin{tabular}{!{\vrule width 2pt}c|c|c!{\vrule width 2pt}}
+		\noalign{\hrule height 2pt} 
+		\textbf{Pin No.}&\textbf{Pin Name}&\textbf{Description}	\\
+		\hline
+		P0.13&AD1.4&ADC input for Battery Voltage Monitoring	\\
+		\hline
+		P0.29&AD0.2&ADC input for White Line Sensor 3(Right)	\\
+		\hline
+		P0.28&AD0.1&ADC input for White Line Sensor 2(Center)	\\
+		\hline
+		P0.12&AD1.3&ADC input for White Line Sensor 1(Left)	\\
+		\hline
+		P0.4&AD0.6&ADC input for Sharp IR range sensor 2	\\
+		\hline
+		P0.6&AD1.0&ADC input for Sharp IR range sensor 3	\\
+		\hline
+		P0.5&AD0.7&ADC input for Sharp IR range sensor 4	\\
+		\hline
+		\noalign{\hrule height 2pt}
+	\end{tabular} \pause \\[10pt]
+\end{frame}
+
+
+\section{Coding ADC}
+\subsection{ADC Initilization}
+\begin{frame}
+	\frametitle{ADC Initilization}	\pause
+	\begin{enumerate}[$\checkmark$]
+		\item <+-|alert@+>	To Program ADC, we have to initialize registers before using it.  \\[10pt] 
+		The registers are:\pause \\[10pt]
+		\color{red}ADxCR \color{black} where x= 0 or 1 \\[10pt] \pause
+		\begin{enumerate}
+		 	\item <+-|alert@+> \color{red} AD0CR for ADC0 \color{black} - ADC0 Control Register\\[5pt] \pause
+	       \item <+-|alert@+> \color{red} AD1CR for ADC1 \color{black} - ADC1 Control Register\\[5pt]	\pause
+		\end{enumerate}
+		\item <+-|alert@+> Both the Registers are of 32 Bits. \pause
+		\\[20pt]
+		\color{red}{NOTE: }\color{black}AD0.0 and AD0.5 pins are not available for ADC0 \pause
+	\end{enumerate}
+\end{frame}
+
+
+\subsection{ADxCR}
+\begin{frame}
+		\frametitle{ADxCR- ADCx Control Register} 
+		\framesubtitle{This register is Used to control ADC operation} \pause 
+			%	\centering
+				\begin{tabular}{!{\vrule width 0.8pt}>{\columncolor[gray]{0.9}[0.8\tabcolsep]}c|>{\columncolor[gray]{0.9}[0.8\tabcolsep]}c|>{\columncolor[gray]{0.9}[0.8\tabcolsep]}l|>{\columncolor[gray]{0.9}[0.8\tabcolsep]}c!{\vrule width 0.8pt}}
+				\noalign{\hrule height 0.5pt}
+				Bit & Symbol & Description & Bit Value  \pause \\  
+				\noalign{\hrule height 1pt} 
+				\vspace{2pt} 
+				7-0 & SEL & Selects pins to be sampled and converted & \pause 00000000 \pause \\
+				\vspace{2pt}
+				15-8 & CLKDIV & To produce the clock & \pause 0000\color{red}111\color{black}0 \pause \\
+				\vspace{2pt}
+				16 & BURST & To disable Repeated conversions & \pause 0 \pause \\
+				\vspace{2pt}
+				19-17 & CLKS & Selects the number of clocks  & \pause 000 \pause\\
+				\vspace{2pt}
+				20 & - & Reserved & \pause 0 \pause\\
+				\vspace{2pt}
+				21 & PDN & operational or power-down mode & \pause \color{red} 1\color{black}  \pause\\
+				\vspace{2pt}
+				23-22 & - & Reserved & \pause 0 \pause\\
+				\vspace{2pt}
+				26-24 & START & Control start of ADC conversion & \pause 000 \pause\\
+				\vspace{2pt}
+				27 & EDGE & Rising or falling edge  & \pause 0 \pause\\
+				\vspace{2pt}
+				31-28 & - & Reserved & \pause 0000 \pause\\
+				\noalign{\hrule height 0.5pt}			
+			\end{tabular}	\pause \\[10pt]
+		\hspace{6cm}ADxCR\hspace{1pt}=\hspace{1pt}\color{red}0x00200E00; \color{black} \pause
+\end{frame}
+
+\begin{frame}
+	\frametitle{ADxCR} \pause
+	\framesubtitle{contd...}  \pause
+	\begin{itemize}
+		\item Bits 7-0 in ADxCR(SEL)
+	\end{itemize}
+	\begin{table}
+		\footnotesize
+	\begin{tabular}{|c|l|}
+		\hline  SEL &  Description  \\ 
+		\hline \multirow{2}{*}{7} & \color{red}1\color{black}- ADx.7 is sampled and converted \\ 
+		                          &\color{red}0\color{black}- ADx.7 is not sampled and converted \\ 
+	\hline \multirow{2}{*}{6} & \color{red}1\color{black}- ADx.6 is sampled and converted \\ 
+	&\color{red}0\color{black}- ADx.6 is not sampled and converted \\ 
+	\hline \multirow{2}{*}{5} & \color{red}1\color{black}- ADx.5 is sampled and converted \\ 
+	&\color{red}0\color{black}- ADx.5 is not sampled and converted \\ 
+	\hline \multirow{2}{*}{4} & \color{red}1\color{black}- ADx.4 is sampled and converted \\ 
+	&\color{red}0\color{black}- ADx.4 is not sampled and converted \\ 
+	\hline \multirow{2}{*}{3} & \color{red}1\color{black}- ADx.3 is sampled and converted \\ 
+	&\color{red}0\color{black}- ADx.3 is not sampled and converted \\ 
+	\hline \multirow{2}{*}{2} & \color{red}1\color{black}- ADx.2 is sampled and converted \\ 
+	&\color{red}0\color{black}- ADx.2 is not sampled and converted \\ 
+	\hline \multirow{2}{*}{1} & \color{red}1\color{black}- ADx.1 is sampled and converted \\ 
+	&\color{red}0\color{black}- ADx.1 is not sampled and converted \\ 
+	\hline \multirow{2}{*}{0} & \color{red}1\color{black}- ADx.0 is sampled and converted \\ 
+	&\color{red}0\color{black}- ADx.0 is not sampled and converted \\ 
+		\hline
+	\end{tabular}
+	\end{table} 
+\end{frame}
+
+\begin{frame}
+		\frametitle{ADxCR} 
+		\framesubtitle{contd...}  \pause
+		\begin{itemize}
+			\item Bits 19-17 in ADxCR (CLKS)
+		\end{itemize}
+				\centering
+				\begin{tabular}{|c|l|}
+					\hline Bit Value & Function \\ 
+					\hline 000 & 11clocks/ 10bits \\ 
+					\hline 001 & 10clocks/ 9bits \\ 
+					\hline 010 & 9clocks/ 8bits \\ 
+					\hline 011 & 8clocks/ 7bits \\ 
+					\hline 100 & 7clocks/ 6bits \\ 
+					\hline 101 & 6clocks/ 5bits \\ 
+					\hline 110 & 5clocks/ 4bits \\ 
+					\hline 111 & 4clocks/ 3bits \\ 
+					\hline 
+				\end{tabular} \\[10pt]
+				\pause
+\end{frame}
+
+\begin{frame}
+	\frametitle{ADxCR} 
+	\framesubtitle{contd...}  \pause
+	\begin{itemize}
+		\item Bits 26-24 in ADxCR(START): 	When the BURST bit is 0, these bits control whether and when an A/D conversion is started,
+	\end{itemize}
+	\centering
+	\begin{tabular}{|c|l|}
+		\hline Bit Value & Function \\ 
+		\hline 000 & No start \\ 
+		\hline 001 & Start Conversion now \\ 
+		\hline 010 & Start conversion when the edge occurs on P0.16/MAT0.2 \\ 
+		\hline 011 & Start conversion when the edge occurs on P0.22/MAT0.0 \\  
+		\hline 100 & Start conversion when the edge occurs on MAT0.1 \\ 
+		\hline 101 & Start conversion when the edge occurs on MAT0.3 \\ 
+		\hline 110 & Start conversion when the edge occurs on MAT1.0 \\ 
+		\hline 111 & Start conversion when the edge occurs on MAT1.1 \\ 
+		\hline 
+	\end{tabular} \\[10pt]
+	\pause
+\end{frame}
+
+\subsection{ADxGDR}
+\begin{frame}
+		\frametitle{ADxGDR - A/D Global Data Register} 
+		\framesubtitle{This register contains the ADC's DONE bit and the result of the most recent A/D conversion.} 
+			%	\centering
+			\begin{table}
+				\small
+			\begin{tabular}{|c|c|l|}
+				\hline Bit & Symbol & Description \\ 
+				\hline 5-0 & - & Reserved \\ 
+				\hline \multirow{2}{*}{15-6}  & RESULT & When DONE is 1, this \\ 
+											  &  & field contains ADC converted data \\ 
+				\hline 23-16 & - & Reserved \\ 
+				\hline 26-24 & CHN & Channel Number \\ 
+				\hline 29-27 & - & Reserved \\ 
+				\hline \multirow{2}{*}{30} & OVERUN & 1 if the results of one or more conversions were lost before\\
+				                           &        & the conversion that produced the result in the RESULT bits. \\
+				\hline 31 & DONE & This bit is set to 1 when an A/D conversion completes. \\ 
+				\hline 
+			\end{tabular}
+			\end{table}
+\end{frame}
+
+\subsection{Program}
+\begin{frame}[shrink = 4,fragile]
+	\frametitle{Syntax for C-Program} \pause
+	\framesubtitle{ADC Initialization}
+		\begin{block}<1->{Init\_ADC\_Pin}	\pause
+		\begin{semiverbatim}
+				\scriptsize{
+				void Init\_ADC\_Pin (void) \color{green} //Configure ADC Ports  \color{black}
+				\{
+					 
+					PINSEL0= 0x0F003F00;  \color{red}//Set pins P0.4, P0.5, P0.6, P0.12, P0.13 as ADC pins\color{black}
+					PINSEL1= 0x05000000;  \color{red}//Set pins P0.28 and P0.29 as ADC pins\color{black}
+					 
+				\} }
+			\end{semiverbatim}
+		\end{block} \pause
+	
+	\begin{block}<1->{ADC Initialization}	\pause
+		\begin{semiverbatim}
+				\scriptsize{
+				void Init\_ADC()			\color{green} //Set Register Values for starting ADC  \color{black}
+				\{
+					 
+  					AD0CR =
+  					AD1CR =  
+				\} }
+			\end{semiverbatim}
+		\end{block} \pause
+\end{frame}
+
+\begin{frame}[shrink = 2,fragile]
+	\frametitle{Syntax for C-Program} \pause
+	\framesubtitle{Program}
+		\begin{block}<1->{Main Program}	\pause
+		\begin{semiverbatim}
+				\scriptsize{
+				int main(void)
+				\{
+			\ \		Init\_Peripherals();
+			\ \		LCD\_Init();
+			\ \		while(1)
+			\ \		\{
+			\ \ \ \		LCD_Print(2,1,AD1_Conversion(3),3);   //whiteline Left 
+			\ \ \ \ LCD_Print(2,7,AD0_Conversion(1),3);   //whiteline Center	 
+			\ \ \ \ LCD_Print(2,13,AD0_Conversion(2),3);	//whiteline Right
+			\ \		\}
+				\}
+ }
+			\end{semiverbatim}
+		\end{block} \pause
+\end{frame}
+
+\begin{frame}[shrink = 5,fragile]
+	\frametitle{Syntax for C-Program} \pause
+	\framesubtitle{Program}
+		\begin{block}<1->{AD0 Conversion Function}	\pause
+		\begin{semiverbatim}
+				\scriptsize{
+				unsigned char AD0_Conversion(unsigned char Ch)
+				\{
+					unsigned int Temp;
+					if(channel!=0)
+					\{
+					\ \ \ \	AD0CR = (AD0CR & 0xFFFFFF00) | (1<<channel);
+					\}
+					else
+					\{
+					\ \ \ \	AD0CR = (AD0CR & 0xFFFFFF00) | 0x01;
+					\}
+					AD0CR|=(1 << 24);
+					while((AD0GDR & 0x80000000)==0);
+					Temp = AD0GDR;						
+					Temp = (Temp>>8) & 0xFF;
+					return Temp;
+				\}
+ }
+			\end{semiverbatim}
+		\end{block}
+\end{frame}
+
+\begin{frame}[shrink = 5,fragile]
+	\frametitle{Syntax for C-Program} \pause
+	\framesubtitle{Program}
+	\begin{block}<1->{AD1 Conversion Function}	\pause
+		\begin{semiverbatim}
+			\scriptsize{
+				unsigned char AD1_Conversion(unsigned char Ch)
+				\{
+				unsigned int Temp;
+				if(channel!=0)
+				\{
+				\ \ \ \	AD1CR = (AD1CR & 0xFFFFFF00) | (1<<channel);
+				\}
+				else
+				\{
+				\ \ \ \	AD1CR = (AD1CR & 0xFFFFFF00) | 0x01;
+				\}
+				AD1CR|=(1 << 24);
+				while((AD1GDR & 0x80000000)==0);
+				Temp = AD1GDR;						
+				Temp = (Temp>>8) & 0xFF;
+				return Temp;
+				\}
+			}
+		\end{semiverbatim}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}
+\hskip4cm
+\textbf{\LARGE Thank You!} \\[20pt]
+\hskip3cm
+\scriptsize Post your queries on: 
+\hyperref[www.e-yantra.org]{\color{blue} http://qa.e-yantra.org/ \color{black}} 
+\end{frame}
+
+\end{document} 

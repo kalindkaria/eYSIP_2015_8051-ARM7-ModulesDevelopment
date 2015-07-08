@@ -1,0 +1,154 @@
+C51 COMPILER V9.01   POSITION_ENCODER                                                      06/13/2015 11:59:30 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE POSITION_ENCODER
+OBJECT MODULE PLACED IN position_encoder.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE position_encoder.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2          * Author: Bhumika Varshney, ERTS Lab, IIT Bombay
+   3          * File name: position_encoder.c
+   4          * Functions: int1_setup(), forward(), stop()
+   5          * Global variable: left_velocity, right_velocity, LF, LB, RF, RB, left_shaft_count, reqd_shaft_count_int, 
+             -distance
+   6          * This experiment demonstrates simple motion control operation using position encoders and working of exte
+             -rnal interrupts.
+   7          * Concepts covered: Position Encoders and interrupts
+   8            
+   9           Note: 
+  10           1. Make sure that in the configuration options following settings are 
+  11           done for proper operation of the code
+  12            Microcontroller: P89V51RD2
+  13           Frequency: 11.0592 MHz                                                            
+  14          2.  Coding Standards followed(For further reference on Coding Standards go to portal link).
+  15          ********************************************************************************************/
+  16          #include <intrins.h>
+  17          #include "p89v51rx2.H"
+  18          #include"lcd_display.h"
+  19          
+  20          //program specific declarations
+  21          sbit LB=P1^0;       //LEFT BACK Pin.
+  22          sbit LF=P1^1;           //LEFT FRONT Pin.
+  23          sbit RF=P1^2;           //RIGHT FRONT Pin.
+  24          sbit RB=P3^4;           //RIGHT BACK Pin.
+  25          
+  26          sbit left_velocity=P1^3;  //Left velocity control pin. 
+  27          sbit right_velocity=P1^4; //Right velocity control pin. 
+  28          
+  29          unsigned int left_shaft_count=0;//initialize a variable to store the count pulses of the left position enc
+             -oder.
+  30          unsigned int reqd_shaft_count_int=0; //initialize a variable to store required number of count pulses to m
+             -ove for desired distance
+  31          unsigned int distance=0;  //initialize a variable to store desired distance
+  32          
+  33          /****************************************************************************
+  34          * Function: int1_setup
+  35          * Input: none
+  36          * Output: none
+  37          * Logic: initialization routine for Interrupt 1 setup, initalisation of the
+  38          *        Int 1 should be done in the same sequence as given in this function.
+  39          *******************************************************************************/
+  40          void int1_setup() 
+  41          {
+  42   1      TCON = 0x04; //Set Interrupt 1 trigger type to falling edge trigger.
+  43   1      IEN0 = 0x84; //External Interrupt 1 Enable and Global Interrupt Enable. 
+  44   1      
+  45   1      P3=0x08; //set P3.3 (INT 1) as input port.
+  46   1                         // Can also be written as INT1 = 0; (refer to p89v51rx2.H).
+  47   1      }
+  48          
+  49           /************************************************************************
+  50          * Function: Interrupt Service Routine
+  51          * Input: none
+C51 COMPILER V9.01   POSITION_ENCODER                                                      06/13/2015 11:59:30 PAGE 2   
+
+  52          * Output: none
+  53          * Logic: This is an Interrupt Service Routine for external interrut1, 
+  54          *        whenever interrupt1 occurs it executes this routine and 
+  55          *        after this it returns to the main function
+  56          ***************************************************************************/
+  57          void int1_isr(void)interrupt 2     //ISR Routine for External Interrupt 1.
+  58                                                                             //Refer to chapter 4 in the software manual (table 4.1)for syntax explanation.
+  59          {
+  60   1       left_shaft_count++;//when the slotted disc passes through the encoder pulses will be generated,each pulse
+             - will generate an interrupt and the right shaft count value will be incremented.
+  61   1       IE1 = 0; // When interrupt is processed it is cleared automatically by the hardware  or it can also be cl
+             -eared by the software.
+  62   1                        // Clearing IE1 flag to 0.    
+  63   1      }
+  64          /* Function name - forward
+  65          * Input - none 
+  66          * Outut - moves the robot in forward direction
+  67          * Logic - set appropriate bits high to move forward as per the logic table
+  68          */
+  69          void forward(void)
+  70          {
+  71   1      RF=1;
+  72   1      LF=1;
+  73   1      RB=0;
+  74   1      LB=0;
+  75   1      }
+  76          /* Function name - stop
+  77          * Input - none 
+  78          * Outut - stops the robot
+  79          * Logic - set appropriate bits high to stop all motors as per the logic table
+  80          */  
+  81          void stop(void)
+  82          {
+  83   1      RF=0;
+  84   1      LF=0;
+  85   1      RB=0;
+  86   1      LB=0;
+  87   1      }
+  88          /*
+  89          * Function Name: main
+  90          * Input: None
+  91          * Output: int to inform the caller that the program exited correctly or incorrectly (C code standard)
+  92          * Logic: initializes and enable the interrupts and calls functions to move the robot for a desired
+  93          *        distance accordingly 
+  94          * Example Call: Called automatically by the Operating System
+  95          *
+  96          */
+  97          void main()
+  98          {                                                                                         
+  99   1              lcd_init();
+ 100   1              lcd_clear();
+ 101   1              distance=500;  //Enter here the distance to be travelled in mm.
+ 102   1              delay_ms(500);     
+ 103   1       
+ 104   1              reqd_shaft_count_int=(unsigned int)(distance/5.338);  //This equation will calculate the count required 
+             -for distance to be travelled. 
+ 105   1              int1_setup();//external linterrupt 1 initialization.
+ 106   1              lcd_print(1,5,reqd_shaft_count_int,2);
+ 107   1                                              
+ 108   1              left_velocity = 1;       //setting motor enable pins to 1
+ 109   1              right_velocity = 1; //setting motor enable pins to 1
+ 110   1              lcd_print(1,1,left_shaft_count,2);
+C51 COMPILER V9.01   POSITION_ENCODER                                                      06/13/2015 11:59:30 PAGE 3   
+
+ 111   1              forward();        //go forward
+ 112   1              while(left_shaft_count<reqd_shaft_count_int)
+ 113   1              {
+ 114   2                              lcd_print(2,1,left_shaft_count,2);
+ 115   2              }; //wait till desired distance is covered.                          
+ 116   1      
+ 117   1              stop();  //stop motor                   
+ 118   1              while(1);  
+ 119   1      }//main ends                
+ 120          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    849    ----
+   CONSTANT SIZE    =      6    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     19      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

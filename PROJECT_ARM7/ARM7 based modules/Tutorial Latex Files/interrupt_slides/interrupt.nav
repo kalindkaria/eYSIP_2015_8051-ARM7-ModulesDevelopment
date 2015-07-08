@@ -1,0 +1,61 @@
+\beamer@endinputifotherversion {3.36pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{Outline}{2}{Outline}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\slideentry {1}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\sectionentry {2}{Interrupts}{3}{Interrupts}{0}}
+\headcommand {\beamer@sectionpages {2}{2}}
+\headcommand {\beamer@subsectionpages {2}{2}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{3}{What is an Interrupt}}\headcommand {\beamer@subsectionpages {3}{2}}
+\headcommand {\slideentry {2}{1}{1}{3/8}{What is an Interrupt}{0}}
+\headcommand {\beamer@framepages {3}{8}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{9}{Closed Loop Programming}}\headcommand {\beamer@subsectionpages {3}{8}}
+\headcommand {\slideentry {2}{2}{1}{9/14}{Closed Loop Programming}{0}}
+\headcommand {\beamer@framepages {9}{14}}
+\headcommand {\sectionentry {3}{Interrupt-Handling on Firebird}{15}{Interrupt-Handling on Firebird}{0}}
+\headcommand {\beamer@sectionpages {3}{14}}
+\headcommand {\beamer@subsectionpages {9}{14}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{15}{Sources of Interrupt}}\headcommand {\beamer@subsectionpages {15}{14}}
+\headcommand {\slideentry {3}{1}{1}{15/24}{Sources of Interrupt}{0}}
+\headcommand {\beamer@framepages {15}{24}}
+\headcommand {\slideentry {3}{1}{2}{25/31}{Sources of Interrupt}{0}}
+\headcommand {\beamer@framepages {25}{31}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{32}{Position Encoder}}\headcommand {\beamer@subsectionpages {15}{31}}
+\headcommand {\slideentry {3}{2}{1}{32/39}{Position Encoder}{0}}
+\headcommand {\beamer@framepages {32}{39}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{40}{Interrupt Calculation}}\headcommand {\beamer@subsectionpages {32}{39}}
+\headcommand {\slideentry {3}{3}{1}{40/47}{Interrupt Calculation}{0}}
+\headcommand {\beamer@framepages {40}{47}}
+\headcommand {\beamer@subsectionentry {0}{3}{4}{48}{External Interrupt Initialization}}\headcommand {\beamer@subsectionpages {40}{47}}
+\headcommand {\slideentry {3}{4}{1}{48/56}{External Interrupt Initialization}{0}}
+\headcommand {\beamer@framepages {48}{56}}
+\headcommand {\slideentry {3}{4}{2}{57/59}{External Interrupt Initialization}{0}}
+\headcommand {\beamer@framepages {57}{59}}
+\headcommand {\slideentry {3}{4}{3}{60/62}{External Interrupt Initialization}{0}}
+\headcommand {\beamer@framepages {60}{62}}
+\headcommand {\slideentry {3}{4}{4}{63/65}{External Interrupt Initialization}{0}}
+\headcommand {\beamer@framepages {63}{65}}
+\headcommand {\slideentry {3}{4}{5}{66/67}{External Interrupt Initialization}{0}}
+\headcommand {\beamer@framepages {66}{67}}
+\headcommand {\slideentry {3}{4}{6}{68/69}{External Interrupt Initialization}{0}}
+\headcommand {\beamer@framepages {68}{69}}
+\headcommand {\slideentry {3}{4}{7}{70/72}{External Interrupt Initialization}{0}}
+\headcommand {\beamer@framepages {70}{72}}
+\headcommand {\slideentry {3}{4}{8}{73/75}{External Interrupt Initialization}{0}}
+\headcommand {\beamer@framepages {73}{75}}
+\headcommand {\beamer@subsectionentry {0}{3}{5}{76}{ISR}}\headcommand {\beamer@subsectionpages {48}{75}}
+\headcommand {\slideentry {3}{5}{1}{76/80}{ISR}{0}}
+\headcommand {\beamer@framepages {76}{80}}
+\headcommand {\beamer@subsectionentry {0}{3}{6}{81}{C-Code}}\headcommand {\beamer@subsectionpages {76}{80}}
+\headcommand {\slideentry {3}{6}{1}{81/86}{C-Code}{0}}
+\headcommand {\beamer@framepages {81}{86}}
+\headcommand {\slideentry {3}{6}{2}{87/87}{C-Code}{0}}
+\headcommand {\beamer@framepages {87}{87}}
+\headcommand {\beamer@partpages {1}{87}}
+\headcommand {\beamer@subsectionpages {81}{87}}
+\headcommand {\beamer@sectionpages {15}{87}}
+\headcommand {\beamer@documentpages {87}}
+\headcommand {\def \inserttotalframenumber {19}}

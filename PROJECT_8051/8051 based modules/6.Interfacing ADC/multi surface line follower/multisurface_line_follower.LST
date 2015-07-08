@@ -1,0 +1,331 @@
+C51 COMPILER V9.01   MULTISURFACE_LINE_FOLLOWER                                            06/16/2015 12:40:19 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MULTISURFACE_LINE_FOLLOWER
+OBJECT MODULE PLACED IN multisurface_line_follower.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE multisurface_line_follower.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2          * Author: Bhumika Varshney, ERTS Lab, IIT Bombay
+   3          * File name: white_line_follower.c
+   4          * Functions: ADC_conversion(unsigned char ADC_channel_number), left_motor_velocity(unsigned char vel),
+   5          *            right_motor_velocity(unsigned char vel), forward(), right(), left(), stop(), pca_init()
+   6          * Global variable: start_conv, output_enable, unsigned char i, left_velocity, right_velocity, LF, LB, RF, 
+             -RB
+   7          *                  unsigned char flag
+   8          * This experiment demonstrates  white line following by monitoring the white line sensor's values.
+   9          * Concepts covered: ADC and sensors interfacing 
+  10            
+  11           Note: 
+  12           1. Make sure that in the configuration options following settings are 
+  13           done for proper operation of the code
+  14            Microcontroller: P89V51RD2
+  15           Frequency: 11.0592 MHz
+  16           2. This code displays ADC converted sensor readings. To calculate voltage from the ADC’s digital value we
+             - can use
+  17           following formula:
+  18               V Battery = 0.7V + (ADC value * 0.06149)                                                              
+  19          3.  Coding Standards followed(For further reference on Coding Standards go to portal link).
+  20          **********************************************************************************************************
+             -*********/
+  21          #include <intrins.h>
+  22          #include "p89v51rx2.H"
+  23          #include "lcd_display.h"
+  24          
+  25          //The appropriate bits have been defined as per the logic table for motion control
+  26          sbit left_velocity=P1^3;
+  27          sbit right_velocity=P1^4;
+  28          sbit LB=P1^0;
+  29          sbit LF=P1^1;
+  30          sbit RF=P1^2;
+  31          sbit RB=P3^4;
+  32          
+  33          sbit start_conv = P3^6;          //P3^6 is connected to Start and ALE pin of ADC0808
+  34          sbit output_enable = P3^7;               //P3^7 is connected to Output Enable Pin of ADC0808
+  35          
+  36          unsigned char i=0;  //used in main function during ADC conversion
+  37          unsigned char flag=0;  //used in white line following logic
+  38          unsigned char flag1=0;
+  39          unsigned int left_sensor_value=0;
+  40          unsigned int middle_sensor_value=0;
+  41          unsigned int right_sensor_value=0;
+  42          
+  43          /********************************************************************************
+  44                  Function: ADC_conversion
+  45                  Input: ADC_channel_number
+  46                  Output: Digital equivalent of analog data
+  47                  Description: This function performs ADC conversion of a channel number 
+  48                                           that is passed to it. The return value of this function contains 
+  49                                           digital data of the selected channel.
+  50                             
+  51                                           Analog Sensor Pin Mapping
+  52            
+C51 COMPILER V9.01   MULTISURFACE_LINE_FOLLOWER                                            06/16/2015 12:40:19 PAGE 2   
+
+  53                           IN0-----> IR Proximity sensor 3 (front)
+  54                                           IN1-----> Batt. Voltage
+  55                                           IN2-----> Front Sharp IR Range sensor
+  56                                           IN3-----> IR Proximity sensor 2 (left side)
+  57                                           IN4-----> Left Whiteline
+  58                                           IN5-----> Center Whiteline
+  59                                           IN6-----> Right Whiteline
+  60                                           IN7-----> IR Proximity sensor 4 (right side)
+  61          ********************************************************************************/
+  62          unsigned char ADC_conversion(unsigned char ADC_ch_no)
+  63          {
+  64   1      unsigned char ADC_data;
+  65   1      
+  66   1      P0 = ADC_ch_no;           // to select channel no. send address on P0
+  67   1      
+  68   1      start_conv = 1; // ADC0808 will latch the address on L-H transition on the ALE pin
+  69   1      start_conv = 0; // ADC0808 will start conversion on H-L transition on the start pin
+  70   1      delay_ms(2);    // conversion time for ADC0808
+  71   1      
+  72   1      P0 =0xFF;               // output enable and read
+  73   1      output_enable = 1;      //Enabling o/p of ADC0808 for to read the converted data
+  74   1      ADC_data = P0;          //storing adc_data
+  75   1      output_enable = 0;      //disabling ADC 0808 o/p
+  76   1      return ADC_data;        //returning adc_data
+  77   1      }
+  78          
+  79          /**************************************************************************************************
+  80          Function name - left_motor_vel
+  81          * Input - compare velocity in hexadecimal
+  82          * Output - none
+  83          * Logic - changes contents of the capture register in order to change velocity
+  84          *          ,set left motor with velocity vel(compare value)
+  85          * Note - 0x00 will give full (100% duty cycle) velocity, while 0xFF will give zero (0% duty cycle)
+  86          *        velocity. Any value in between 0x00 and 0xFF will give intermediate velocity.
+  87          ****************************************************************************************************/
+  88          void left_motor_velocity(unsigned char vel)
+  89          {
+  90   1      CCAP0H=vel;
+  91   1      }
+  92          
+  93          /**************************************************************************************************
+  94          Function name - right_motor_vel
+  95          * Input - compare velocity in hexadecimal
+  96          * Output - none
+  97          * Logic - changes contents of the capture register in order to change velocity
+  98          *          ,set right motor with velocity vel(compare value)
+  99          * Note - 0x00 will give full (100% duty cycle) velocity, while 0xFF will give zero (0% duty cycle)
+ 100          *        velocity. Any value in between 0x00 and 0xFF will give intermediate velocity.
+ 101          ****************************************************************************************************/
+ 102          void right_motor_velocity(unsigned char vel)
+ 103          {
+ 104   1      CCAP1H=vel;
+ 105   1      }
+ 106          
+ 107          /* Function name - forward
+ 108          * Input - none 
+ 109          * Output - moves the robot in forward direction
+ 110          * Logic - set appropriate bits high to move backward as per the logic table
+ 111          */
+ 112          void forward(void) //go forward
+ 113          {
+ 114   1      RF=1;
+C51 COMPILER V9.01   MULTISURFACE_LINE_FOLLOWER                                            06/16/2015 12:40:19 PAGE 3   
+
+ 115   1      LF=1;
+ 116   1      RB=0;
+ 117   1      LB=0;
+ 118   1      left_motor_velocity(0x4F);      //increase left motor velocity 
+ 119   1       right_motor_velocity(0x4F);  //decrease  right motor velocity
+ 120   1      }
+ 121          /* Function name - left
+ 122          * Input - none 
+ 123          * Outut - turns the robot in left direction
+ 124          * Logic - set appropriate bits high to turn left as per the logic table
+ 125          */
+ 126          void left(void) //go left ( hard left)
+ 127          {
+ 128   1      RF=1;
+ 129   1      LF=1;
+ 130   1      RB=0;
+ 131   1      LB=0;
+ 132   1       left_motor_velocity(0x5F);     //decrease  left motor velocity
+ 133   1       right_motor_velocity(0x2F);    //increase right motor velocity
+ 134   1      
+ 135   1      }
+ 136          /* Function name - right
+ 137          * Input - none 
+ 138          * Outut - turns the robot in right direction
+ 139          * Logic - set appropriate bits high to turn right as per the logic table
+ 140          */
+ 141          void right(void) //go right ( hard right)
+ 142          {
+ 143   1      RF=1;
+ 144   1      LF=1;
+ 145   1      RB=0;
+ 146   1      LB=0;
+ 147   1       left_motor_velocity(0x3F);     //increase left motor velocity 
+ 148   1       right_motor_velocity(0x5F);  //decrease  right motor velocity
+ 149   1      }
+ 150          /* Function name - stop
+ 151          * Input - none 
+ 152          * Outut - stops the robot
+ 153          * Logic - set appropriate bits high to stop all motors as per the logic table
+ 154          */
+ 155          void stop(void) //stop ( soft stop )
+ 156          {
+ 157   1      RF= 0;
+ 158   1      LF= 0;
+ 159   1      RB= 0;
+ 160   1      LB= 0;
+ 161   1      }
+ 162          
+ 163          /*************************************************************************************
+ 164          * Function name - pca_init
+ 165          * Input - none
+ 166          * Output - none
+ 167          * Logic - initialise programmable counter array module to generate pwm. 
+ 168          *         The CCAPnH register holds the reload value. CCAPnL register increments,
+ 169          *         and is loaded with this value everytime it overflows,thus the value in
+ 170          *         CCAPnH can be changed to change the motor velocity
+ 171          ***************************************************************************************/
+ 172          void pca_init(void)
+ 173          {
+ 174   1       CMOD=0x80;        //80 sets PCA counter to run at Fosc/6; 
+ 175   1       CCON=0x40;        //start PCA counter
+ 176   1                                                      
+C51 COMPILER V9.01   MULTISURFACE_LINE_FOLLOWER                                            06/16/2015 12:40:19 PAGE 4   
+
+ 177   1       CCAP0L=0x00;   
+ 178   1       CCAP0H=0xFF;  //Left motor duty cycle register
+ 179   1        
+ 180   1       CCAP1L=0x00;                             
+ 181   1       CCAP1H=0xFF;  //Right motor duty cycle register
+ 182   1      
+ 183   1       CCAPM0=0x42;  //enable PWM mode and ECOM bits for left motor
+ 184   1       CCAPM1=0x42;  //enable PWM mode and ECOM bits for right motor
+ 185   1      }
+ 186          
+ 187          void white_line_follow()
+ 188          {
+ 189   1              if(left_sensor_value>50 && middle_sensor_value<20 && right_sensor_value>50 && flag==0) //checks if middle
+             - sensor is on white line and rest two on black
+ 190   1              {
+ 191   2                      flag=1; //set the flag to 1 so that further white line sensor comparision is disabled
+ 192   2                      forward();  //left and right motor is at same velocity
+ 193   2                      lcd_print(1,15,flag,1);
+ 194   2              }
+ 195   1              if(left_sensor_value<50 && right_sensor_value>50 && flag==0) //if it deviates towards right
+ 196   1              {
+ 197   2                      flag=1; //set the flag to 1 so that further white line sensor comparision is disabled
+ 198   2                      left(); //soft left turn by varying velocity
+ 199   2                      while(left_sensor_value>50);
+ 200   2              }
+ 201   1              if(left_sensor_value>50 && right_sensor_value<50 && flag==0) //if it deviates towards left
+ 202   1              {
+ 203   2                      flag=1; //set the flag to 1 so that further white line sensor comparision is disabled
+ 204   2                      right(); //soft right turn by varying velocity
+ 205   2                      while(right_sensor_value>50);
+ 206   2              }
+ 207   1              if(left_sensor_value>50 && middle_sensor_value>50 && right_sensor_value>50 && flag==0) //if all sensors a
+             -re on black
+ 208   1                      stop();  //stops
+ 209   1      }
+ 210          
+ 211          void black_line_follow()
+ 212          {
+ 213   1              if(left_sensor_value<20 && middle_sensor_value>50 && right_sensor_value<20 && flag==0) //checks if middle
+             - sensor is on white line and rest two on black
+ 214   1              {
+ 215   2                      flag=1; //set the flag to 1 so that further white line sensor comparision is disabled
+ 216   2                      forward();  //left and right motor is at same velocity
+ 217   2              }
+ 218   1              if(left_sensor_value>20 && right_sensor_value<20 && flag==0) //if it deviates towards right
+ 219   1              {
+ 220   2                      flag=1; //set the flag to 1 so that further white line sensor comparision is disabled
+ 221   2                      left(); //soft left turn by varying velocity
+ 222   2                      while(left_sensor_value<20);
+ 223   2              }
+ 224   1              if(left_sensor_value<20 && right_sensor_value>20 && flag==0) //if it deviates towards left
+ 225   1              {
+ 226   2                      flag=1; //set the flag to 1 so that further white line sensor comparision is disabled
+ 227   2                      right(); //soft right turn by varying velocity
+ 228   2                      while(right_sensor_value<20);
+ 229   2              }
+ 230   1              if(left_sensor_value<20 && middle_sensor_value<20 && right_sensor_value<20 && flag==0) //if all sensors a
+             -re on black
+ 231   1                      stop();  //stops
+ 232   1      }
+ 233          /*
+ 234          * Function Name: main
+C51 COMPILER V9.01   MULTISURFACE_LINE_FOLLOWER                                            06/16/2015 12:40:19 PAGE 5   
+
+ 235          * Input: None
+ 236          * Output: int to inform the caller that the program exited correctly or
+ 237          * incorrectly (C code standard)
+ 238          * Logic: constantly monitors the white line sensors value and accordingly adjusts its path.
+ 239          * Example Call: Called automatically by the Operating System
+ 240          *
+ 241          */
+ 242          void main()
+ 243          {
+ 244   1              unsigned int left_sensor_value=0;
+ 245   1              unsigned int middle_sensor_value=0;
+ 246   1              unsigned int right_sensor_value=0;
+ 247   1              
+ 248   1              unsigned char i=0;
+ 249   1              output_enable = 0;
+ 250   1              start_conv = 0;    //de-assert all control signals to ADC
+ 251   1       
+ 252   1              lcd_init(); //Initialize LCD
+ 253   1              pca_init();
+ 254   1              lcd_clear();
+ 255   1              forward(); //moves forward
+ 256   1              left_motor_velocity(0x4F);                      
+ 257   1              right_motor_velocity(0x4F);
+ 258   1      
+ 259   1      while(1)
+ 260   1      {       
+ 261   2              left_sensor_value=ADC_conversion(4); 
+ 262   2              middle_sensor_value=ADC_conversion(5);
+ 263   2              right_sensor_value=ADC_conversion(6);
+ 264   2              
+ 265   2              lcd_print(1,1,left_sensor_value,3);
+ 266   2              lcd_print(1,6,middle_sensor_value,3);
+ 267   2              lcd_print(1,11,right_sensor_value,3);
+ 268   2              delay_ms(1000);
+ 269   2              lcd_print(1,15,flag,1);
+ 270   2              flag=0;
+ 271   2              
+ 272   2              if(left_sensor_value<20 && right_sensor_value<20)
+ 273   2              {
+ 274   3              while(left_sensor_value<20 && right_sensor_value<20)
+ 275   3                      {
+ 276   4                      lcd_cursor(2,1);
+ 277   4                      lcd_string("black line");
+ 278   4                      black_line_follow();
+ 279   4                      }
+ 280   3              }
+ 281   2              else
+ 282   2              {
+ 283   3              while(left_sensor_value>50 && right_sensor_value>50)
+ 284   3                      {
+ 285   4                      lcd_cursor(2,1);
+ 286   4                      lcd_string("white line");
+ 287   4                      white_line_follow();
+ 288   4                      }
+ 289   3              }
+ 290   2      }
+ 291   1      }//main ends here 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1402    ----
+   CONSTANT SIZE    =     28    ----
+C51 COMPILER V9.01   MULTISURFACE_LINE_FOLLOWER                                            06/16/2015 12:40:19 PAGE 6   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     22      17
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,1 @@
+-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I "C:\Keil\ARM\INC" -I "C:\Keil\ARM\INC\Philips" -o "real_time_clock.o" --omf_browse "real_time_clock.crf" --depend "real_time_clock.d" "Real_time_clock.c"

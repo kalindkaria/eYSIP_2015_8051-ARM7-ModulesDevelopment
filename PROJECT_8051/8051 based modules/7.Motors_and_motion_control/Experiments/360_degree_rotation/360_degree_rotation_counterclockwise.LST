@@ -1,0 +1,104 @@
+C51 COMPILER V9.01   360_DEGREE_ROTATION_COUNTERCLOCKWISE                                  06/04/2015 19:05:48 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE 360_DEGREE_ROTATION_COUNTERCLOCKWISE
+OBJECT MODULE PLACED IN 360_degree_rotation_counterclockwise.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 360_degree_rotation_counterclockwise.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2          * Author: Bhumika Varshney, ERTS Lab, IIT Bombay
+   3          * File name: 360_degree_rotation_counterclockwise.c
+   4          * Functions: delay_ms(unsigned int)
+   5          * Global variable: left_velocity, right_velocity, LF, LB, RF, RB
+   6          * This experiment demonstrates simple motion control operation.
+   7          * Concepts covered: Motor interfacing 
+   8            
+   9           Note:
+  10           1. Make sure that in the configuration options following settings are 
+  11           done for proper operation of the code
+  12            Microcontroller: P89V51RD2
+  13           Frequency: 11.0592 MHz                                                            
+  14          2.  Coding Standards followed(For further reference on Coding Standards go to portal link).
+  15          *********************************************************************************/
+  16          #include <intrins.h>
+  17          #include "p89v51rx2.h"
+  18          //The appropriate bits have been defined as per the logic table for motion control
+  19          sbit left_velocity=P1^3;
+  20          sbit right_velocity=P1^4;
+  21          sbit LB=P1^0;
+  22          sbit LF=P1^1;
+  23          sbit RF=P1^2;
+  24          sbit RB=P3^4;
+  25          /* Function name - delay_ms
+  26          * Input - time in milli seconds 
+  27          * Outut - gives delay for the spcified time before executing next instruction
+  28          * Logic - delay can be given in the program by introducing loops
+  29          */
+  30          void delay_ms(unsigned int ms)
+  31          {
+  32   1      unsigned int i,j;
+  33   1      for(i=0; i<ms; i++)
+  34   1      for(j=0; j<53; j++);
+  35   1      }
+  36          //These are the direction functions to move the motors in various directions
+  37          /* Function name - left
+  38          * Input - none 
+  39          * Outut - turns the robot in left direction
+  40          * Logic - set appropriate bits high to turn left as per the logic table
+  41          */
+  42          void left(void) //go left ( hard left)
+  43          {
+  44   1      RF=1;
+  45   1      LF=0;
+  46   1      RB=0;
+  47   1      LB=1;
+  48   1      }
+  49          /* Function name - stop
+  50          * Input - none 
+  51          * Outut - stops the robot
+  52          * Logic - set appropriate bits high to stop all motors as per the logic table
+  53          */
+  54          void stop(void) //stop ( soft stop )
+  55          {
+C51 COMPILER V9.01   360_DEGREE_ROTATION_COUNTERCLOCKWISE                                  06/04/2015 19:05:48 PAGE 2   
+
+  56   1      RF= 0;
+  57   1      LF= 0;
+  58   1      RB= 0;
+  59   1      LB= 0;
+  60   1      }
+  61          /*                                                
+  62          * Function Name: main
+  63          * Input: None
+  64          * Output: int to inform the caller that the program exited correctly or incorrectly (C code standard)
+  65          * Logic: calls the function left and stop accordingly to rotate the robot about its own axis
+  66          * Example Call: Called automatically by the Operating System
+  67          *
+  68          */
+  69          void main (void)
+  70          {
+  71   1      /*here maximum velocity has been set for both the
+  72   1      * motors but to vary it one can apply PWM signal on these 2 pins*/
+  73   1      left_velocity=1;      
+  74   1      right_velocity=1;        
+  75   1      left(); //take left turn
+  76   1      delay_ms(5500); //delay of 5.5 seconds
+  77   1      stop(); //stop
+  78   1      while(1);
+  79   1      }// main ends here
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     69    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

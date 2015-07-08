@@ -1,0 +1,357 @@
+C51 COMPILER V9.01   8051                                                                  06/09/2015 11:01:26 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE 8051
+OBJECT MODULE PLACED IN 8051.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 8051.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1                                                                    
+   2          
+   3          #include <intrins.h>
+   4          #include "p89v51rx2.H"
+   5          #include "lcd_display.h"
+   6          
+   7          //sbit buzzer=P2^7;               //buzzer = 1; buzzer off, buzzer = 0; buzzer on,
+   8          sbit LB=P1^0;                   //LEFT BACK Pin
+   9          sbit LF=P1^1;                   //LEFT FRONT Pin
+  10          sbit RF=P1^2;                   //RIGHT FRONT Pin
+  11          sbit RB=P3^4;                   //RIGHT BACK Pin
+  12          sbit PORT3_3=P3^3;       
+  13          sbit TCON_2=TCON^2;
+  14          sbit IEN0_7=IEN0^7;
+  15          sbit IEN0_3=IEN0^2;
+  16          sbit left_velocity=P1^3;          //Left velocity control pin. 
+  17          sbit right_velocity=P1^4;         //Right velocity control pin.
+  18           
+  19          sbit start_conv = P3^6;          //P3^6 is connected to Start and ALE pin of ADC0808
+  20          sbit output_enable = P3^7;       //P3^7 is connected to Output Enable Pin of ADC0808
+  21          
+  22          unsigned char left_motor_velocity = 0x00;
+  23          unsigned char right_motor_velocity = 0x00;
+  24          
+  25          unsigned char ser_data_upper_nibbel = 0x00;
+  26          unsigned char ser_data_lower_nibbel = 0x00;
+  27          
+  28          unsigned int left_motor_pulse_count = 0x00;
+  29          unsigned int left_motor_pulse_count_locked =0x00;
+  30          
+  31          unsigned char data_array[8];    //initialize an array of 8 elements to display onto the LCD screen
+  32          unsigned char i=0;              //used in main function during ADC conversion 
+  33          
+  34          
+  35          
+  36          void lcd_display(void)
+  37          {
+  38   1      int i=0;
+  39   1      unsigned char lcd_data1[16]={"  FBV GUI MODE  "};  // While defining the character array make sure that it
+             - is less than 16 characters(for each line of LCD) & long enough to hold all characters in the string 
+  40   1      unsigned char lcd_data2[16]={"NEX Robotics IND"};
+  41   1      
+  42   1       commandsend(0x01); // clear display.
+  43   1       commandsend(0x06);  // auto increment cursor position
+  44   1      
+  45   1      for(i=0;i<16;i++)
+  46   1       {
+  47   2        datasend(lcd_data1[i]);
+  48   2       }
+  49   1      
+  50   1      commandsend(0xC0);         //80h+40h. 80h for setting cursor position
+  51   1                                 //40h is the address for the first character on thesecon line
+  52   1      for(i=0;i<16;i++)
+  53   1       {
+  54   2        datasend(lcd_data2[i]);
+C51 COMPILER V9.01   8051                                                                  06/09/2015 11:01:26 PAGE 2   
+
+  55   2       }
+  56   1      }
+  57          
+  58          unsigned char ADC_conversion(unsigned char ADC_ch_no)
+  59          {
+  60   1      unsigned char ADC_data;
+  61   1      
+  62   1      P0 = ADC_ch_no;           // to select channel no. send address on P0
+  63   1      start_conv = 1;           // ADC0808 will latch the address on L-H transition on the ALE pin
+  64   1      start_conv = 0;           // ADC0808 will start conversion on H-L transition on the start pin
+  65   1      delay_ms(2);              // conversion time for ADC0808
+  66   1      P0 =0xFF;                 // output enable and read
+  67   1      output_enable = 1;        //Enabling o/p of ADC0808 for to read the converted data
+  68   1      ADC_data = P0;            //storing adc_data
+  69   1      output_enable = 0;        //disabling ADC 0808 o/p
+  70   1      return ADC_data;          //returning adc_data
+  71   1      }
+  72          
+  73          
+  74           //initialization routine for Interrupt INT1 setup.
+  75          void int1_setup() //Initalisation of the Int 1 should be done in the same sequence as given in this functi
+             -on.
+  76          {
+  77   1      TCON_2 = 1;       //Set Interrupt 1 trigger type to falling edge trigger.
+  78   1      IEN0_7=1;         //IEN0 = 0x84; //External Interrupt 1 Enable and Global Interrupt Enable. 
+  79   1      IEN0_3=1;
+  80   1      PORT3_3=1;        //set P3.3 (INT 1) as input port.
+  81   1      }
+  82          
+  83          void pca_left_init(void)
+  84          {
+  85   1       CMOD=0x80;       //80 sets PCA counter to run at Fosc/6; 
+  86   1       CCON=0x40;       //start PCA counter
+  87   1                                                      
+  88   1       CCAP0L=0x00;   
+  89   1       CCAP0H=0xFF;     //Left motor duty cycle register
+  90   1        
+  91   1       
+  92   1       CCAPM0=0x42;     //enable PWM mode and ECOM bits for left motor
+  93   1       CCAPM1=0x42;     //enable PWM mode and ECOM bits for right motor
+  94   1      }
+  95          
+  96          void pca_right_init(void)
+  97          {
+  98   1       CMOD=0x80;       //80 sets PCA counter to run at Fosc/6; 
+  99   1       CCON=0x40;       //start PCA counter
+ 100   1                                                      
+ 101   1         
+ 102   1       CCAP1L=0x00;                             
+ 103   1       CCAP1H=0xFF;    //Right motor duty cycle register
+ 104   1      
+ 105   1       CCAPM0=0x42;    //enable PWM mode and ECOM bits for left motor
+ 106   1       CCAPM1=0x42;    //enable PWM mode and ECOM bits for right motor
+ 107   1      }
+ 108          
+ 109          void uart_setup()
+ 110          {
+ 111   1          TMOD = 0x20;                // configure timer1 for Mode 2 operation for the correct baud rate 
+ 112   1          TH1 = 0xFD;                 // 9600 bps for 11.0592 MHz clock 
+ 113   1          TCON = 0x40;                // Start timer 1 by setting TR1 = 1 
+ 114   1          SCON = 0x50;                // Set Serial IO to receive and normal mode 
+ 115   1              RI=0;                   //Receive Interrupt Flag is cleared
+C51 COMPILER V9.01   8051                                                                  06/09/2015 11:01:26 PAGE 3   
+
+ 116   1              TI=0;                   //Tx interrupt flag is cleared
+ 117   1      }       
+ 118          
+ 119           void TxData(unsigned char tx_data)
+ 120          {
+ 121   1              
+ 122   1      
+ 123   1              SBUF = tx_data;      //Transmit data that is passed to this function
+ 124   1              while(TI != 1);      //wait while data is being transmitted
+ 125   1      }
+ 126          
+ 127          
+ 128            unsigned char RxData()
+ 129          {
+ 130   1          unsigned char rcv_data;
+ 131   1              rcv_data = SBUF;     //if any data is available copy it from SBUF
+ 132   1              return rcv_data;     //return the received data
+ 133   1      }
+ 134          
+ 135          //ISR for left position encoder
+ 136          
+ 137          void int1_isr(void)interrupt 2
+ 138          {
+ 139   1      
+ 140   1       left_motor_pulse_count++;
+ 141   1       IE1=0;
+ 142   1      }
+ 143          
+ 144          void serial_int_isr(void)interrupt 4
+ 145          {
+ 146   1      unsigned char rx_data;
+ 147   1      
+ 148   1       rx_data = RxData();
+ 149   1       
+ 150   1      //________________ IR PROXIMITY STATUS COMMANDS _____________________
+ 151   1       if(rx_data==0xc2)                            //IR left
+ 152   1        {
+ 153   2        TxData(data_array[3]);
+ 154   2        }
+ 155   1      
+ 156   1       if(rx_data==0xc3)                            //IR center
+ 157   1        {                                                        
+ 158   2      
+ 159   2        TxData(data_array[0]);
+ 160   2        }
+ 161   1      
+ 162   1       if(rx_data==0xc4)                             //IR Right
+ 163   1        {
+ 164   2        TxData(data_array[7]);
+ 165   2        }
+ 166   1       //________ BATT VALUE + WHITE LINE SENSORS + SHARP SENSORS _________
+ 167   1        if(rx_data==0x60)                          //batt_voltage
+ 168   1        {
+ 169   2        TxData(data_array[1]);
+ 170   2        }
+ 171   1      
+ 172   1       if(rx_data==0x64)                           //white line left
+ 173   1        {
+ 174   2        TxData(data_array[4]);
+ 175   2        }
+ 176   1      
+ 177   1       if(rx_data==0x65)                           //white line center
+C51 COMPILER V9.01   8051                                                                  06/09/2015 11:01:26 PAGE 4   
+
+ 178   1        {
+ 179   2        TxData(data_array[5]);
+ 180   2        }
+ 181   1      
+ 182   1       if(rx_data==0x66)                           //white line right
+ 183   1        {
+ 184   2        TxData(data_array[6]);
+ 185   2        }
+ 186   1      
+ 187   1       if(rx_data==0x62)                            //sharp sensor
+ 188   1        {
+ 189   2        TxData(data_array[2]);
+ 190   2        }
+ 191   1      
+ 192   1      //________________ Buzzer status _____________________
+ 193   1       if(rx_data==0x69)                            //buzzer on
+ 194   1        {
+ 195   2        buzzer=0;                                      
+ 196   2        }
+ 197   1      
+ 198   1       if(rx_data==0x6A)                            //buzzer off
+ 199   1        {
+ 200   2       buzzer=1;
+ 201   2        }
+ 202   1      
+ 203   1      //__________________________Motion Control_____________
+ 204   1       if(rx_data==0x51)                            //forward
+ 205   1        {
+ 206   2         left_velocity=1; 
+ 207   2         right_velocity=1;
+ 208   2         RF=1;
+ 209   2         LF=1;
+ 210   2         RB=0;
+ 211   2         LB=0;
+ 212   2        }
+ 213   1      
+ 214   1       if(rx_data==0x52)                            //backward
+ 215   1        {
+ 216   2         left_velocity=1; 
+ 217   2         right_velocity=1;
+ 218   2         RF=0;
+ 219   2         LF=0;
+ 220   2         RB=1;
+ 221   2         LB=1;
+ 222   2        }
+ 223   1      
+ 224   1      if(rx_data==0x54)                             //left
+ 225   1        {
+ 226   2         left_velocity=1; 
+ 227   2         right_velocity=1;
+ 228   2         RF=1;
+ 229   2         LF=0;
+ 230   2         RB=0;
+ 231   2         LB=1;
+ 232   2        }
+ 233   1                                                               
+ 234   1        if(rx_data==0x53)                           //right
+ 235   1        {
+ 236   2         left_velocity=1; 
+ 237   2         right_velocity=1;
+ 238   2         RF=0;
+ 239   2         LF=1;
+C51 COMPILER V9.01   8051                                                                  06/09/2015 11:01:26 PAGE 5   
+
+ 240   2         RB=1;
+ 241   2         LB=0;
+ 242   2        }
+ 243   1      
+ 244   1        if(rx_data==0x59)                           //stop
+ 245   1        {
+ 246   2         left_velocity=1; 
+ 247   2         right_velocity=1;
+ 248   2         RF=0;
+ 249   2         LF=0;
+ 250   2         RB=0;
+ 251   2         LB=0;
+ 252   2        }
+ 253   1      
+ 254   1      //__________________________Locomotoion setting commands_____________ 
+ 255   1       if((rx_data & 0xF0) == 0x10)
+ 256   1       {
+ 257   2       pca_left_init();
+ 258   2       ser_data_lower_nibbel = rx_data & 0x0F;
+ 259   2       left_motor_velocity = ser_data_lower_nibbel;
+ 260   2       } 
+ 261   1      
+ 262   1       if((rx_data & 0xF0)==0x20)
+ 263   1        { 
+ 264   2         
+ 265   2         ser_data_lower_nibbel = rx_data & 0x0F;
+ 266   2         left_motor_velocity = ((ser_data_lower_nibbel * 16) + left_motor_velocity);
+ 267   2         CCAP0H=(0xFF - left_motor_velocity);
+ 268   2        }
+ 269   1       
+ 270   1        if((rx_data & 0xF0) == 0x30)
+ 271   1       {
+ 272   2        pca_right_init();
+ 273   2        ser_data_lower_nibbel = rx_data & 0x0F;
+ 274   2        right_motor_velocity = ser_data_lower_nibbel;
+ 275   2       }       
+ 276   1      
+ 277   1       if((rx_data & 0xF0)==0x40)
+ 278   1        { 
+ 279   2         ser_data_lower_nibbel = rx_data & 0x0F;
+ 280   2         left_motor_velocity = ((ser_data_lower_nibbel * 16) + right_motor_velocity);
+ 281   2         CCAP1H= ( 0xFF - left_motor_velocity);
+ 282   2        }
+ 283   1      /*********************************************************************************************************
+             -****/
+ 284   1       if(rx_data==0x72)                               //Lower_byte number of pulse counted
+ 285   1        {
+ 286   2         left_motor_pulse_count_locked=left_motor_pulse_count;
+ 287   2         TxData(left_motor_pulse_count_locked % 256);
+ 288   2        }  
+ 289   1      
+ 290   1       if(rx_data==0x73)                               //Upper_byte number of pulse counted
+ 291   1        {
+ 292   2         TxData(left_motor_pulse_count_locked / 256);
+ 293   2        }  
+ 294   1       RI=0;
+ 295   1       TI=0;
+ 296   1       }
+ 297          
+ 298           //-------------------------------------------------------------------------------
+ 299          //Main Function
+ 300          //--------------------------------------------------------------------------------
+C51 COMPILER V9.01   8051                                                                  06/09/2015 11:01:26 PAGE 6   
+
+ 301          void main()
+ 302          {
+ 303   1      
+ 304   1       unsigned char i=0;
+ 305   1       output_enable = 0;
+ 306   1       start_conv = 0;    //de-assert all control signals to ADC
+ 307   1       IEN0 = 0x90;
+ 308   1       buzzer = 1;        //buzzer off
+ 309   1       lcd_init();        //Initialize LCD
+ 310   1       uart_setup();      //Initialize Uart 
+ 311   1       int1_setup();      //Initialize hardware Interrupt INT1 
+ 312   1       lcd_display(); 
+ 313   1       while(1)
+ 314   1       {
+ 315   2      
+ 316   2        for(i=0;i<8;i++)
+ 317   2        {
+ 318   3         data_array[i] = ADC_conversion(i);
+ 319   3        }
+ 320   2       }
+ 321   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1233    ----
+   CONSTANT SIZE    =     38    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     30      43
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

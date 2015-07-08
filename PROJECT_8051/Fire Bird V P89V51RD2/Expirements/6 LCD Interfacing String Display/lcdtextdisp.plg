@@ -1,0 +1,15 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\PROJECT_8051\Fire Bird V P89V51RD2\Expirements\6 LCD Interfacing String Display\lcdtextdisp.uvproj
+Project File Date:  06/03/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=42.1 xdata=0 code=841
+creating hex file from "lcdtextdisp"...
+"lcdtextdisp" - 0 Error(s), 0 Warning(s).

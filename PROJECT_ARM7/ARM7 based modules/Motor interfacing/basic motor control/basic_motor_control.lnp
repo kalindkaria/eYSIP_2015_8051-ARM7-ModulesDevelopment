@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "startup.o" "basic_motor_control.o" --strict --scatter "basic_motor_control.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\basic_motor_control.map" -o "basic_motor_control.axf"

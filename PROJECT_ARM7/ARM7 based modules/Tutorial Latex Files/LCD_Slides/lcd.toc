@@ -1,0 +1,12 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{Introduction}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{LCD-Definition}{3}{0}{1}
+\beamer@sectionintoc {3}{Understanding LCD}{11}{0}{2}
+\beamer@subsectionintoc {3}{1}{Pin-Configuration}{11}{0}{2}
+\beamer@subsectionintoc {3}{2}{Control Pins}{23}{0}{2}
+\beamer@subsectionintoc {3}{3}{Data Pins}{33}{0}{2}
+\beamer@sectionintoc {4}{LCD Programming}{40}{0}{3}
+\beamer@subsectionintoc {4}{1}{LCD Interfacing}{40}{0}{3}
+\beamer@subsectionintoc {4}{2}{Some Important commands}{42}{0}{3}
+\beamer@subsectionintoc {4}{3}{LCD Initialization}{53}{0}{3}
+\beamer@subsectionintoc {4}{4}{Programming}{62}{0}{3}

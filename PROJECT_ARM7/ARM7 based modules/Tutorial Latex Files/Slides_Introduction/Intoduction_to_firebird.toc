@@ -1,0 +1,17 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{Introduction to Robotics}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{Major Components of a Robot}{3}{0}{1}
+\beamer@sectionintoc {3}{Introduction to FireBird Platform}{10}{0}{2}
+\beamer@subsectionintoc {3}{1}{Firebird V 8051 Platform}{14}{0}{2}
+\beamer@subsectionintoc {3}{2}{Firebird V AVR Platform}{18}{0}{2}
+\beamer@subsectionintoc {3}{3}{Firebird V ARM Platform}{22}{0}{2}
+\beamer@sectionintoc {4}{Introduction to FireBird LPC2148 Platform}{26}{0}{3}
+\beamer@subsectionintoc {4}{1}{Major Components of a Robot}{26}{0}{3}
+\beamer@subsectionintoc {4}{2}{Sensors}{27}{0}{3}
+\beamer@subsectionintoc {4}{3}{Actuators}{62}{0}{3}
+\beamer@subsectionintoc {4}{4}{Control}{64}{0}{3}
+\beamer@subsectionintoc {4}{5}{Intelligence}{66}{0}{3}
+\beamer@subsectionintoc {4}{6}{Power}{68}{0}{3}
+\beamer@subsectionintoc {4}{7}{Communication}{70}{0}{3}
+\beamer@subsectionintoc {4}{8}{Indicating Devices}{76}{0}{3}
+\beamer@subsectionintoc {4}{9}{Block Diagram}{83}{0}{3}

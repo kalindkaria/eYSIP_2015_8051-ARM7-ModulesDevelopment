@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "startup.o" "white_line_follower.o" --strict --scatter "white_line_follower.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\white_line_follower.map" -o "white_line_follower.axf"

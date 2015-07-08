@@ -1,0 +1,3 @@
+"ADC_value_display_on_LCD.obj" 
+TO "ADC_value_display_on_LCD" 
+RAMSIZE(256) 

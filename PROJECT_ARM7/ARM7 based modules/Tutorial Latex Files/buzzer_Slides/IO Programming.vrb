@@ -1,0 +1,33 @@
+\frametitle{Syntax for C-Program} \pause
+
+		\begin{block}<1->{Main-Program}	\pause
+		\begin{semiverbatim}
+				int main (void)
+				\{
+			\ \		 Init_buzzer_pin ();
+			\ \		 while(1)
+			\ \	 	\{
+			\ \ \ \ \ \				buzzer_on();
+			\ \ \ \ \ \				delay_ms();
+			\ \ \ \	\ \			buzzer_off();
+			\ \ \ \	\ \			delay_ms();
+			\ \	 	\}
+				\}
+			\end{semiverbatim}
+		\end{block} \pause
+
+	\begin{block}<2->{Functions}\pause
+		\begin{semiverbatim}
+				void buzzer_on (void)
+				\{
+ 		\ \ \		IO0SET = 0x02000000;
+				\}
+
+				\hrule \hrule	\pause
+				void buzzer_off (void)
+				\{
+ 		\ \ \		IO0CLR = 0x02000000;
+				\}
+ 		\end{semiverbatim}
+	\end{block}
+

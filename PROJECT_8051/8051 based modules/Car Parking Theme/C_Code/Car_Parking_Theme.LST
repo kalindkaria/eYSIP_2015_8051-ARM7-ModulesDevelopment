@@ -1,0 +1,226 @@
+C51 COMPILER V9.01   CAR_PARKING_THEME                                                     07/02/2015 15:17:48 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE CAR_PARKING_THEME
+OBJECT MODULE PLACED IN Car_Parking_Theme.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Car_Parking_Theme.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<intrins.h>
+   2          #include"p89v51rx2.h"
+   3          #include"lcd_display.h"
+   4          #include"adc.h"
+   5          #include"pwm.h"
+   6          #include"position_encoder.h"
+   7          #include"buzzer.h"
+   8          
+   9          #define Sharp_sensor_threshold 60
+  10          
+  11          unsigned int node_count;
+  12          unsigned int left_white_line=0;
+  13          unsigned int center_white_line=0;
+  14          unsigned int right_white_line=0;
+  15          unsigned char flag=0;
+  16          
+  17          /***********Function Prototypes****************/
+  18          int on_node(void);
+  19          
+  20          int on_node(void)
+  21          {
+  22   1              if((ADC_conversion(6)>0x28&&ADC_conversion(5)>0x28)||(ADC_conversion(4)>0x28&&ADC_conversion(5)>0x28)||(A
+             -DC_conversion(6)>0x28&&ADC_conversion(5)>0x28&&ADC_conversion(4)>0x28))
+  23   1              return 1;
+  24   1              else
+  25   1              return 0;       
+  26   1      }
+  27          
+  28          int slot_used(void)
+  29          {
+  30   1              if(ADC_conversion(2)>Sharp_sensor_threshold)
+  31   1              return 1;
+  32   1              else
+  33   1              return 0;               
+  34   1      }
+  35          int slot_empty(void)
+  36          {
+  37   1              if(ADC_conversion(2)<Sharp_sensor_threshold)
+  38   1              return 1;
+  39   1              else
+  40   1              return 0;
+  41   1      }
+  42          
+  43          void follow_black_line()
+  44          {
+  45   1              while(1)
+  46   1      {
+  47   2              left_white_line=ADC_conversion(4); 
+  48   2              center_white_line=ADC_conversion(5);
+  49   2              right_white_line=ADC_conversion(6);
+  50   2              
+  51   2              lcd_print(1,1,left_white_line,3);
+  52   2              lcd_print(1,6,center_white_line,3);
+  53   2              lcd_print(1,11,right_white_line,3);
+  54   2              lcd_print(2,1,flag,1);
+C51 COMPILER V9.01   CAR_PARKING_THEME                                                     07/02/2015 15:17:48 PAGE 2   
+
+  55   2      
+  56   2              flag=0;
+  57   2      
+  58   2      
+  59   2                if(center_white_line>30)            //Monitor center black line
+  60   2          {
+  61   3            flag=1;
+  62   3            forward();
+  63   3            velocity(250,250); 
+  64   3          }  
+  65   2      
+  66   2          if((left_white_line<30) && (flag==0) && (right_white_line>30))    //Monitor left black line
+  67   2          {
+  68   3              //      flag=1;
+  69   3            forward();
+  70   3            velocity(250,190);
+  71   3          }
+  72   2      
+  73   2          if((right_white_line<30) && (flag==0) && (left_white_line>30) )      //Monitor right black line
+  74   2          {
+  75   3            forward();
+  76   3            velocity(190,250);
+  77   3          }
+  78   2      
+  79   2          if(left_white_line<30 && right_white_line<30 &&(flag==0))    // Random motion to again follow black li
+             -ne
+  80   2          {
+  81   3            forward();
+  82   3            velocity(250,250);     
+  83   3          }
+  84   2      
+  85   2          if((left_white_line>30 && center_white_line>30)| (right_white_line>30 && center_white_line>30))
+  86   2          {
+  87   3            stop();
+  88   3                delay_ms(500);
+  89   3                break;
+  90   3              }
+  91   2        }
+  92   1      }
+  93          
+  94          void right_turn(void)
+  95          {
+  96   1              move_forward(70);
+  97   1              stop();
+  98   1              delay_ms(500);
+  99   1              right_degrees(45);
+ 100   1              while(1)
+ 101   1              {
+ 102   2              left_white_line=ADC_conversion(4); 
+ 103   2              center_white_line=ADC_conversion(5);
+ 104   2              right_white_line=ADC_conversion(6);
+ 105   2              
+ 106   2              lcd_print(1,1,left_white_line,3);
+ 107   2              lcd_print(1,6,center_white_line,3);
+ 108   2              lcd_print(1,11,right_white_line,3);
+ 109   2              lcd_print(2,1,flag,1);
+ 110   2              right();
+ 111   2                      velocity(200,200);
+ 112   2              if(ADC_conversion(1)>30 && ADC_conversion(3)<30 && ADC_conversion(2)<30)
+ 113   2               {
+ 114   3               stop();
+ 115   3               break;
+C51 COMPILER V9.01   CAR_PARKING_THEME                                                     07/02/2015 15:17:48 PAGE 3   
+
+ 116   3                }
+ 117   2              }
+ 118   1                        
+ 119   1      
+ 120   1       }
+ 121           void left_turn(void)
+ 122          {
+ 123   1              move_forward(70);
+ 124   1              stop();
+ 125   1              delay_ms(500);
+ 126   1              left_degrees(45);
+ 127   1      
+ 128   1              while(1)
+ 129   1              {
+ 130   2              left_white_line=ADC_conversion(3); 
+ 131   2              center_white_line=ADC_conversion(1);
+ 132   2              right_white_line=ADC_conversion(2);
+ 133   2              
+ 134   2              lcd_print(1,1,left_white_line,3);
+ 135   2              lcd_print(1,6,center_white_line,3);
+ 136   2              lcd_print(1,11,right_white_line,3);
+ 137   2              lcd_print(2,1,flag,1);
+ 138   2              left();
+ 139   2              velocity(200,200);
+ 140   2               if(ADC_conversion(1)>30 && ADC_conversion(3)<30 && ADC_conversion(2)<30)
+ 141   2               {
+ 142   3               stop();
+ 143   3               break;
+ 144   3              } 
+ 145   2              }
+ 146   1      }
+ 147          int main(void)
+ 148          {
+ 149   1              lcd_init();
+ 150   1              lcd_clear();
+ 151   1              pca_init();
+ 152   1              left_white_line=ADC_conversion(4); 
+ 153   1              center_white_line=ADC_conversion(5);
+ 154   1              right_white_line=ADC_conversion(6);
+ 155   1              
+ 156   1              lcd_print(1,1,left_white_line,3);
+ 157   1              lcd_print(1,6,center_white_line,3);
+ 158   1              lcd_print(1,11,right_white_line,3);
+ 159   1              lcd_print(2,1,ADC_conversion(2),3);
+ 160   1              delay_ms(1000);
+ 161   1      follow_black_line();
+ 162   1              if(slot_used())
+ 163   1              {
+ 164   2                      stop();
+ 165   2                      buzzer_on();
+ 166   2                      delay_ms(1000);
+ 167   2                      buzzer_off();
+ 168   2                      right_turn();
+ 169   2              }
+ 170   1              else
+ 171   1              left_turn(); 
+ 172   1              /*node_count=0;
+ 173   1              while(task_completed())
+ 174   1              {
+ 175   1              while(!on_node())
+ 176   1              {
+ 177   1                      follow_black_line();
+C51 COMPILER V9.01   CAR_PARKING_THEME                                                     07/02/2015 15:17:48 PAGE 4   
+
+ 178   1              }
+ 179   1              node_count++;
+ 180   1              stop();
+ 181   1              lcd_print(1,1,node_count,2);
+ 182   1              if(node_count==1)
+ 183   1               {
+ 184   1                      left_turn();
+ 185   1               }
+ 186   1              if(node_count==2 || node_count==8 || node_count==9 || node_count==15)
+ 187   1               {
+ 188   1                      right_turn();
+ 189   1               }
+ 190   1              else
+ 191   1              forward();
+ 192   1              } */ 
+ 193   1                      
+ 194   1      }
+*** WARNING C290 IN LINE 194 OF CAR_PARKING_THEME.C: missing return value
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1912    ----
+   CONSTANT SIZE    =      6    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     31      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,103 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/22/2015  16:22:51  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE buzzertest.obj TO buzzer RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  buzzertest.obj (BUZZERTEST)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  buzzer (BUZZERTEST)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     0020H     UNIT         ?PR?_DELAY_MS?BUZZERTEST
+            CODE    0820H     000EH     UNIT         ?PR?MAIN?BUZZERTEST
+            CODE    082EH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   buzzer (BUZZERTEST)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?BUZZERTEST
+
+?PR?MAIN?BUZZERTEST
+  +--> ?PR?_DELAY_MS?BUZZERTEST
+
+
+
+SYMBOL TABLE OF MODULE:  buzzer (BUZZERTEST)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        BUZZERTEST
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IEN0
+  D:00E8H         PUBLIC        IEN1
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/22/2015  16:22:51  PAGE 2
+
+
+  D:00D8H         PUBLIC        CCON
+  B:00A0H.7       PUBLIC        buzzer
+  C:0820H         PUBLIC        main
+  D:00C0H         PUBLIC        WDTC
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00B8H         PUBLIC        IP0
+  D:00F8H         PUBLIC        IP1
+  C:0800H         PUBLIC        _delay_ms
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:0800H         LINE#         27
+  C:0800H         LINE#         28
+  C:0800H         LINE#         30
+  C:080AH         LINE#         31
+  C:081FH         LINE#         32
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          MAIN
+  C:0820H         LINE#         41
+  C:0820H         LINE#         42
+  C:0820H         LINE#         43
+  C:0822H         LINE#         44
+  C:0829H         LINE#         45
+  C:082BH         LINE#         46
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        BUZZERTEST
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 002EH BYTE ( 2%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=61
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{Basic Movements of Robot}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{Motion of Robot}{3}{0}{1}
+\beamer@subsectionintoc {2}{2}{Understanding L293D IC}{31}{0}{1}
+\beamer@sectionintoc {3}{Motor Interfacing on Firebird}{33}{0}{2}
+\beamer@subsectionintoc {3}{1}{Pin connections}{33}{0}{2}
+\beamer@subsectionintoc {3}{2}{Logic Table}{40}{0}{2}
+\beamer@subsectionintoc {3}{3}{Writing C-Code}{56}{0}{2}

@@ -1,0 +1,14 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\PROJECT_8051\Project3\led_interfacing.uvproj
+Project File Date:  05/29/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+Program Size: data=9.0 xdata=0 code=63
+creating hex file from "led_interfacing"...
+"led_interfacing" - 0 Error(s), 0 Warning(s).

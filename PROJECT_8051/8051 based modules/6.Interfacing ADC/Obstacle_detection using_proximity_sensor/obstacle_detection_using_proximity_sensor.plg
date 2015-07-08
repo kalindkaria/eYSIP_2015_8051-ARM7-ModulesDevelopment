@@ -1,0 +1,41 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\8051 based modules\Obstacle_detection using_proximity_sensor\obstacle_detection_using_proximity_sensor.uvproj
+Project File Date:  06/12/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+Target has no object modules
+Target not created
+Build target 'Target 1'
+Target has no object modules
+Target not created
+Build target 'Target 1'
+compiling obstacle_detection_using_proximity_sensor.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?RIGHT?OBSTACLE_DETECTION_USING_PROXIMITY_SENSOR
+Program Size: data=40.1 xdata=0 code=1202
+creating hex file from "obstacle_detection_using_proximity_sensor"...
+"obstacle_detection_using_proximity_sensor" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling obstacle_detection_using_proximity_sensor.c...
+linking...
+Program Size: data=40.1 xdata=0 code=1193
+creating hex file from "obstacle_detection_using_proximity_sensor"...
+"obstacle_detection_using_proximity_sensor" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling obstacle_detection_using_proximity_sensor.c...
+linking...
+Program Size: data=40.1 xdata=0 code=1200
+creating hex file from "obstacle_detection_using_proximity_sensor"...
+"obstacle_detection_using_proximity_sensor" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling obstacle_detection_using_proximity_sensor.c...
+linking...
+Program Size: data=40.1 xdata=0 code=1200
+creating hex file from "obstacle_detection_using_proximity_sensor"...
+"obstacle_detection_using_proximity_sensor" - 0 Error(s), 0 Warning(s).

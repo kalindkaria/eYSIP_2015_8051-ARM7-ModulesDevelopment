@@ -1,0 +1,31 @@
+\frametitle{LCD.h- The Header File} \pause
+		  \begin{enumerate}
+		    \item <+-|alert@+> This file must be copied into Project Folder  \pause \\[10pt]
+		  \end{enumerate}
+		%\begin{block}<1->{Look inside LCD.h}	\pause
+		   \begin{semiverbatim}
+\color{green!80} //define port where LCD is connected \color{black}
+void Init_LCD_Pin();   \pause
+
+\color{green!80} //LCD Initialization \color{black}
+void LCD_Init();       \pause
+
+\color{green!80} //To Send Command \color{black}
+void LCD_Command(unsigned int data);   \pause
+
+\color{green!80} //To write single character \color{black}
+void LCD_Data(unsigned int data);	  \pause
+
+\color{green!80} //To print string of characters \color{black}
+void LCD_String(char*); 	  \pause
+
+\color{green!80}//To Place cursor at desired location \color{black}
+void LCD_Cursor(char row,char column); \pause
+
+\color{green!80} //To Print Numeric Value \color{black}
+void LCD_Print(char row,char coloumn,unsigned int value,int digits);  \pause
+
+
+
+		   \end{semiverbatim}
+		%\end{block} \pause

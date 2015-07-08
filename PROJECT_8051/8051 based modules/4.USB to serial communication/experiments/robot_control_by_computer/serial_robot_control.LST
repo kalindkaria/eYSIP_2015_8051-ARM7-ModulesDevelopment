@@ -1,0 +1,204 @@
+C51 COMPILER V9.01   SERIAL_ROBOT_CONTROL                                                  06/10/2015 19:45:56 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE SERIAL_ROBOT_CONTROL
+OBJECT MODULE PLACED IN serial_robot_control.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE serial_robot_control.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2          * Author: Bhumika Varshney, ERTS Lab, IIT Bombay
+   3          * File name: serial_robot_control.c
+   4          * Functions: uart_setup(), RxData(), forward(), backward(), right(), left(), stop()
+   5          * Global variable: unsigned char rx_data, left_velocity, right_velocity, LB, LF, RF, RB 
+   6          * This experiment demonstrates wired serial communication between computer and the robot.
+   7          * Concepts covered: USB to serial communication 
+   8            
+   9           Note: 
+  10           1. Make sure that in the configuration options following settings are 
+  11           done for proper operation of the code
+  12            Microcontroller: P89V51RD2
+  13           Frequency: 11.0592 MHz
+  14           2. Make sure that jumpers are properly connected to select between RS232 and Wireless communication mode.
+             -                                                                   
+  15          2.  Coding Standards followed(For further reference on Coding Standards go to portal link).
+  16          *********************************************************************************/
+  17          #include <intrins.h>
+  18          #include "p89v51rx2.H"
+  19          #include"lcd_display.h"
+  20          
+  21          unsigned char rx_data;
+  22          sbit left_velocity=P1^3;
+  23          sbit right_velocity=P1^4;
+  24          sbit LB=P1^0;
+  25          sbit LF=P1^1;
+  26          sbit RF=P1^2;
+  27          sbit RB=P3^4;
+  28          
+  29          /**************************************************************************
+  30                  Function: uart_setup()
+  31                  Input: none
+  32                  Output: desired baud rate 
+  33                  Description: This function configures Timer1 for generating the Baudrate.
+  34                                       The TH1 register should be written with following hex numbers
+  35                                   for desired baud rate. After setting the baudrate, SCON register
+  36                                       for enabling Rx and setting up the frame format.
+  37                  
+  38                                   9600 ----->  0xFD
+  39                                       4800 ----->  0xFA
+  40                                       2400 ----->  0xF4
+  41                                       1200 ----->  0xE8
+  42          
+  43          **************************************************************************/
+  44          void uart_setup()
+  45          {
+  46   1              IEN0=0x90;                      //enable serial interrupt
+  47   1          TMOD = 0x20;                // configure timer1 for Mode 2 operation for the correct baud rate 
+  48   1          TH1 = 0xFD;         // 9600 bps for 11.0592 MHz clock 
+  49   1          TCON = 0x40;        // Start timer 1 by setting TR1 = 1 
+  50   1          SCON = 0x50;                // Set Serial IO to receive and normal mode 
+  51   1              RI=0;               //Receive Interrupt Flag is cleared
+  52   1              TI=0;                           //Tx interrupt flag is cleared
+  53   1      }                                
+  54          
+C51 COMPILER V9.01   SERIAL_ROBOT_CONTROL                                                  06/10/2015 19:45:56 PAGE 2   
+
+  55          /***************************************************************************
+  56                  Function: void char RxData()
+  57                  Input: none
+  58                  output: recieved data byte
+  59                  Description: This function copies any data that is present in the SBUF 
+  60                                       register and returns it to the calling function.
+  61          ***************************************************************************/
+  62          
+  63           unsigned char RxData()
+  64          {
+  65   1          unsigned char rcv_data;
+  66   1              rcv_data = (unsigned char)SBUF;  //if any data is available copy it from SBUF
+  67   1              return rcv_data;      //return the received data
+  68   1      }
+  69           /* Function name - forward
+  70          * Input - none 
+  71          * Outut - moves the robot in forward direction
+  72          * Logic - set appropriate bits high to move forward as per the logic table
+  73          */
+  74          void forward(void) //go forward
+  75          {
+  76   1      RF=1;
+  77   1      LF=1;
+  78   1      RB=0;
+  79   1      LB=0;
+  80   1      }
+  81          /* Function name - backward
+  82          * Input - none 
+  83          * Outut - moves the robot in backward direction
+  84          * Logic - set appropriate bits high to move backward as per the logic table
+  85          */
+  86          void backward(void) //go backward
+  87          {
+  88   1      RF=0;
+  89   1      LF=0;
+  90   1      RB=1;
+  91   1      LB=1;
+  92   1      }
+  93          /* Function name - left
+  94          * Input - none 
+  95          * Outut - turns the robot in left direction
+  96          * Logic - set appropriate bits high to turn left as per the logic table
+  97          */
+  98          void left(void) //go left ( hard left)
+  99          {
+ 100   1      RF=1;
+ 101   1      LF=0;
+ 102   1      RB=0;
+ 103   1      LB=1;
+ 104   1      }
+ 105          /* Function name - right
+ 106          * Input - none 
+ 107          * Outut - turns the robot in right direction
+ 108          * Logic - set appropriate bits high to turn right as per the logic table
+ 109          */
+ 110          void right(void) //go right ( hard right)
+ 111          {
+ 112   1      RF=0;
+ 113   1      LF=1;
+ 114   1      RB=1;
+ 115   1      LB=0;
+ 116   1      }
+C51 COMPILER V9.01   SERIAL_ROBOT_CONTROL                                                  06/10/2015 19:45:56 PAGE 3   
+
+ 117          /* Function name - stop
+ 118          * Input - none 
+ 119          * Outut - stops the robot
+ 120          * Logic - set appropriate bits high to stop all motors as per the logic table
+ 121          */
+ 122          void stop(void) //stop ( soft stop )
+ 123          {
+ 124   1      RF= 0;
+ 125   1      LF= 0;
+ 126   1      RB= 0;
+ 127   1      LB= 0;
+ 128   1      }
+ 129          /***************************************************************************
+ 130          * Function: Interrupt Service Routine
+ 131          * Input: none
+ 132          * Output: none
+ 133          * Logic: whenever serial interrupt occurs it executes this routine
+ 134          *        and after this it returns to the main function
+ 135          *        serial interrupt occurs whenever data is recieved or transmitted.
+ 136          ****************************************************************************/
+ 137          void serial_int_isr(void)interrupt 4
+ 138          {
+ 139   1              rx_data = RxData();  //get the received data
+ 140   1              datasend(rx_data);
+ 141   1              RI = 0;  //Clear receive interrupt. Must be cleared by the user.
+ 142   1              TI = 0; //Clear transmit interrupt. Must be cleared by the user.
+ 143   1              if (rx_data== 0x38)     
+ 144   1              buzzer=0;               //buzzer on
+ 145   1              if (rx_data == 0x39)
+ 146   1              buzzer = 1;             //buzzer off
+ 147   1              if(rx_data==0x30)
+ 148   1              forward();         //move forward
+ 149   1              if(rx_data==0x31)
+ 150   1              backward();             //move backward
+ 151   1              if(rx_data==0x32)
+ 152   1              right();          //turn right
+ 153   1              if(rx_data==0x33)
+ 154   1              left();           //turn left
+ 155   1              if(rx_data==0x34)
+ 156   1              stop();         //stop  
+ 157   1      }
+ 158          /*
+ 159          * Function Name: main
+ 160          * Input: None
+ 161          * Output: int to inform the caller that the program exited correctly or incorrectly (C code standard)
+ 162          * Logic: initializes UART communication
+ 163          * Example Call: Called automatically by the Operating System
+ 164          *
+ 165          */
+ 166          void main(void)
+ 167          {
+ 168   1              
+ 169   1              buzzer=1;
+ 170   1              uart_setup(); // calling the UART setup function
+ 171   1              lcd_init();     //initializes LCD
+ 172   1              lcd_clear();
+ 173   1              while(1); 
+ 174   1      } //main ends here
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    875    ----
+C51 COMPILER V9.01   SERIAL_ROBOT_CONTROL                                                  06/10/2015 19:45:56 PAGE 4   
+
+   CONSTANT SIZE    =      6    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

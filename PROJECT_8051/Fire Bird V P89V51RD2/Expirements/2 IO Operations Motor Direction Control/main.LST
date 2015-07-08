@@ -1,0 +1,202 @@
+C51 COMPILER V9.01   MAIN                                                                  05/28/2015 15:38:30 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**************************************************************************************************
+   2                          Platform: Fire Bird V P89V51RD2
+   3                          IO Operations Motor Direction Control
+   4                          Written by: Omkar Pradhan, NEX Robotics Pvt. Ltd.
+   5                          Edited By: Sachitanand Malewar, NEX Robotics Pvt. Ltd.
+   6                          Last Modification: 2009-12-08
+   7                          This program shows how to control directions of the robot.
+   8                          Compiled with: uVision3 V3.90; C Compiler: C51.Exe, V8.18
+   9          **************************************************************************************************/                                                     
+             -         
+  10          
+  11          /********************************************************************************
+  12          
+  13             Copyright (c) 2010, NEX Robotics Pvt. Ltd.                       -*- c -*-
+  14             All rights reserved.
+  15          
+  16             Redistribution and use in source and binary forms, with or without
+  17             modification, are permitted provided that the following conditions are met:
+  18          
+  19             * Redistributions of source code must retain the above copyright
+  20               notice, this list of conditions and the following disclaimer.
+  21          
+  22             * Redistributions in binary form must reproduce the above copyright
+  23               notice, this list of conditions and the following disclaimer in
+  24               the documentation and/or other materials provided with the
+  25               distribution.
+  26          
+  27             * Neither the name of the copyright holders nor the names of
+  28               contributors may be used to endorse or promote products derived
+  29               from this software without specific prior written permission.
+  30          
+  31             * Source code can be used for academic purpose. 
+  32                   For commercial use permission form the author needs to be taken.
+  33          
+  34            THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  35            AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  36            IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  37            ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  38            LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  39            CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  40            SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  41            INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  42            CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  43            ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  44            POSSIBILITY OF SUCH DAMAGE. 
+  45          
+  46            Software released under Creative Commence cc by-nc-sa licence.
+  47            For legal information refer to: 
+  48            http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode
+  49          
+  50          ********************************************************************************/ 
+  51           
+  52          #include <intrins.h>
+  53          #include "p89v51rx2.H"
+  54          
+C51 COMPILER V9.01   MAIN                                                                  05/28/2015 15:38:30 PAGE 2   
+
+  55          sbit buzzer=P2^7;  // buzzer is connected to P2.7. buzzer = 1; buzzer off, buzzer = 0; buzzer on, 
+  56          sbit LB=P1^0;      //LEFT BACK Pin
+  57          sbit LF=P1^1;           //LEFT FRONT Pin
+  58          sbit RF=P1^2;           //RIGHT FRONT Pin
+  59          sbit RB=P3^4;           //RIGHT BACK Pin
+  60          sbit left_velocity=P1^3;//Left velocity control pin. 
+  61          sbit right_velocity=P1^4;//Right velocity control pin. 
+  62          
+  63          // function for giving a delay of ms milliseconds
+  64          
+  65          void delay_ms(unsigned int ms)
+  66          {
+  67   1      unsigned int i,j;
+  68   1      
+  69   1      for(i=0;i<ms;i++)
+  70   1      for(j=0;j<53;j++);
+  71   1      }
+  72          
+  73                  
+  74          /**********************************************************************************
+  75          RF =  RIGHT MOTOR FORWARD
+  76          RB = RIGHT MOTOR BACKWARD
+  77          LF = LEFT MOTOR FORWARD
+  78          LB = LEFT MOTOR BACKWARD
+  79          **********************************************************************************/
+  80          
+  81          
+  82          //direction control subroutines
+  83          
+  84          void forward(void)
+  85          {
+  86   1      
+  87   1      
+  88   1      RF=1;
+  89   1      LF=1;
+  90   1      RB=0;
+  91   1      LB=0;
+  92   1      }
+  93          
+  94          void backward(void)
+  95          {
+  96   1      
+  97   1      
+  98   1      RF=0;
+  99   1      LF=0;
+ 100   1      RB=1;
+ 101   1      LB=1;
+ 102   1      }
+ 103          
+ 104          
+ 105          void left(void)
+ 106          {
+ 107   1      RF=1;
+ 108   1      LF=0;
+ 109   1      RB=0;
+ 110   1      LB=1;
+ 111   1      }
+ 112          
+ 113          void right(void)  
+ 114          {
+ 115   1      RF=0;
+ 116   1      LF=1;
+C51 COMPILER V9.01   MAIN                                                                  05/28/2015 15:38:30 PAGE 3   
+
+ 117   1      RB=1;
+ 118   1      LB=0;
+ 119   1      }
+ 120          
+ 121          void stop(void)
+ 122          {
+ 123   1      
+ 124   1      RF=0;
+ 125   1      LF=0;
+ 126   1      RB=0;
+ 127   1      LB=0;
+ 128   1      }
+ 129          
+ 130          
+ 131          //main function starts here
+ 132          void main (void)
+ 133          
+ 134          {
+ 135   1      
+ 136   1      buzzer=1;                 //switch off the buzzer
+ 137   1      left_velocity=1;  //setting this pin to one sets the motor to run at maximum velocity. 
+ 138   1                                        //Thus enable pin of Motor driver is always on unlike in PWM mode.
+ 139   1      right_velocity=1; //setting this pin to one sets the motor to run at maximum velocity.
+ 140   1                                        //Thus enable pin of Motor driver is always on unlike in PWM mode
+ 141   1                                       
+ 142   1      while(1)
+ 143   1      {
+ 144   2      forward();
+ 145   2      delay_ms(2000); //motor moves in forward direction for 2000 milliseconds
+ 146   2      
+ 147   2      stop();
+ 148   2      delay_ms(1000); //motor stops for 1000 milliseconds
+ 149   2      
+ 150   2      backward();
+ 151   2      delay_ms(2000); //motor moves in backward direction for 2000 milliseconds
+ 152   2      
+ 153   2      stop();
+ 154   2      delay_ms(1000); //motor stops for 1000 milliseconds
+ 155   2      
+ 156   2      left();
+ 157   2      delay_ms(2000); //motor moves in left direction for 2000 milliseconds
+ 158   2      
+ 159   2      stop();
+ 160   2      delay_ms(1000); //motor stops for 1000 milliseconds
+ 161   2      
+ 162   2      right();
+ 163   2      delay_ms(2000); //motor moves in right direction for 2000 milliseconds
+ 164   2      
+ 165   2      stop();
+ 166   2      delay_ms(2000); //motor stops for 2000 milliseconds
+ 167   2      
+ 168   2      }
+ 169   1      }
+ 170          
+ 171          
+ 172          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    133    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.01   MAIN                                                                  05/28/2015 15:38:30 PAGE 4   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

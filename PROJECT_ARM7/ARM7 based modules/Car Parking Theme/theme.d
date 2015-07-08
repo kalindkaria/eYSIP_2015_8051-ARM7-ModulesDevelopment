@@ -1,0 +1,11 @@
+theme.o: Theme.c
+theme.o: C:\Keil\ARM\INC\Philips\LPC214x.h
+theme.o: Pos.h
+theme.o: pwm.h
+theme.o: LCD.h
+theme.o: adc.h
+theme.o: C:\Keil\ARM\RV31\INC\math.h
+theme.o: spi.h
+theme.o: buzzer.h
+theme.o: led.h
+theme.o: xbee.h

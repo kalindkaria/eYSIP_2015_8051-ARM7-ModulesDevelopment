@@ -1,0 +1,20 @@
+*** Creating Trace Output File 'square_tracing_experiment.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup.o"'
+### List of Objects: adding '"square_tracing_experiment.o"'
+### ADS-LD Command completed:
+--cpu ARM7TDMI "startup.o" "square_tracing_experiment.o" --strict --scatter "square_tracing_experiment.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\square_tracing_experiment.map" -o "square_tracing_experiment.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'square_tracing_experiment.axf'
+### ADS-LD Command File: 'square_tracing_experiment.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'square_tracing_experiment.lnp', Handle=0x000005C0
+### Writing '.lnp' file
+### ADS-LD Command file 'square_tracing_experiment.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

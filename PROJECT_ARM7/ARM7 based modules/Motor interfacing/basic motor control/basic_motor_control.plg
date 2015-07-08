@@ -1,0 +1,22 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\PROJECT_ARM7\ARM7 based modules\Motor interfacing\basic motor control\basic_motor_control.uvproj
+Project File Date:  06/18/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling basic_motor_control.c...
+basic_motor_control.c(129): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=1752 RO-data=16 RW-data=0 ZI-data=1256  
+FromELF: creating hex file...
+"basic_motor_control.axf" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling basic_motor_control.c...
+linking...
+Program Size: Code=1752 RO-data=16 RW-data=0 ZI-data=1256  
+FromELF: creating hex file...
+"basic_motor_control.axf" - 0 Error(s), 0 Warning(s).

@@ -1,0 +1,20 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Rahul\Documents\Internship\8051 based modules\multi surface line follower\multisurface_line_follower.uvproj
+Project File Date:  06/11/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+linking...
+Program Size: data=48.1 xdata=0 code=1710
+creating hex file from "multisurface_line_follower"...
+"multisurface_line_follower" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling multisurface_line_follower.c...
+linking...
+Program Size: data=48.1 xdata=0 code=1708
+creating hex file from "multisurface_line_follower"...
+"multisurface_line_follower" - 0 Error(s), 0 Warning(s).
