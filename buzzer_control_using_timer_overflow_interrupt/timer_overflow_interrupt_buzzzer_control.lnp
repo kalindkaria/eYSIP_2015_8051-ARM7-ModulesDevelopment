@@ -1,3 +1,0 @@
-"timer_overflow.obj" 
-TO "timer_overflow_interrupt_buzzzer_control" 
-RAMSIZE(256) 

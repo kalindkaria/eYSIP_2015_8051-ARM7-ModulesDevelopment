@@ -1,3 +1,0 @@
-"lcd_string_display.obj" 
-TO "string_display_lcd" 
-RAMSIZE(256) 
